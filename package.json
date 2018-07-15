@@ -18,5 +18,8 @@
   "homepage": "https://github.com/Storm4542/gulu#readme",
   "dependencies": {
     "vue": "^2.5.16"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.9.6"
   }
 }
