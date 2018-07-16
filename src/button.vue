@@ -14,7 +14,7 @@
 <script>
     import Vue from 'vue'
     import Icon from './icon'
-    Vue.component('g-icon',Icon)
+    Vue.component('g-icon',Icon);
     export default {
         name: "button",
         props: {                   //props的写法,控制性更强
