@@ -13,4 +13,6 @@ new Vue({
             loading2:true
         }
     }
-})
+});
+
+//单元测试
