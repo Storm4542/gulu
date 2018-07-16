@@ -6,7 +6,15 @@
 
 <script>
     export default {
-        name: "button-group"
+        name: "button-group",
+        mounted(){ //当button-group出现在页面的时候,检测用户是不是写错了
+            for(let node of this.$el.children){
+                let name = node.nodeName.toLocaleLowerCase();
+                if(name !== 'button'){
+                    console.warn(`g-button-group 里面应该都是 button ,但你用的是${name}`)
+                }
+            }
+        }
     }
 </script>
 
