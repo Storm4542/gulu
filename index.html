@@ -23,7 +23,8 @@
             --border-color: #999;
             --border-hover-bg: #666;
         }
-        #app{
+
+        #app {
             margin: 20px;
         }
     </style>
@@ -31,17 +32,27 @@
 </head>
 <body>
 <div id="app">
-    <g-button icon='setting' :loading="loading1" @click = 'loading1 = !loading1'>
+    <g-button icon='setting' :loading="loading1" @click='loading1 = !loading1'>
         按钮
     </g-button>
-    <g-button icon='setting' :loading="loading2" icon-position="right" @click = 'loading2 = !loading2'>
+    <g-button icon='setting' :loading="loading2" icon-position="right" @click='loading2 = !loading2'>
         按钮
     </g-button>
     <g-icon name="setting"></g-icon>
-
+    <g-button-group>
+        <g-button icon='left' >
+            上一页
+        </g-button>
+        <g-button icon='setting' >
+            更多
+        </g-button>
+        <g-button icon='right' icon-position="right">
+            下一页
+        </g-button>
+    </g-button-group>
 </div>
 
 </body>
 <script src="./src/app.js"></script>
-<script src="//at.alicdn.com/t/font_748911_hil33neha4g.js"></script>
+<script src="//at.alicdn.com/t/font_748911_qwnmw109zoe.js"></script>
 </html>
