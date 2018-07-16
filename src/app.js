@@ -4,5 +4,11 @@ import icon from './icon'
 Vue.component('g-button',Button);
 Vue.component('g-icon',icon);
 new Vue({
-    el:'#app'
+    el:'#app',
+    data(){
+        return{
+            loading1:false,
+            loading2:true
+        }
+    }
 })
