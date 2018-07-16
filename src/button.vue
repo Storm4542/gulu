@@ -15,7 +15,16 @@
 <script>
     export default {
         name: "button",
-        props: ['icon', 'iconPosition']
+        props: {                   //props的写法,控制性更强
+            icon: {},
+            iconPosition: {
+                type: String,
+                default: 'left',
+                validate: function (value) {  //属性检查器
+                    return !(value !== 'left' && value !== 'right');
+                }
+            }
+        }
     }
 </script>
 
@@ -31,7 +40,7 @@
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        vertical-align: center;
+        vertical-align: middle;
         &:hover {
             border-color: var(--border-hover-bg);
         }
