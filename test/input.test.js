@@ -12,12 +12,12 @@ describe('Input', () => {
     describe('props', () => {
         const constructor = Vue.extend(Input);
         let vm;
-        afterEach(()=>{
+        afterEach(() => {
             vm.$destroy()
         });
 
         it('接受value', () => {
-             vm = new constructor({
+            vm = new constructor({
                 propsData: {
                     value: '测试value'
                 }
@@ -27,7 +27,7 @@ describe('Input', () => {
             expect(inputElement.value).to.be.eq('测试value');
         });
         it('接受disabled', () => {
-             vm = new constructor({
+            vm = new constructor({
                 propsData: {
                     disabled: true
                 }
@@ -38,7 +38,7 @@ describe('Input', () => {
         });
 
         it('接受readonly', () => {
-             vm = new constructor({
+            vm = new constructor({
                 propsData: {
                     readonly: true
                 }
@@ -48,7 +48,7 @@ describe('Input', () => {
             expect(inputElement.readOnly).to.be.eq(true);
         });
         it('接收error.', () => {
-             vm = new constructor({
+            vm = new constructor({
                 propsData: {
                     error: 'error'
                 }
@@ -64,11 +64,18 @@ describe('Input', () => {
     describe('事件', () => {
         const constructor = Vue.extend(Input);
         let vm;
-        afterEach(()=>{
+        afterEach(() => {
             vm.$destroy()
         });
         it('支持change事件', () => {
-
+            vm = new constructor({}).$mount();
+            const callback = sinon.fake();
+            vm.$on('change', callback);
+            //触发change事件
+            let event = new Event('change');
+            let inputElement = vm.$el.querySelector('input');
+            inputElement.dispatchEvent(event);
+            expect(callback).to.have.been.called;
         })
     })
 });
