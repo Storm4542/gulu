@@ -27,30 +27,58 @@
         #app {
             margin: 20px;
         }
+        .box{
+            margin: 20px;
+        }
     </style>
 
 </head>
 <body>
 <div id="app">
-    <g-button icon='setting' :loading="loading1" @click='loading1 = !loading1'>
-        按钮
-    </g-button>
-    <g-button icon='setting' :loading="loading2" icon-position="right" @click='loading2 = !loading2'>
-        按钮
-    </g-button>
-    <g-icon name="setting"></g-icon>
-    <g-button-group>
-        <g-button icon='left' >
-            上一页
-        </g-button>
-        <g-button icon='setting' >
-            更多
-        </g-button>
-        <g-button icon='right' icon-position="right">
-            下一页
-        </g-button>
+    <div class="box">
+        <g-input value = 'default'></g-input>
 
-    </g-button-group>
+    </div>
+    <div class="box">
+        <g-input value = 'disabled' :disabled = 'true'></g-input>
+
+    </div>
+    <div class="box">
+        <g-input value = 'readonly' :readonly = 'true'></g-input>
+
+    </div>
+
+    <div class="box">
+        <g-input value="王二麻子" error="用户名不能少于5位哦"></g-input>
+
+    </div>
+
+    <br/>
+    <br/>
+    <br/>
+
+    <div>
+        <g-button icon='setting' :loading="loading1" @click='loading1 = !loading1'>
+            按钮
+        </g-button>
+        <g-button icon='setting' :loading="loading2" icon-position="right" @click='loading2 = !loading2'>
+            按钮
+        </g-button>
+        <g-icon name="setting"></g-icon>
+        <g-button-group>
+            <g-button icon='left'>
+                上一页
+            </g-button>
+            <g-button icon='setting'>
+                更多
+            </g-button>
+            <g-button icon='right' icon-position="right">
+                下一页
+            </g-button>
+
+        </g-button-group>
+    </div>
+
 </div>
 
 </body>
