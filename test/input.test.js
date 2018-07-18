@@ -1,6 +1,6 @@
 const expect = chai.expect;
 import Vue from 'vue'
-import Input from '../src/input'
+import Input from '../src/input.vue'
 
 Vue.config.productionTip = false;
 Vue.config.devtools = false;
@@ -75,7 +75,37 @@ describe('Input', () => {
             let event = new Event('change');
             let inputElement = vm.$el.querySelector('input');
             inputElement.dispatchEvent(event);
-            expect(callback).to.have.been.called;
+            expect(callback).to.have.been.calledWith(event);
+        });
+        it('支持input事件', () => {
+            vm = new constructor({}).$mount();
+            const callback = sinon.fake();
+            vm.$on('input', callback);
+            //触发change事件
+            let event = new Event('input');
+            let inputElement = vm.$el.querySelector('input');
+            inputElement.dispatchEvent(event);
+            expect(callback).to.have.been.calledWith(event);
+        });
+        it('支持foucs事件', () => {
+            vm = constructor({}).$mount();
+            const callback = sinon.fake();
+            vm.$on('focus', callback);
+            //触发change事件
+            let event = new Event('focus');
+            let inputElement = vm.$el.querySelector('input');
+            inputElement.dispatchEvent(event);
+            expect(callback).to.have.been.calledWith(event);
+        });
+        it('支持blur事件', () => {
+            vm = constructor({}).$mount();
+            const callback = sinon.fake();
+            vm.$on('blur', callback);
+            //触发change事件
+            let event = new Event('blur');
+            let inputElement = vm.$el.querySelector('input');
+            inputElement.dispatchEvent(event);
+            expect(callback).to.have.been.calledWith(event);
         })
     })
 });
