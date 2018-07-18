@@ -1,5 +1,5 @@
 # 轱辘 —— 一个Vue UI 组件库
-[![Build Status](https://travis-ci.org/Storm4542/gulu.svg?branch=master)](https://travis-ci.org/Storm4542/gulu)
+[![Build Status](https://travis-ci.org/Storm4542/gulu.svg?branch=master)](https://travis-ci.org/Storm4542/gulu) [![Build Status](https://travis-ci.org/Storm4542/gulu.svg?branch=master)](https://travis-ci.org/Storm4542/gulu)
 ## 介绍
 ## 开始使用
 1. 安装
