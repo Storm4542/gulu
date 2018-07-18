@@ -55,7 +55,7 @@ describe('Input', () => {
             }).$mount()
             const useElement = vm.$el.querySelector('use')
             expect(useElement.getAttribute('xlink:href')).to.equal('#i-error')
-            const errorMessage = vm.$el.querySelector('.errorMessage')
+            const errorMessage = vm.$el.querySelector('.error-message')
             expect(errorMessage.innerText).to.equal('你错了')
         })
     })
