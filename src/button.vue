@@ -13,10 +13,10 @@
 
 <script>
     import Vue from 'vue'
-    import Icon from './icon'
+    import Icon from './svg'
     Vue.component('g-icon',Icon);
     export default {
-        name: "button",
+        name: "g-button",
         props: {                   //props的写法,控制性更强
             icon: {},
             loading: {
