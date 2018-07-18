@@ -13,7 +13,8 @@
 
 <script>
     import Vue from 'vue'
-    import Icon from './svg'
+    import Icon from './icon.vue'
+    import svg from './svg'
     Vue.component('g-icon',Icon);
     export default {
         name: "g-button",

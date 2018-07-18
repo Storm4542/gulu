@@ -12,12 +12,13 @@ new Vue({
     data(){
         return {
             loading1: false,
-            loading2: true
+            loading2: true,
+            message:'message'
         }
     },
     methods:{
         inputChange(e){
-            console.log(e.target.value);
+            console.log(e);
         }
     }
 });
