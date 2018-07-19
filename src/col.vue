@@ -1,5 +1,5 @@
 <template>
-    <div class="col" :class="`col-${span}`" ><slot/></div>
+    <div class="col" :class="[span&&`col-${span}`,offset &&`offset-${offset}`]" ><slot/></div>
 </template>
 
 <script>
@@ -7,6 +7,9 @@
         name: 'g-col',
         props:{
             span:{
+                type:[Number,String]
+            },
+            offset:{
                 type:[Number,String]
             }
         }
@@ -20,6 +23,7 @@
         background: green;
         width: 50%;
     }
+    /*生成col*/
     .generate-columns(@n, @i: 1) when (@i =< @n) {
         .col-@{i} {
             width: (@i * 100% / @n);
@@ -27,4 +31,13 @@
         .generate-columns(@n, (@i + 1));
     }
     .generate-columns(24);
+    /*生成offset*/
+    .generate-offset(@n, @i: 1) when (@i =< @n) {
+        .offset-@{i} {
+            margin-left: (@i * 100% / @n);
+        }
+        .generate-offset(@n, (@i + 1));
+    }
+    .generate-offset(24);
+
 </style>
