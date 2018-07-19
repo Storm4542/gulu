@@ -15,9 +15,9 @@ describe('Button', () => {
         const Constructor = Vue.extend(Button)
         const vm = new Constructor({
             propsData: {
-                icon: 'setting'
+                iconname: 'setting'
             }
-        }).$mount()
+        }).$mount();
         const useElement = vm.$el.querySelector('use')
         expect(useElement.getAttribute('xlink:href')).to.equal('#i-setting')
         vm.$destroy()
@@ -27,7 +27,7 @@ describe('Button', () => {
         const Constructor = Vue.extend(Button)
         const vm = new Constructor({
             propsData: {
-                icon: 'settings',
+                iconname: 'settings',
                 loading: true
             }
         }).$mount()
@@ -43,7 +43,7 @@ describe('Button', () => {
         const Constructor = Vue.extend(Button)
         const vm = new Constructor({
             propsData: {
-                icon: 'settings',
+                iconname: 'settings',
             }
         }).$mount(div)
         const icon = vm.$el.querySelector('svg')
@@ -58,7 +58,7 @@ describe('Button', () => {
         const Constructor = Vue.extend(Button)
         const vm = new Constructor({
             propsData: {
-                icon: 'setting',
+                iconname: 'setting',
                 iconPosition: 'right'
             }
         }).$mount(div)
