@@ -26,9 +26,20 @@
 </head>
 <body>
 <div id="app">
+    <g-row>
+        <g-col></g-col>
+        <g-col></g-col>
+        <g-col></g-col>
+    </g-row>
+    <g-row>
+        <g-col span="2">2</g-col>
+        <g-col span="22">22</g-col>
+    </g-row>
+    <br/>
+    <br/>
+
     <div class="box">
         <g-input value = 'default' v-model="message"></g-input>
-        <p>{{message}}</p>
 
     </div>
     <div class="box">
@@ -49,8 +60,9 @@
     <br/>
 
     <div>
+
         <g-button iconname='setting' btntype="primary" :loading="loading1" @click='loading1 = !loading1'>
-            Click me
+            click
         </g-button>
         <g-button iconname='setting' btntype="success" :loading="loading2" icon-position="right" @click='loading2 = !loading2'>
             按钮
@@ -65,7 +77,6 @@
             提交
         </g-button>
         <g-button  iconname="error" btntype="danger">警告</g-button>
-        <g-icon name="setting"></g-icon>
         <g-button-group>
             <g-button iconname='left'>
                 上一页
