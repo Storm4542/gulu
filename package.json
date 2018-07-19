@@ -1,12 +1,13 @@
 {
   "name": "gulu_zty",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "一个Vue组件库",
   "main": "dist/index.js",
   "scripts": {
     "start": "npx parcel index.html --no-cache",
     "dev-test": "parcel watch test/* --no-cache & karma start",
-    "test": "parcel build test/* --no-cache --no-minify && karma start --single-run"
+    "test": "parcel build test/* --no-cache --no-minify && karma start --single-run",
+    "build":"npx parcel build index.js --no-cache --no-minify"
   },
   "repository": {
     "type": "git",
