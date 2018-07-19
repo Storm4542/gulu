@@ -13,16 +13,7 @@
             box-sizing: border-box
         }
 
-        :root {
-            --button-height: 32px;
-            --font-size: 14px;
-            --button-bg: white;
-            --button-active-bg: #eee;
-            --border-radius: 4px;
-            --color: #333;
-            --border-color: #999;
-            --border-hover-bg: #666;
-        }
+
 
         #app {
             margin: 20px;
@@ -35,44 +26,51 @@
 </head>
 <body>
 <div id="app">
-    <div class="box">
-        <g-input value = 'default' v-model="message"></g-input>
-        <p>{{message}}</p>
+    <!--<div class="box">-->
+        <!--<g-input value = 'default' v-model="message"></g-input>-->
+        <!--<p>{{message}}</p>-->
 
-    </div>
-    <div class="box">
-        <g-input value = 'disabled' :disabled = 'true'></g-input>
+    <!--</div>-->
+    <!--<div class="box">-->
+        <!--<g-input value = 'disabled' :disabled = 'true'></g-input>-->
 
-    </div>
-    <div class="box">
-        <g-input value = 'readonly' :readonly = 'true'></g-input>
+    <!--</div>-->
+    <!--<div class="box">-->
+        <!--<g-input value = 'readonly' :readonly = 'true'></g-input>-->
 
-    </div>
+    <!--</div>-->
 
-    <div class="box">
-        <g-input value="王二麻子" error="用户名不能少于5位哦"></g-input>
-    </div>
+    <!--<div class="box">-->
+        <!--<g-input value="王二麻子" error="用户名不能少于5位哦"></g-input>-->
+    <!--</div>-->
 
-    <br/>
-    <br/>
-    <br/>
+    <!--<br/>-->
+    <!--<br/>-->
+    <!--<br/>-->
 
     <div>
-        <g-button icon='setting' :loading="loading1" @click='loading1 = !loading1'>
+        <g-button iconname='setting' btntype="primary" :loading="loading1" @click='loading1 = !loading1'>
+            Click me
+        </g-button>
+        <g-button iconname='setting' :loading="loading2" icon-position="right" @click='loading2 = !loading2'>
             按钮
         </g-button>
-        <g-button icon='setting' :loading="loading2" icon-position="right" @click='loading2 = !loading2'>
-            按钮
+        <g-button iconname='setting'
+                  :loading="loading3"
+                  :success="success1"
+                  icon-position="right"
+                  @click="changeloading('success',$event)"
+        >
         </g-button>
         <g-icon name="setting"></g-icon>
         <g-button-group>
-            <g-button icon='left'>
+            <g-button iconname='left'>
                 上一页
             </g-button>
-            <g-button icon='setting'>
+            <g-button iconname='setting'>
                 更多
             </g-button>
-            <g-button icon='right' icon-position="right">
+            <g-button iconname='right' icon-position="right">
                 下一页
             </g-button>
 
