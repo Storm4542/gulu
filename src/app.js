@@ -27,15 +27,15 @@ new Vue({
         inputChange(e) {
             console.log(e);
         },
-        changeloading(message, event) {
+        clickSuccess(message, event) {
             let btnElement = event.currentTarget;
             let iconElement = event.currentTarget.querySelector('use');
             let iconname = iconElement.getAttribute('xlink:href');
             let svgElement = event.currentTarget.querySelector('svg');
             if (iconname === '#i-success') {
-                return
+                return '';
             } else {
-                this.loading3 = !this.loading3;
+                this.loading3 = !this.loading3; //用户需要根据自己的loading修改
                 setTimeout(() => {
                     iconElement.setAttribute('xlink:href', '#i-success');
                     svgElement.setAttribute('class', 'g-icon  icon');

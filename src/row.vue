@@ -45,14 +45,15 @@
         display: flex;
         flex-wrap: wrap;
     }
-    .align{
-        &-right{
+
+    .align {
+        &-right {
             justify-content: flex-end;
         }
-        &-left{
+        &-left {
             justify-content: flex-start;
         }
-        &-center{
+        &-center {
             justify-content: center;
         }
     }
