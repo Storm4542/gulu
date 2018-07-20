@@ -60,7 +60,8 @@
                     ...(ipad&&[`col-ipad-${ipad.span}`]),
                     ...(narrwoPc&&[`col-narrow-${narrwoPc.span}`]),
                     ...(pc&&[`col-pc-${pc.span}`]),
-                    ...(widePc&&[`col-wide-${widePc.span}`])
+                    ...(widePc&&[`col-wide-${widePc.span}`]),
+                ]
 
             },
             colStyle() {
