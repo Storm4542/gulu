@@ -1,5 +1,11 @@
 <template>
-    <div class="col" :class="[span&&`col-${span}`,offset &&`offset-${offset}`]" ><slot/></div>
+    <div class="col"
+         :class="[span&&`col-${span}`,offset &&`offset-${offset}`]"
+         :style="{paddingLeft: gutter/2+'px', paddingRight:gutter/2+'px'}"
+    >
+        <div style="border: 1px solid green;height: 100px;"><slot/></div>
+
+    </div>
 </template>
 
 <script>
@@ -12,6 +18,11 @@
             offset:{
                 type:[Number,String]
             }
+        },
+        data(){
+            return {
+                gutter:0
+            }
         }
     }
 </script>
@@ -19,8 +30,7 @@
 <style lang="less" scoped>
     .col{
         height: 100px;
-        border: 1px solid grey;
-        background: green;
+        /*border: 1px solid grey;*/
         width: 50%;
     }
     /*生成col*/
