@@ -44,8 +44,8 @@
 <style lang="less" scoped>
     .col {
         height: 100px;
-        /*border: 1px solid grey;*/
-        width: 50%;
+        border: 1px solid grey;
+        /*width: 50%;*/
     }
 
     /*生成col*/

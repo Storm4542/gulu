@@ -1,6 +1,7 @@
 <template>
     <div class="row"
-        :style="rowStyle"
+         :style="rowStyle"
+         :class="rowClass"
     >
         <slot/>
     </div>
@@ -9,21 +10,30 @@
 <script>
     export default {
         name: 'g-row',
-        props:{
-            gutter:{
-                type:[String,Number]
+        props: {
+            gutter: {
+                type: [String, Number]
+            },
+            align: {
+                validator(value) {
+                    return ['left', 'right', 'center'].includes(value)
+                }
             }
         },
-        computed:{
-          rowStyle(){
-              return {
-                  marginLeft:-this.gutter/2+'px',
-                  marginRight:-this.gutter/2+'px'
-              }
-          }
+        computed: {
+            rowStyle() {
+                return {
+                    marginLeft: -this.gutter / 2 + 'px',
+                    marginRight: -this.gutter / 2 + 'px'
+                }
+            },
+            rowClass() {
+                let {align} = this;
+                return [`align-${align}`]
+            }
         },
-        mounted(){
-            this.$children.forEach((vm)=>{
+        mounted() {
+            this.$children.forEach((vm) => {
                 vm.gutter = this.gutter
             })
         }
@@ -31,5 +41,18 @@
 </script>
 
 <style lang="less" scoped>
-    .row{display: flex}
+    .row {
+        display: flex
+    }
+    .align{
+        &-right{
+            justify-content: flex-end;
+        }
+        &-left{
+            justify-content: flex-start;
+        }
+        &-center{
+            justify-content: center;
+        }
+    }
 </style>
