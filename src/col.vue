@@ -69,7 +69,7 @@
         computed: {
             colClass() {
                 let {span, offset, ipad, narrowPc, pc, widePc} = this;
-                let createClasses = this.createClasses();
+                let createClasses = this.createClasses;
                 return [
                     ...createClasses({span, offset}),
                     ...createClasses(ipad, 'ipad'),
