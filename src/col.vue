@@ -57,10 +57,10 @@
                 return [
                     span && `col-${span}`,
                     offset && `offset-${offset}`,
-                    ...(ipad&&[`col-ipad-${ipad.span}`]),
-                    ...(narrwoPc&&[`col-narrow-${narrwoPc.span}`]),
-                    ...(pc&&[`col-pc-${pc.span}`]),
-                    ...(widePc&&[`col-wide-${widePc.span}`]),
+                    ...(ipad ?[`col-ipad-${ipad.span}`]:[]),
+                    ...(narrwoPc?[`col-narrow-${narrwoPc.span}`]:[]),
+                    ...(pc?[`col-pc-${pc.span}`]:[]),
+                    ...(widePc?[`col-wide-${widePc.span}`]:[]),
                 ]
 
             },
@@ -76,11 +76,11 @@
 </script>
 
 <style lang="less" scoped>
-    .col {
-        height: 100px;
-        border: 1px solid grey;
-        /*width: 50%;*/
-    }
+    /*.col {*/
+        /*height: 100px;*/
+        /*border: 1px solid grey;*/
+        /*!*width: 50%;*!*/
+    /*}*/
 
     /*生成col*/
     .generate-columns(@n, @i: 1) when (@i =< @n) {
@@ -92,7 +92,7 @@
 
     .generate-columns(24);
 
-    /*生成offset*/
+    /*生成默认phone offset*/
     .generate-offset(@n, @i: 1) when (@i =< @n) {
         .offset-@{i} {
             margin-left: (@i * 100% / @n);
@@ -102,8 +102,8 @@
 
     .generate-offset(24);
 
-    /*生成col-ipad*/
-    @media (min-width: 577px)and (max-width: 768px){
+    /*生成默认phone col-ipad*/
+    @media (min-width: 578px){
         .generate-columns(@n, @i: 1) when (@i =< @n) {
             .col-ipad-@{i} {
                 width: (@i * 100% / @n);
@@ -115,7 +115,7 @@
     }
 
     /*生成offset-ipad*/
-    @media (min-width: 577px)and (max-width: 768px) {
+    @media (min-width: 578px) {
         .generate-offset(@n, @i: 1) when (@i =< @n) {
             .offset-ipad-@{i} {
                 margin-left: (@i * 100% / @n);
@@ -126,7 +126,7 @@
         .generate-offset(24);
     }
     /*生成col-narrow 窄pc*/
-    @media (min-width: 769px)and (max-width: 992px){
+    @media (min-width: 768px){
         .generate-columns(@n, @i: 1) when (@i =< @n) {
             .col-narrow-@{i} {
                 width: (@i * 100% / @n);
@@ -138,7 +138,7 @@
     }
 
     /*生成offset-narrow*/
-    @media (min-width: 769px)and (max-width: 992px) {
+    @media (min-width: 768px){
         .generate-offset(@n, @i: 1) when (@i =< @n) {
             .offset-narrow-@{i} {
                 margin-left: (@i * 100% / @n);
@@ -149,7 +149,7 @@
         .generate-offset(24);
     }
     /*生成col-pc 窄pc*/
-    @media (min-width: 993px)and (max-width: 1200px){
+    @media (min-width: 992px){
         .generate-columns(@n, @i: 1) when (@i =< @n) {
             .col-pc-@{i} {
                 width: (@i * 100% / @n);
@@ -161,7 +161,7 @@
     }
 
     /*生成offset-pc*/
-    @media (min-width: 993px)and (max-width: 1200px) {
+    @media (min-width: 992px){
         .generate-offset(@n, @i: 1) when (@i =< @n) {
             .offset-pc-@{i} {
                 margin-left: (@i * 100% / @n);
@@ -172,7 +172,7 @@
         .generate-offset(24);
     }
     /*生成col-wide 宽pc*/
-    @media (min-width: 993px)and (max-width: 1200px){
+    @media (min-width: 1200px){
         .generate-columns(@n, @i: 1) when (@i =< @n) {
             .col-wide-@{i} {
                 width: (@i * 100% / @n);
@@ -184,7 +184,7 @@
     }
 
     /*生成offset-wide*/
-    @media (min-width: 1201px) {
+    @media (min-width: 1200px) {
         .generate-offset(@n, @i: 1) when (@i =< @n) {
             .offset-wide-@{i} {
                 margin-left: (@i * 100% / @n);
@@ -194,8 +194,4 @@
 
         .generate-offset(24);
     }
-
-
-
-
 </style>
