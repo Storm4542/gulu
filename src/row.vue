@@ -42,7 +42,8 @@
 
 <style lang="less" scoped>
     .row {
-        display: flex
+        display: flex;
+        flex-wrap: wrap;
     }
     .align{
         &-right{
