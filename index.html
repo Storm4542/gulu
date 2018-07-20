@@ -13,9 +13,9 @@
             box-sizing: border-box
         }
 
-        #app {
-            margin: 20px;
-        }
+        /*#app {*/
+            /*margin: 20px;*/
+        /*}*/
 
         .box {
             margin: 20px;
@@ -24,88 +24,99 @@
             height: 100px;
             border:1px solid gray;
         }
+        .demo{
+            min-height: 100px;
+            border: 1px solid gray;
+        }
     </style>
 
 </head>
 <body>
 <div id="app">
-    <g-row gutter="10" align="center">
-        <g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >
-            <div class="grid-demo"></div>
-        </g-col>
-        <g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >
-            <div class="grid-demo"></div>
-        </g-col>
-        <g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >
-            <div class="grid-demo"></div>
-        </g-col>
-        <g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >
-            <div class="grid-demo"></div>
-        </g-col>
-        <g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >
-            <div class="grid-demo"></div>
-        </g-col>
-        <g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >
-            <div class="grid-demo"></div>
-        </g-col>
-    </g-row>
+    <g-layout style="height: 100vh">
+        <g-header class="demo">header</g-header>
+        <g-content class="demo">content</g-content>
+        <g-footer class="demo">footer</g-footer>
+    </g-layout>
 
-    <br/>
-    <br/>
 
-    <div class="box">
-        <g-input value='default' v-model="message"></g-input>
+    <!--<g-row gutter="10" align="center">-->
+        <!--<g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >-->
+            <!--<div class="grid-demo"></div>-->
+        <!--</g-col>-->
+        <!--<g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >-->
+            <!--<div class="grid-demo"></div>-->
+        <!--</g-col>-->
+        <!--<g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >-->
+            <!--<div class="grid-demo"></div>-->
+        <!--</g-col>-->
+        <!--<g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >-->
+            <!--<div class="grid-demo"></div>-->
+        <!--</g-col>-->
+        <!--<g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >-->
+            <!--<div class="grid-demo"></div>-->
+        <!--</g-col>-->
+        <!--<g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >-->
+            <!--<div class="grid-demo"></div>-->
+        <!--</g-col>-->
+    <!--</g-row>-->
 
-    </div>
-    <div class="box">
-        <g-input value='disabled' :disabled='true'></g-input>
+    <!--<br/>-->
+    <!--<br/>-->
 
-    </div>
-    <div class="box">
-        <g-input value='readonly' :readonly='true'></g-input>
+    <!--<div class="box">-->
+        <!--<g-input value='default' v-model="message"></g-input>-->
 
-    </div>
+    <!--</div>-->
+    <!--<div class="box">-->
+        <!--<g-input value='disabled' :disabled='true'></g-input>-->
 
-    <div class="box">
-        <g-input value="王二麻子" error="用户名不能少于5位哦"></g-input>
-    </div>
+    <!--</div>-->
+    <!--<div class="box">-->
+        <!--<g-input value='readonly' :readonly='true'></g-input>-->
 
-    <br/>
-    <br/>
-    <br/>
+    <!--</div>-->
 
-    <div>
+    <!--<div class="box">-->
+        <!--<g-input value="王二麻子" error="用户名不能少于5位哦"></g-input>-->
+    <!--</div>-->
 
-        <g-button iconname='setting' btntype="primary" :loading="loading1" @click='loading1 = !loading1'>
-            click
-        </g-button>
-        <g-button iconname='setting' btntype="success" :loading="loading2" icon-position="right"
-                  @click='loading2 = !loading2'>
-            按钮
-        </g-button>
-        <g-button btntype="warning"
-                  iconname='setting'
-                  :loading="loading3"
-                  :success="success1"
-                  icon-position="right"
-                  @click="clickSuccess('success',$event)"
-        >
-            提交
-        </g-button>
-        <g-button iconname="error" btntype="danger">警告</g-button>
-        <g-button-group>
-            <g-button iconname='left'>
-                上一页
-            </g-button>
-            <g-button iconname='setting'>
-                更多
-            </g-button>
-            <g-button iconname='right' icon-position="right">
-                下一页
-            </g-button>
+    <!--<br/>-->
+    <!--<br/>-->
+    <!--<br/>-->
 
-        </g-button-group>
-    </div>
+    <!--<div>-->
+
+        <!--<g-button iconname='setting' btntype="primary" :loading="loading1" @click='loading1 = !loading1'>-->
+            <!--click-->
+        <!--</g-button>-->
+        <!--<g-button iconname='setting' btntype="success" :loading="loading2" icon-position="right"-->
+                  <!--@click='loading2 = !loading2'>-->
+            <!--按钮-->
+        <!--</g-button>-->
+        <!--<g-button btntype="warning"-->
+                  <!--iconname='setting'-->
+                  <!--:loading="loading3"-->
+                  <!--:success="success1"-->
+                  <!--icon-position="right"-->
+                  <!--@click="clickSuccess('success',$event)"-->
+        <!--&gt;-->
+            <!--提交-->
+        <!--</g-button>-->
+        <!--<g-button iconname="error" btntype="danger">警告</g-button>-->
+        <!--<g-button-group>-->
+            <!--<g-button iconname='left'>-->
+                <!--上一页-->
+            <!--</g-button>-->
+            <!--<g-button iconname='setting'>-->
+                <!--更多-->
+            <!--</g-button>-->
+            <!--<g-button iconname='right' icon-position="right">-->
+                <!--下一页-->
+            <!--</g-button>-->
+
+        <!--</g-button-group>-->
+    <!--</div>-->
 
 </div>
 
