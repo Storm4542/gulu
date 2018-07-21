@@ -52,16 +52,16 @@
             }
         },
         methods: {
-            createClasses(obj, str = '') {
+            createClasses(obj, str = '') {  //传入一个对象和一个字符串 ({span:1,offset:2},'pc')
                 if (!obj) {
-                    return []
+                    return []     //如果没传入，终止
                 }
-                let array = [];
+                let array = [];   //初始化class
                 if (obj.span) {
-                    array.push(`col-${str}-${obj.span}`)
+                    array.push(`col-${str}-${obj.span}`)   //col-pc-3
                 }
                 if (obj.offset) {
-                    array.push(`col-${str}-${obj.offset}`)
+                    array.push(`offset-${str}-${obj.offset}`) //offset-pc-3
                 }
                 return array;
             }
@@ -70,9 +70,10 @@
             colClass() {
                 let {span, offset, ipad, narrowPc, pc, widePc} = this;
                 let createClasses = this.createClasses;
+                console.log(...createClasses(ipad, 'ipad'))
                 return [
-                    ...createClasses({span, offset}),
-                    ...createClasses(ipad, 'ipad'),
+                    ...createClasses({span, offset}), //[`col-1`,'offset-2']
+                    ...createClasses(ipad, 'ipad'),  //[`col-ipad-1`,'offset-ipad-2']
                     ...createClasses(narrowPc, 'narrowpc'),
                     ...createClasses(pc, 'pc'),
                     ...createClasses(widePc, 'widepc'),

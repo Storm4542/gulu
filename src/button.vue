@@ -1,6 +1,6 @@
 <template>
     <button class="g-button"
-            :class="{[`icon-${iconPosition}`]:true ,[btntype]:true}"
+            :class="buttonClass"
             @click="$emit('click',$event)">
         <g-icon class="loading icon" v-if="loading" iconname="loading"></g-icon>
         <g-icon class="icon" v-if='iconname&&!loading' :iconname='iconname'></g-icon>
@@ -42,13 +42,25 @@
                 validate: function (value) {
                     ['primary', 'success', 'warning', 'danger'].map((className) => {
                         if (value === className) {
-                            return value
+                            return true
                         }
                         return false
                     })
                 }
             }
 
+        },
+        computed:{
+            buttonClass(){
+                let array = [];//初始化class
+                if(this.iconPosition){
+                    array.push(`icon-${this.iconPosition}`);
+                }
+                if(this.btntype){
+                    array.push(this.btntype)
+                }
+                return array
+            }
         }
     }
 </script>
