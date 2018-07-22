@@ -1,7 +1,12 @@
 <template>
-    <div class="toast">
-        <slot/>
-        <div class="line"></div>
+    <div ref="toast" class="toast">
+        <div class="message">
+            <slot v-if="!enableHtml"></slot>
+            <div v-if="enableHtml" v-html="$slots.default[0]"></div>
+        </div>
+
+
+        <div class="line" ref="line" v-if="closeButton"></div>
         <span class="close" v-if="closeButton" @click="onClickClose()">
             {{closeButton.text}}
         </span>
@@ -22,38 +27,47 @@
             },
             closeButton: {
                 type: [Object],
-                default() {
-                    return {
-                        text: '关闭', callback: () => {
-                            this.close()
-                        }
-                    }
-                }
+            },
+            enableHtml: {
+                type: Boolean
             }
+
         },
         mounted() {
-            if (this.autoClose) {
-                setTimeout(() => {
-                    this.close()
-                }, this.autoCloseDelay * 1000)
-            }
+            this.exeAutoClose();
+            this.setLineHeight();
         },
         methods: {
+            exeAutoClose() {
+                if (this.autoClose) {
+                    setTimeout(() => {
+                        this.close()
+                    }, this.autoCloseDelay * 1000)
+                }
+            },
+            setLineHeight() {
+                this.$nextTick(() => {
+                    this.$refs.line.style.height =
+                        `${this.$refs.toast.getBoundingClientRect().height}px`;
+                })
+            },
             close() {
                 this.$el.remove();
                 this.$destroy();
             },
             onClickClose() {
-                this.close()
-                this.closeButton.callback();
-            }
+                this.close();
+                if (this.closeButton && typeof this.closeButton.callback === 'function') {
+                    this.closeButton.callback(this);//this===toast实例
+                }
+            },
         }
     }
 </script>
 
 <style lang="less" scoped>
     @font-size: 14px;
-    @toast-height: 40px;
+    @toast-minheight: 40px;
     @toast-bg: rgba(0, 0, 0, 0.75);
     @toast-fontcolor: white;
     .toast {
@@ -61,16 +75,17 @@
         top: 0;
         left: 50%;
         transform: translateX(-50%);
-        height: @toast-height;
+        min-height: @toast-minheight;
         font-size: @font-size;
         color: @toast-fontcolor;
-        padding: 0 1em;
-        line-height: @toast-height;
+        line-height: 1.8;
+        padding: 0 .5em 0 1.5em;
         background: @toast-bg;
         display: flex;
         align-items: center;
         border-radius: 4px;
         box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.50);
+        & .message{padding:0.5em 0}
     }
 
     .line {
@@ -81,5 +96,6 @@
 
     .close {
         padding-left: 1em;
+        flex-shrink: 0;
     }
 </style>

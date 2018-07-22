@@ -39,7 +39,7 @@ new Vue({
             message: 'message'
         }
     },
-    created(){
+    created() {
     },
     methods: {
         inputChange(e) {
@@ -62,35 +62,17 @@ new Vue({
             }
 
         },
-        showToast(){
-            this.$toast('当前服务不可用',{
-                text:'知道了',
-                callback:()=>{
-                    alert('用户说他知道了')
-                }
+        showToast() {
+            this.$toast('弹出toast', {
+                closeButton: {
+                    text: '知道了',
+                    callback: (toast) => {
+                        alert('用户说他知道了')
+                    }
+                },
+                enableHtml:false
             });
         }
     }
 
 });
-
-//单元测试
-// import chai from 'chai'
-// import charSpies from 'chai-spies'
-//
-// const expect = chai.expect;
-//
-// {
-//     const Construstor = Vue.extend(Button);
-//     const vm = new Construstor({
-//         propsData:{
-//             icon : 'setting'
-//         }
-//     });
-//     vm.$mount();
-//     let useElement = vm.$el.querySelector('use');
-//     let href = useElement.getAttribute('xlink:href');
-//     expect(href).to.eq('#i-setting');
-//     vm.$el.remove();
-//     vm.$destroy();
-// }
