@@ -40,6 +40,9 @@ new Vue({
         }
     },
     created(){
+
+            this.$toast('当前服务不可用');
+
     },
     methods: {
         inputChange(e) {
