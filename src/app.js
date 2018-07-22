@@ -71,7 +71,7 @@ new Vue({
                     }
                 },
                 enableHtml:false,
-                autoCloseDelay:300,
+                autoCloseDelay:2,
                 position:'bottom'
             });
         }
