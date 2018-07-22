@@ -46,6 +46,7 @@
 </head>
 <body>
 <div id="app">
+    <button @click="showToast()">点我</button>
 
     <!--<g-layout style="height: 100vh">-->
         <!--<g-sider>-->
@@ -65,26 +66,26 @@
     <!--</g-layout>-->
 
 
-    <g-row gutter="10" align="center">
-        <g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >
-            <div class="grid-demo"></div>
-        </g-col>
-        <g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >
-            <div class="grid-demo"></div>
-        </g-col>
-        <g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >
-            <div class="grid-demo"></div>
-        </g-col>
-        <g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >
-            <div class="grid-demo"></div>
-        </g-col>
-        <g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >
-            <div class="grid-demo"></div>
-        </g-col>
-        <g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >
-            <div class="grid-demo"></div>
-        </g-col>
-    </g-row>
+    <!--<g-row gutter="10" align="center">-->
+        <!--<g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >-->
+            <!--<div class="grid-demo"></div>-->
+        <!--</g-col>-->
+        <!--<g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >-->
+            <!--<div class="grid-demo"></div>-->
+        <!--</g-col>-->
+        <!--<g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >-->
+            <!--<div class="grid-demo"></div>-->
+        <!--</g-col>-->
+        <!--<g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >-->
+            <!--<div class="grid-demo"></div>-->
+        <!--</g-col>-->
+        <!--<g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >-->
+            <!--<div class="grid-demo"></div>-->
+        <!--</g-col>-->
+        <!--<g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >-->
+            <!--<div class="grid-demo"></div>-->
+        <!--</g-col>-->
+    <!--</g-row>-->
 
     <!--<br/>-->
     <!--<br/>-->
@@ -110,38 +111,38 @@
     <!--<br/>-->
     <!--<br/>-->
 
-    <div>
+    <!--<div>-->
 
-        <g-button iconname='setting' btntype="primary" :loading="loading1" @click='loading1 = !loading1'>
-            click
-        </g-button>
-        <g-button iconname='setting' btntype="success" :loading="loading2" icon-position="right"
-                  @click='loading2 = !loading2'>
-            按钮
-        </g-button>
-        <g-button btntype="warning"
-                  iconname='setting'
-                  :loading="loading3"
-                  :success="success1"
-                  icon-position="right"
-                  @click="clickSuccess('success',$event)"
-        >
-            提交
-        </g-button>
-        <g-button iconname="error" btntype="danger">警告</g-button>
-        <g-button-group>
-            <g-button iconname='left'>
-                上一页
-            </g-button>
-            <g-button iconname='setting'>
-                更多
-            </g-button>
-            <g-button iconname='right' icon-position="right">
-                下一页
-            </g-button>
+        <!--<g-button iconname='setting' btntype="primary" :loading="loading1" @click='loading1 = !loading1'>-->
+            <!--click-->
+        <!--</g-button>-->
+        <!--<g-button iconname='setting' btntype="success" :loading="loading2" icon-position="right"-->
+                  <!--@click='loading2 = !loading2'>-->
+            <!--按钮-->
+        <!--</g-button>-->
+        <!--<g-button btntype="warning"-->
+                  <!--iconname='setting'-->
+                  <!--:loading="loading3"-->
+                  <!--:success="success1"-->
+                  <!--icon-position="right"-->
+                  <!--@click="clickSuccess('success',$event)"-->
+        <!--&gt;-->
+            <!--提交-->
+        <!--</g-button>-->
+        <!--<g-button iconname="error" btntype="danger">警告</g-button>-->
+        <!--<g-button-group>-->
+            <!--<g-button iconname='left'>-->
+                <!--上一页-->
+            <!--</g-button>-->
+            <!--<g-button iconname='setting'>-->
+                <!--更多-->
+            <!--</g-button>-->
+            <!--<g-button iconname='right' icon-position="right">-->
+                <!--下一页-->
+            <!--</g-button>-->
 
-        </g-button-group>
-    </div>
+        <!--</g-button-group>-->
+    <!--</div>-->
 
 </div>
 

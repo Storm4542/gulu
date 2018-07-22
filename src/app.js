@@ -10,6 +10,8 @@ import Content from './content'
 import Sider from './sider'
 import Header from './header'
 import Footer from './footer'
+import Toast from './toast'
+import Plugin from './plugin'
 
 Vue.component('g-button', Button);
 Vue.component('g-icon', icon);
@@ -22,7 +24,9 @@ Vue.component('g-header', Header);
 Vue.component('g-footer', Footer);
 Vue.component('g-content', Content);
 Vue.component('g-sider', Sider);
+Vue.component('g-toast', Toast);
 
+Vue.use(Plugin); //执行install方法
 
 new Vue({
     el: '#app',
@@ -34,6 +38,8 @@ new Vue({
             success1: true,
             message: 'message'
         }
+    },
+    created(){
     },
     methods: {
         inputChange(e) {
@@ -55,6 +61,9 @@ new Vue({
 
             }
 
+        },
+        showToast(){
+            this.$toast('当前服务不可用');
         }
     }
 
