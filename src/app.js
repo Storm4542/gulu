@@ -40,9 +40,6 @@ new Vue({
         }
     },
     created(){
-
-            this.$toast('当前服务不可用');
-
     },
     methods: {
         inputChange(e) {
@@ -66,7 +63,12 @@ new Vue({
 
         },
         showToast(){
-            this.$toast('当前服务不可用');
+            this.$toast('当前服务不可用',{
+                text:'知道了',
+                callback:()=>{
+                    alert('用户说他知道了')
+                }
+            });
         }
     }
 
