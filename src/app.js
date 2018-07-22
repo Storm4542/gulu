@@ -70,7 +70,9 @@ new Vue({
                         alert('用户说他知道了')
                     }
                 },
-                enableHtml:false
+                enableHtml:false,
+                autoCloseDelay:300,
+                position:'bottom'
             });
         }
     }
