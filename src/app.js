@@ -62,16 +62,42 @@ new Vue({
             }
 
         },
-        showToast() {
+        showToast1() {
             this.$toast('弹出toast', {
                 closeButton: {
                     text: '知道了',
-                    callback: (toast) => {
+                    callback: () => {
                         alert('用户说他知道了')
                     }
                 },
                 enableHtml:false,
-                autoCloseDelay:2,
+                autoCloseDelay:3,
+                position:'top'
+            });
+        },
+        showToast2() {
+            this.$toast('弹出toast', {
+                closeButton: {
+                    text: '知道了',
+                    callback: () => {
+                        alert('用户说他知道了')
+                    }
+                },
+                enableHtml:false,
+                autoCloseDelay:3,
+                position:'middle'
+            });
+        },
+        showToast3() {
+            this.$toast('弹出toast', {
+                closeButton: {
+                    text: '知道了',
+                    callback: () => {
+                        alert('用户说他知道了')
+                    }
+                },
+                enableHtml:false,
+                autoCloseDelay:3,
                 position:'bottom'
             });
         }

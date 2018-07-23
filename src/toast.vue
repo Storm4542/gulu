@@ -1,6 +1,6 @@
 <template>
-    <div class="wrapper">
-        <div ref="toast" class="toast" :class="toastClasses">
+    <div class="wrapper" :class="toastClasses">
+        <div ref="toast" class="toast" >
             <div class="message">
                 <slot v-if="!enableHtml"></slot>
                 <div v-if="enableHtml" v-html="$slots.default[0]"></div>
@@ -83,11 +83,31 @@
     @toast-minHeight: 40px;
     @toast-bg: rgba(0, 0, 0, 0.75);
     @toast-fontcolor: white;
+    @animation-Duration:500ms;
 
-    @keyframes fade-in {
+    @keyframes slide-up {
         0% {
             opacity: 0;
             transform: translateY(100%)
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0)
+        }
+    }
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    @keyframes slide-down {
+        0% {
+            opacity: 0;
+            transform: translateY(-100%)
         }
         100% {
             opacity: 1;
@@ -98,12 +118,34 @@
         position: fixed;
         left: 50%;
         transform: translateX(-50%);
+        &.position-top {
+            top: 0;
+            .toast{
+                border-top-right-radius: 0;
+                border-top-left-radius: 0;
+                animation: slide-down @animation-Duration;
+            }
+        }
+        &.position-bottom {
+            bottom: 0;
+            .toast{
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+                animation: slide-up @animation-Duration;
+            }
+        }
+        &.position-middle {
+            top: 50%;
+            transform: translate(-50%,-50%);
+            .toast{
+                animation:fade-in @animation-Duration;
 
+            }
+        }
     }
 
     .toast {
         animation: fade-in 1s;
-
         min-height: @toast-minHeight;
         font-size: @font-size;
         color: @toast-fontcolor;
@@ -117,17 +159,7 @@
         &.message {
             padding: 0.5em 0
         }
-        &.position-top {
-            top: 0;
-            transform: translateX(-50%);
-        }
-        &.position-bottom {
-            bottom: 0;
-        }
-        &.position-middle {
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
+
         .line {
             border: 1px solid white;
             height: 100%;
@@ -137,13 +169,5 @@
             padding-left: 1em;
             flex-shrink: 0;
         }
-    }
-
-    .fade-enter-active, .fade-leave-active {
-        transition: opacity .5s;
-    }
-
-    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-        opacity: 0;
     }
 </style>
