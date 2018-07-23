@@ -59,8 +59,11 @@
             },
             setLineHeight() {
                 this.$nextTick(() => {
-                    this.$refs.line.style.height =
-                        `${this.$refs.toast.getBoundingClientRect().height}px`;
+                    if(this.closeButton){
+                        this.$refs.line.style.height =
+                            `${this.$refs.toast.getBoundingClientRect().height}px`;
+                    }
+
                 })
             },
             close() {
