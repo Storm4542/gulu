@@ -5,24 +5,40 @@
 </template>
 
 <script>
+    import Vue from 'vue'
+
     export default {
         name: "g-tabs",
-        props:{
-            selected:{
-                type:[String],
-                required:true
+        props: {
+            selected: {
+                type: [String],
+                required: true
             },
-            direction:{
-                type:[String],
-                default:'horizontal',
-                validater(value){
-                    return ['horizontal','vertical'].indexOf(value)>=0
+            direction: {
+                type: [String],
+                default: 'horizontal',
+                validater(value) {
+                    return ['horizontal', 'vertical'].indexOf(value) >= 0
                 }
+            },
+        },
+        data() {
+            return {
+                eventBus: new Vue()
             }
-        }
+        },
+        provide() {
+            return {
+                eventBus: this.eventBus
+            }
+        },
+        mounted() {
+            this.eventBus.$emit('update:selected',this.selected)
+        },
+
     }
 </script>
 
 <style lang="less" scoped>
-.tabs{}
+    .tabs {}
 </style>

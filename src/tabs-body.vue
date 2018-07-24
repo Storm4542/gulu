@@ -6,10 +6,17 @@
 
 <script>
     export default {
-        name: "g-tabs-body"
+        name: "g-tabs-body",
+        inject: ['eventBus'],
+        props: {
+
+        },
+        created() {
+
+        }
     }
 </script>
 
 <style lang="less" scoped>
-.tabs-body{}
+    .tabs-body {}
 </style>
