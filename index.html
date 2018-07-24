@@ -31,10 +31,10 @@
         .sider .fade-enter, .sider.fade-leave-active{
             margin-left: -200px;
         }
-        .header{
-            background: #999;
-            height: 100px;
-        }
+            .header{
+                background: #999;
+                height: 100px;
+            }
         .footer{
             background: #ccc;
             height: 100px;
@@ -46,9 +46,29 @@
 </head>
 <body>
 <div id="app">
-    <button @click="showToast1()">top</button>
-    <button @click="showToast2()">middle</button>
-    <button @click="showToast3()">bottom</button>
+    <g-tabs :selected.sync="selectedtab" direction="horizontal">
+        <g-tabs-head>
+            <g-tabs-item name="women">
+                <g-icon iconname="setting"></g-icon>美女
+            </g-tabs-item>
+            <g-tabs-item name="finance" disable="true">财经</g-tabs-item>
+            <g-tabs-item name="sports">体育</g-tabs-item>
+            <template slot="action">
+                <button>设置</button>
+            </template>
+        </g-tabs-head>
+        <g-tabs-body>
+            <g-tabs-pane name="women">美女相关</g-tabs-pane>
+            <g-tabs-pane name="finance">财经相关</g-tabs-pane>
+            <g-tabs-pane name="sports">体育相关</g-tabs-pane>
+
+        </g-tabs-body>
+    </g-tabs>
+
+
+    <!--<button @click="showToast1()">top</button>-->
+    <!--<button @click="showToast2()">middle</button>-->
+    <!--<button @click="showToast3()">bottom</button>-->
 
     <!--<g-layout style="height: 100vh">-->
         <!--<g-sider>-->
