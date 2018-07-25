@@ -10,7 +10,6 @@
 <script>
     export default {
         name: "g-tabs-head",
-        inject: ['eventBus'],
         props: {},
         created() {
 
@@ -27,7 +26,7 @@
         align-items: center;
         border: 1px solid grey;
         >.actions-wrapper{
-            margin-left: auto;
+            margin-left: auto
         }
     }
 </style>

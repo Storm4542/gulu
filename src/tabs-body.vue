@@ -7,7 +7,6 @@
 <script>
     export default {
         name: "g-tabs-body",
-        inject: ['eventBus'],
         props: {
 
         },
