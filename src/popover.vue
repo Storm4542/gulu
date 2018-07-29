@@ -1,5 +1,5 @@
 <template>
-    <div class="popover" @click="onClick">
+    <div class="popover" ref="popover">
         <div ref="contentWrapper" class="content-wrapper" v-if="visible"
              :class="{[`position-${position}`]:true}">
             <slot name="content"></slot>
@@ -19,11 +19,35 @@
                 validator(value) {
                     return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0;
                 }
+            },
+            trigger: {
+                type: String,
+                default: 'click',
+                validator(value) {
+                    return ['click', 'hover'].indexOf(value) >= 0
+                }
             }
         },
         data() {
             return {
-                visible: false
+                visible: false,
+            }
+        },
+        mounted() {
+            if (this.trigger === 'click') {
+                this.$refs.popover.addEventListener('click', this.onClick)
+                console.log('onclick')
+            } else {
+                this.$refs.popover.addEventListener('mouseenter', this.open)
+                this.$refs.popover.addEventListener('mouseleave', this.close)
+            }
+        },
+        destroyed() {
+            if (this.trigger === 'click') {
+                this.$refs.popover.removeEventListener('click', this.onClick)
+            } else {
+                this.$refs.popover.removeEventListener('mouseenter', this.open)
+                this.$refs.popover.removeEventListener('mouseleave', this.close)
             }
         },
         methods: {
@@ -32,7 +56,6 @@
                 document.body.appendChild(contentWrapper); //把contentWrapper移到外面去，防止overflow:hidden
                 let {top, left, width, height} = this.$refs.triggerWrapper.getBoundingClientRect();
                 let {height: height2} = contentWrapper.getBoundingClientRect();
-
                 //表编程驱动
                 let positions = {
                     top: {
@@ -69,9 +92,16 @@
                 // }
             },
             onClickDocument(event) {
-                if (!this.$refs.contentWrapper.contains(event.target)) {  //如果点击的不是contentWrapper的话
-                    this.close();   //就让contentWrapper消失
+                if (this.$refs.popover &&
+                    (this.$refs.popover === event.target || this.$refs.popover.contains(event.target))) {
+                    return
+                } //如果popover存在并且点击对象是popover本身或者popover里面的东西，就return
+                if (this.$refs.contentWrapper &&
+                    (this.$refs.contentWrapper === event.target || this.$refs.contentWrapper.contains(event.target))) {  //如果点击的不是contentWrapper的话
+                    return
+                    //如果contentWrapper存在并且点击对象是contentWrapper本身或者contentWrapper里面的东西，就return
                 }
+                this.close() //前面两个都通过的话，说明你点击的是document，老铁没毛病
             },
             open() {
                 this.visible = true;
@@ -86,6 +116,7 @@
 
             },
             onClick(event) {
+                console.log(event.target);
                 if (this.$refs.triggerWrapper.contains(event.target)) { //如果点击的是tirggerWrapper，也就是button的话
                     //显示或者消失content
                     if (this.visible === true) {  //如果是显示状态
