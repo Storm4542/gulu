@@ -28,25 +28,45 @@
         },
         methods: {
             positionContent() {
-                document.body.appendChild(this.$refs.contentWrapper); //把contentWrapper移到外面去，防止overflow:hidden
-                let {top, left, width, height} = this.$refs.triggerWrapper.getBoundingClientRect();
                 const {contentWrapper} = this.$refs;
-                if (this.position === 'top') {
-                    contentWrapper.style.top = top + window.scrollY + 'px';
-                    contentWrapper.style.left = left + window.scrollY + 'px';
-                } else if (this.position === 'bottom') {
-                    contentWrapper.style.top = top + height + window.scrollY + 'px';
-                    contentWrapper.style.left = left + window.scrollY + 'px';
-                } else if (this.position === 'left') {
-                    contentWrapper.style.left = left + window.scrollY + 'px';
-                    let {height: height2} = contentWrapper.getBoundingClientRect();
-                    contentWrapper.style.top = top + window.scrollY - (height2 - height) / 2 + 'px';
-                } else if (this.position === 'right') {
-                    let {height: height2} = contentWrapper.getBoundingClientRect();
-                    contentWrapper.style.top = top + window.scrollY - (height2 - height) / 2 + 'px';
-                    contentWrapper.style.left = left + window.scrollY + width + 'px';
-                }
+                document.body.appendChild(contentWrapper); //把contentWrapper移到外面去，防止overflow:hidden
+                let {top, left, width, height} = this.$refs.triggerWrapper.getBoundingClientRect();
+                let {height: height2} = contentWrapper.getBoundingClientRect();
 
+                //表编程驱动
+                let positions = {
+                    top: {
+                        top: top + window.scrollY,
+                        left: left + window.scrollY
+                    },
+                    bottom: {
+                        top: top + height + window.scrollY,
+                        left: left + window.scrollY
+                    },
+                    left: {
+                        top: top + window.scrollY - (height2 - height) / 2,
+                        left: left + window.scrollY,
+                    },
+                    right: {
+                        top: top + window.scrollY - (height2 - height) / 2,
+                        left: left + window.scrollY + width
+                    }
+                };
+                contentWrapper.style.left = positions[this.position].left + 'px';
+                contentWrapper.style.top = positions[this.position].top + 'px';
+                // if (this.position === 'top') {
+                //     contentWrapper.style.top = top + window.scrollY + 'px';
+                //     contentWrapper.style.left = left + window.scrollY + 'px';
+                // } else if (this.position === 'bottom') {
+                //     contentWrapper.style.top = top + height + window.scrollY + 'px';
+                //     contentWrapper.style.left = left + window.scrollY + 'px';
+                // } else if (this.position === 'left') {
+                //     contentWrapper.style.left = left + window.scrollY + 'px';
+                //     contentWrapper.style.top = top + window.scrollY - (height2 - height) / 2 + 'px';
+                // } else if (this.position === 'right') {
+                //     contentWrapper.style.top =top + window.scrollY - (height2 - height) / 2 + 'px';
+                //     contentWrapper.style.left = left + window.scrollY + width+ 'px';
+                // }
             },
             onClickDocument(event) {
                 if (!this.$refs.contentWrapper.contains(event.target)) {  //如果点击的不是contentWrapper的话
