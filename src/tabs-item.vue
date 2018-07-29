@@ -29,7 +29,7 @@
             })
         },
         methods:{
-            xxx(){
+            onClick(){
                 this.eventBus.$emit('update:selected',this.name)
             }
         },
