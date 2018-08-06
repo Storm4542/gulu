@@ -1,0 +1,105 @@
+
+.g-icon[data-v-34ad46] {
+  width: 1.3em;
+  height: 1.3em;
+}
+
+@keyframes spin-data-v-a56194 {
+0% {
+    transform: rotate(0deg);
+}
+100% {
+    transform: rotate(360deg);
+}
+}
+.g-button[data-v-a56194] {
+  font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
+  font-size: 14px;
+  height: 32px;
+  background: white;
+  padding: 0 1.5em;
+  border-radius: 3px;
+  border: 1px solid #999;
+  color: #333;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  text-align: center;
+}
+.g-button[data-v-a56194]:hover {
+  border-color: #666;
+}
+.g-button[data-v-a56194]:active {
+  background: #eee;
+}
+.g-button[data-v-a56194]:focus {
+  outline: none;
+}
+.g-button > .content[data-v-a56194] {
+  order: 2;
+}
+.g-button > .icon[data-v-a56194] {
+  order: 1;
+  margin-right: 0.5em;
+  margin-left: 0;
+}
+.g-button.icon-right > .content[data-v-a56194] {
+  order: 1;
+}
+.g-button.icon-right > .icon[data-v-a56194] {
+  order: 2;
+  margin-right: 0;
+  margin-left: 0.5em;
+}
+.g-button .loading[data-v-a56194] {
+  animation: spin-data-v-a56194 1s linear infinite;
+}
+.primary[data-v-a56194] {
+  background: #032ED5;
+  color: #fff;
+  font-weight: bold;
+  border-color: #032ED5;
+}
+.primary > .icon[data-v-a56194] {
+  fill: #fff;
+}
+.primary[data-v-a56194]:active {
+  background-color: #4268fc;
+}
+.success[data-v-a56194] {
+  background: #9FD463;
+  color: #fff;
+  font-weight: bold;
+  border-color: #9FD463;
+}
+.success > .icon[data-v-a56194] {
+  fill: #fff;
+}
+.success[data-v-a56194]:active {
+  background-color: #d0eab3;
+}
+.warning[data-v-a56194] {
+  background: #DE4538;
+  color: #fff;
+  font-weight: bold;
+  border-color: #9FD463;
+}
+.warning > .icon[data-v-a56194] {
+  fill: #fff;
+}
+.warning[data-v-a56194]:active {
+  background-color: #ed978f;
+}
+.danger[data-v-a56194] {
+  background: #9A000D;
+  color: #fff;
+  font-weight: bold;
+  border-color: #9A000D;
+}
+.danger > .icon[data-v-a56194] {
+  fill: #fff;
+}
+.danger[data-v-a56194]:active {
+  background-color: #ff0116;
+}
