@@ -10260,13 +10260,1111 @@ var staticRenderFns = []
           };
         })());
       
+},{}],"z+0d":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    name: "Toast",
+    props: {
+        autoClose: {
+            type: Boolean,
+            default: true
+        },
+        autoCloseDelay: {
+            type: [String, Number],
+            default: 5
+        },
+        closeButton: {
+            type: [Object]
+        },
+        enableHtml: {
+            type: Boolean
+        },
+        position: {
+            type: String,
+            default: 'top',
+            validator: function validator(value) {
+                return ['top', 'bottom', 'middle'].indexOf(value) >= 0;
+            }
+        }
+
+    },
+    mounted: function mounted() {
+        this.exeAutoClose();
+        this.setLineHeight();
+    },
+
+    computed: {
+        toastClasses: function toastClasses() {
+            return _defineProperty({}, 'position-' + this.position, true);
+        }
+    },
+    methods: {
+        exeAutoClose: function exeAutoClose() {
+            var _this = this;
+
+            if (this.autoClose) {
+                setTimeout(function () {
+                    _this.close();
+                }, this.autoCloseDelay * 1000);
+            }
+        },
+        setLineHeight: function setLineHeight() {
+            var _this2 = this;
+
+            this.$nextTick(function () {
+                if (_this2.closeButton) {
+                    _this2.$refs.line.style.height = _this2.$refs.toast.getBoundingClientRect().height + 'px';
+                }
+            });
+        },
+        close: function close() {
+            this.$el.remove();
+            this.$emit('beforeClose');
+            this.$destroy();
+        },
+        onClickClose: function onClickClose() {
+            this.close();
+            if (this.closeButton && typeof this.closeButton.callback === 'function') {
+                this.closeButton.callback(this); //this===toast实例
+            }
+        }
+    }
+};
+        var $700335 = exports.default || module.exports;
+      
+      if (typeof $700335 === 'function') {
+        $700335 = $700335.options;
+      }
+    
+        /* template */
+        Object.assign($700335, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wrapper",class:_vm.toastClasses},[_c('div',{ref:"toast",staticClass:"toast"},[_c('div',{staticClass:"message"},[(!_vm.enableHtml)?_vm._t("default"):_vm._e(),_vm._v(" "),(_vm.enableHtml)?_c('div',{domProps:{"innerHTML":_vm._s(_vm.$slots.default[0])}}):_vm._e()],2),_vm._v(" "),(_vm.closeButton)?_c('div',{ref:"line",staticClass:"line"}):_vm._e(),_vm._v(" "),(_vm.closeButton)?_c('span',{staticClass:"close",on:{"click":function($event){_vm.onClickClose()}}},[_vm._v("\n        "+_vm._s(_vm.closeButton.text)+"\n    ")]):_vm._e()])])}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-700335",
+            functional: undefined
+          };
+        })());
+      
+},{}],"tdHM":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _vue = require('vue');
+
+var _vue2 = _interopRequireDefault(_vue);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    name: "g-collapse",
+    props: {
+        single: {
+            type: Boolean,
+            default: false
+        },
+        selected: {
+            type: Array
+        }
+    },
+    data: function data() {
+        return {
+            eventBus: new _vue2.default()
+        };
+    },
+    provide: function provide() {
+        return {
+            eventBus: this.eventBus
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        this.eventBus.$emit('update:selected', this.selected);
+
+        this.eventBus.$on('update:addSelected', function (name) {
+            var selectedCopy = JSON.parse(JSON.stringify(_this.selected));
+            if (_this.single) {
+                selectedCopy = [name];
+            } else {
+                selectedCopy.push(name);
+            }
+            _this.eventBus.$emit('update:selected', selectedCopy);
+            _this.$emit('update:selected', selectedCopy);
+        });
+
+        this.eventBus.$on('update:removeSelected', function (name) {
+            var selectedCopy = JSON.parse(JSON.stringify(_this.selected));
+            var index = selectedCopy.indexOf(name);
+            selectedCopy.splice(index, 1);
+            _this.eventBus.$emit('update:selected', selectedCopy);
+            _this.$emit('update:selected', selectedCopy);
+        });
+    }
+}; //
+//
+//
+//
+//
+//
+        var $de0d52 = exports.default || module.exports;
+      
+      if (typeof $de0d52 === 'function') {
+        $de0d52 = $de0d52.options;
+      }
+    
+        /* template */
+        Object.assign($de0d52, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"collapse"},[_vm._t("default")],2)}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-de0d52",
+            functional: undefined
+          };
+        })());
+      
+},{"vue":"Sja3"}],"CMjt":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    name: "g-collapse-item",
+    props: {
+        title: {
+            type: [String, Number],
+            required: true
+        },
+        name: {
+            type: [String],
+            required: true
+        }
+    },
+    data: function data() {
+        return {
+            isShow: false,
+            single: false
+        };
+    },
+
+    methods: {
+        toggle: function toggle() {
+            if (this.isShow) {
+                this.eventBus && this.eventBus.$emit('update:removeSelected', this.name);
+            } else {
+                this.eventBus && this.eventBus.$emit('update:addSelected', this.name);
+            }
+        }
+    },
+    inject: ['eventBus'],
+    mounted: function mounted() {
+        var _this = this;
+
+        this.eventBus && this.eventBus.$on('update:selected', function (names) {
+            if (names.indexOf(_this.name) >= 0) {
+                _this.isShow = true;
+            } else {
+                _this.isShow = false;
+            }
+        });
+    }
+};
+        var $1ff19a = exports.default || module.exports;
+      
+      if (typeof $1ff19a === 'function') {
+        $1ff19a = $1ff19a.options;
+      }
+    
+        /* template */
+        Object.assign($1ff19a, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"collapseItem",on:{"click":_vm.toggle}},[_c('div',{staticClass:"title"},[_vm._v("\n        "+_vm._s(_vm.title)+"\n    ")]),_vm._v(" "),(_vm.isShow)?_c('div',{staticClass:"content"},[_vm._t("default")],2):_vm._e()])}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-1ff19a",
+            functional: undefined
+          };
+        })());
+      
+},{}],"X4tf":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _vue = require('vue');
+
+var _vue2 = _interopRequireDefault(_vue);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    name: "g-tabs",
+    props: {
+        selected: {
+            type: [String],
+            required: true
+        },
+        direction: {
+            type: [String],
+            default: 'horizontal',
+            validater: function validater(value) {
+                return ['horizontal', 'vertical'].indexOf(value) >= 0;
+            }
+        }
+    },
+    data: function data() {
+        return {
+            eventBus: new _vue2.default() //1.创建一个vue实例
+        };
+    },
+
+    computed: {
+        directionClass: function directionClass() {
+            return this.direction;
+        }
+    },
+    provide: function provide() {
+        return {
+            eventBus: this.eventBus //2.将vue实例给provide，生成eventBus
+        };
+    },
+    mounted: function mounted() {
+        this.eventBus.$emit('update:selected', this.selected);
+        //3.提交一次默认的selected，告诉儿子和孙子
+    }
+}; //
+//
+//
+//
+//
+//
+        var $4e098d = exports.default || module.exports;
+      
+      if (typeof $4e098d === 'function') {
+        $4e098d = $4e098d.options;
+      }
+    
+        /* template */
+        Object.assign($4e098d, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tabs",class:( _obj = {}, _obj[("direction-" + _vm.directionClass)] = true, _obj )},[_vm._t("default")],2)
+var _obj;}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-4e098d",
+            functional: undefined
+          };
+        })());
+      
+},{"vue":"Sja3"}],"Caer":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    name: "g-tabs-head",
+    props: {},
+    created: function created() {}
+};
+        var $cc1544 = exports.default || module.exports;
+      
+      if (typeof $cc1544 === 'function') {
+        $cc1544 = $cc1544.options;
+      }
+    
+        /* template */
+        Object.assign($cc1544, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tabs-head"},[_vm._t("default"),_vm._v(" "),_c('div',{staticClass:"actions-wrapper"},[_vm._t("action")],2)],2)}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-cc1544",
+            functional: undefined
+          };
+        })());
+      
+},{}],"4MbR":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    name: "g-tabs-item",
+    props: {
+        disable: {
+            type: Boolean,
+            default: false
+        },
+        name: {
+            type: [Number, String],
+            required: true
+        }
+    },
+    data: function data() {
+        return {
+            active: false
+        };
+    },
+
+    inject: ['eventBus'],
+    created: function created() {
+        var _this = this;
+
+        this.eventBus.$on('update:selected', function (name) {
+            _this.active = name === _this.name;
+            //1.在内存中的时候启动监听事件---如果被选择的name===自己的name,那么active=true
+        });
+    },
+
+    methods: {
+        onClick: function onClick() {
+            this.eventBus.$emit('update:selected', this.name);
+            //2.点击的时候，触发update事件，提交的 event === this.name
+        }
+    },
+    computed: {
+        classes: function classes() {
+            return {
+                active: this.active //3.通过计算属性改变class
+
+                /*
+                     tabs-items的职责就是，监听update事件，并且可以主动触发update事件改变selected，告诉儿子
+                */
+            };
+        }
+    }
+};
+        var $e8acb9 = exports.default || module.exports;
+      
+      if (typeof $e8acb9 === 'function') {
+        $e8acb9 = $e8acb9.options;
+      }
+    
+        /* template */
+        Object.assign($e8acb9, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tabs-item",class:_vm.classes,on:{"click":function($event){_vm.onClick()}}},[_vm._t("default")],2)}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-e8acb9",
+            functional: undefined
+          };
+        })());
+      
+},{}],"1Bgu":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    name: "g-tabs-body",
+    props: {},
+    created: function created() {}
+};
+        var $90338b = exports.default || module.exports;
+      
+      if (typeof $90338b === 'function') {
+        $90338b = $90338b.options;
+      }
+    
+        /* template */
+        Object.assign($90338b, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tabs-body"},[_vm._t("default")],2)}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-90338b",
+            functional: undefined
+          };
+        })());
+      
+},{}],"CIgp":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    name: "g-tabs-pane",
+    inject: ['eventBus'],
+    props: {
+        name: {
+            type: [String, Number],
+            required: true
+        }
+    },
+    data: function data() {
+        return {
+            active: false
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        this.eventBus.$on('update:selected', function (name) {
+            _this.active = name === _this.name;
+            //1.在内存中的时候启动监听事件---如果被选择的name===自己的name,那么active=true
+        });
+    },
+
+    computed: {
+        classes: function classes() {
+            return {
+                active: this.active
+                //2.通过计算属性改变class
+            };
+        }
+        /*
+            和tabs-items相比，tabs-panel只需要监听update事件然后变化就可以了。
+        */
+
+    }
+};
+        var $e7955d = exports.default || module.exports;
+      
+      if (typeof $e7955d === 'function') {
+        $e7955d = $e7955d.options;
+      }
+    
+        /* template */
+        Object.assign($e7955d, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.active)?_c('div',{staticClass:"tabs-pane",class:_vm.classes},[_vm._t("default")],2):_vm._e()}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-e7955d",
+            functional: undefined
+          };
+        })());
+      
+},{}],"UJ3J":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    name: "g-layout",
+    data: function data() {
+        return {
+            layoutClass: {
+                hasSider: false
+            }
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        this.$children.forEach(function (vm) {
+            if (vm.$options.name === 'g-sider') {
+                _this.layoutClass.hasSider = true;
+            }
+        });
+    }
+};
+        var $b21282 = exports.default || module.exports;
+      
+      if (typeof $b21282 === 'function') {
+        $b21282 = $b21282.options;
+      }
+    
+        /* template */
+        Object.assign($b21282, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"layout",class:_vm.layoutClass},[_vm._t("default")],2)}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-b21282",
+            functional: undefined
+          };
+        })());
+      
+},{}],"y1OT":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    name: "g-header"
+};
+        var $438b6d = exports.default || module.exports;
+      
+      if (typeof $438b6d === 'function') {
+        $438b6d = $438b6d.options;
+      }
+    
+        /* template */
+        Object.assign($438b6d, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"header"},[_vm._t("default")],2)}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-438b6d",
+            functional: undefined
+          };
+        })());
+      
+},{}],"tIa7":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    name: "g-content"
+};
+        var $d69465 = exports.default || module.exports;
+      
+      if (typeof $d69465 === 'function') {
+        $d69465 = $d69465.options;
+      }
+    
+        /* template */
+        Object.assign($d69465, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"content"},[_vm._t("default")],2)}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-d69465",
+            functional: undefined
+          };
+        })());
+      
+},{}],"gIMi":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    name: "g-footer"
+};
+        var $e75ce2 = exports.default || module.exports;
+      
+      if (typeof $e75ce2 === 'function') {
+        $e75ce2 = $e75ce2.options;
+      }
+    
+        /* template */
+        Object.assign($e75ce2, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"footer"},[_vm._t("default")],2)}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-e75ce2",
+            functional: undefined
+          };
+        })());
+      
+},{}],"0pSD":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    name: 'g-row',
+    props: {
+        gutter: {
+            type: [String, Number]
+        },
+        align: {
+            validator: function validator(value) {
+                return ['left', 'right', 'center'].indexOf(value) >= 0;
+            }
+        }
+    },
+    computed: {
+        rowStyle: function rowStyle() {
+            return {
+                marginLeft: -this.gutter / 2 + 'px',
+                marginRight: -this.gutter / 2 + 'px'
+            };
+        },
+        rowClass: function rowClass() {
+            var align = this.align;
+
+            return ['align-' + align];
+        }
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        this.$children.forEach(function (vm) {
+            vm.gutter = _this.gutter;
+        });
+    }
+};
+        var $7ac96d = exports.default || module.exports;
+      
+      if (typeof $7ac96d === 'function') {
+        $7ac96d = $7ac96d.options;
+      }
+    
+        /* template */
+        Object.assign($7ac96d, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"row",class:_vm.rowClass,style:(_vm.rowStyle)},[_vm._t("default")],2)}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-7ac96d",
+            functional: undefined
+          };
+        })());
+      
+},{}],"TH+l":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var validator = function validator(value) {
+    var keys = Object.keys(value);
+    var vaild = true;
+    keys.forEach(function (key) {
+        if (!['span', 'offset'].includes(key)) {
+            vaild = false;
+        }
+    });
+    return vaild;
+};
+exports.default = {
+    name: 'g-col',
+    props: {
+        span: {
+            type: [Number, String]
+        },
+        offset: {
+            type: [Number, String]
+        },
+        ipad: {
+            type: Object,
+            validator: validator
+        },
+        narrowPc: {
+            type: Object,
+            validator: validator
+        },
+        pc: {
+            type: Object,
+            validator: validator
+        },
+        widePc: {
+            type: Object,
+            validator: validator
+        }
+
+    },
+    data: function data() {
+        return {
+            gutter: 0
+        };
+    },
+
+    methods: {
+        createClasses: function createClasses(obj) {
+            var str = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+            //传入一个对象和一个字符串 ({span:1,offset:2},'pc')
+            if (!obj) {
+                return []; //如果没传入，终止
+            }
+            var array = []; //初始化class
+            if (obj.span) {
+                array.push('col-' + str + '-' + obj.span); //col-pc-3
+            }
+            if (obj.offset) {
+                array.push('offset-' + str + '-' + obj.offset); //offset-pc-3
+            }
+            return array;
+        }
+    },
+    computed: {
+        colClass: function colClass() {
+            var span = this.span,
+                offset = this.offset,
+                ipad = this.ipad,
+                narrowPc = this.narrowPc,
+                pc = this.pc,
+                widePc = this.widePc;
+
+            var createClasses = this.createClasses;
+            return [].concat(_toConsumableArray(createClasses({ span: span, offset: offset })), _toConsumableArray(createClasses(ipad, 'ipad')), _toConsumableArray(createClasses(narrowPc, 'narrowpc')), _toConsumableArray(createClasses(pc, 'pc')), _toConsumableArray(createClasses(widePc, 'widepc')));
+        },
+        colStyle: function colStyle() {
+            return {
+                paddingLeft: this.gutter / 2 + 'px',
+                paddingRight: this.gutter / 2 + 'px'
+
+            };
+        }
+    }
+};
+        var $95c97b = exports.default || module.exports;
+      
+      if (typeof $95c97b === 'function') {
+        $95c97b = $95c97b.options;
+      }
+    
+        /* template */
+        Object.assign($95c97b, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col",class:_vm.colClass,style:(_vm.colStyle)},[_vm._t("default")],2)}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-95c97b",
+            functional: undefined
+          };
+        })());
+      
+},{}],"+gfH":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    name: "g-popover",
+    props: {
+        position: {
+            type: String,
+            validator: function validator(value) {
+                return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0;
+            }
+        },
+        trigger: {
+            type: String,
+            default: 'click',
+            validator: function validator(value) {
+                return ['click', 'hover'].indexOf(value) >= 0;
+            }
+        }
+    },
+    data: function data() {
+        return {
+            visible: false
+        };
+    },
+    mounted: function mounted() {
+        if (this.trigger === 'click') {
+            this.$refs.popover.addEventListener('click', this.onClick);
+        } else {
+            this.$refs.popover.addEventListener('mouseenter', this.open);
+            this.$refs.popover.addEventListener('mouseleave', this.close);
+        }
+    },
+    destroyed: function destroyed() {
+        if (this.trigger === 'click') {
+            this.$refs.popover.removeEventListener('click', this.onClick);
+        } else {
+            this.$refs.popover.removeEventListener('mouseenter', this.open);
+            this.$refs.popover.removeEventListener('mouseleave', this.close);
+        }
+    },
+
+    methods: {
+        positionContent: function positionContent() {
+            var contentWrapper = this.$refs.contentWrapper;
+
+            document.body.appendChild(contentWrapper); //把contentWrapper移到外面去，防止overflow:hidden
+
+            var _$refs$triggerWrapper = this.$refs.triggerWrapper.getBoundingClientRect(),
+                top = _$refs$triggerWrapper.top,
+                left = _$refs$triggerWrapper.left,
+                width = _$refs$triggerWrapper.width,
+                height = _$refs$triggerWrapper.height;
+
+            var _contentWrapper$getBo = contentWrapper.getBoundingClientRect(),
+                height2 = _contentWrapper$getBo.height;
+            //表编程驱动
+
+
+            var positions = {
+                top: {
+                    top: top + window.scrollY,
+                    left: left + window.scrollY
+                },
+                bottom: {
+                    top: top + height + window.scrollY,
+                    left: left + window.scrollY
+                },
+                left: {
+                    top: top + window.scrollY - (height2 - height) / 2,
+                    left: left + window.scrollY
+                },
+                right: {
+                    top: top + window.scrollY - (height2 - height) / 2,
+                    left: left + window.scrollY + width
+                }
+            };
+            contentWrapper.style.left = positions[this.position].left + 'px';
+            contentWrapper.style.top = positions[this.position].top + 'px';
+            // if (this.position === 'top') {
+            //     contentWrapper.style.top = top + window.scrollY + 'px';
+            //     contentWrapper.style.left = left + window.scrollY + 'px';
+            // } else if (this.position === 'bottom') {
+            //     contentWrapper.style.top = top + height + window.scrollY + 'px';
+            //     contentWrapper.style.left = left + window.scrollY + 'px';
+            // } else if (this.position === 'left') {
+            //     contentWrapper.style.left = left + window.scrollY + 'px';
+            //     contentWrapper.style.top = top + window.scrollY - (height2 - height) / 2 + 'px';
+            // } else if (this.position === 'right') {
+            //     contentWrapper.style.top =top + window.scrollY - (height2 - height) / 2 + 'px';
+            //     contentWrapper.style.left = left + window.scrollY + width+ 'px';
+            // }
+        },
+        onClickDocument: function onClickDocument(event) {
+            if (this.$refs.popover && (this.$refs.popover === event.target || this.$refs.popover.contains(event.target))) {
+                return;
+            } //如果popover存在并且点击对象是popover本身或者popover里面的东西，就return
+            if (this.$refs.contentWrapper && (this.$refs.contentWrapper === event.target || this.$refs.contentWrapper.contains(event.target))) {
+                //如果点击的不是contentWrapper的话
+                return;
+                //如果contentWrapper存在并且点击对象是contentWrapper本身或者contentWrapper里面的东西，就return
+            }
+            this.close(); //前面两个都通过的话，说明你点击的是document，老铁没毛病
+        },
+        open: function open() {
+            var _this = this;
+
+            this.visible = true;
+            this.$nextTick(function () {
+                _this.positionContent(); //定位content
+                document.addEventListener('click', _this.onClickDocument); // 添加事件监听，目标是点击document的时候让content消失。
+            });
+        },
+        close: function close() {
+            this.visible = false;
+            document.removeEventListener('click', this.onClickDocument); //取消监听click事件。
+        },
+        onClick: function onClick(event) {
+            console.log(event.target);
+            if (this.$refs.triggerWrapper.contains(event.target)) {
+                //如果点击的是tirggerWrapper，也就是button的话
+                //显示或者消失content
+                if (this.visible === true) {
+                    //如果是显示状态
+                    this.close();
+                } else {
+                    this.open();
+                }
+            }
+        }
+    }
+};
+        var $ff3dc1 = exports.default || module.exports;
+      
+      if (typeof $ff3dc1 === 'function') {
+        $ff3dc1 = $ff3dc1.options;
+      }
+    
+        /* template */
+        Object.assign($ff3dc1, (function () {
+          var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"popover",staticClass:"popover"},[(_vm.visible)?_c('div',{ref:"contentWrapper",staticClass:"content-wrapper",class:( _obj = {}, _obj[("position-" + _vm.position)] = true, _obj )},[_vm._t("content")],2):_vm._e(),_vm._v(" "),_c('span',{ref:"triggerWrapper",staticStyle:{"display":"inline-block"}},[_vm._t("default")],2)])
+var _obj;}
+var staticRenderFns = []
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-ff3dc1",
+            functional: undefined
+          };
+        })());
+      
 },{}],"Focm":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
-exports.Icon = exports.ButtonGroup = exports.Button = undefined;
+exports.Popover = exports.Col = exports.Row = exports.Header = exports.Footer = exports.Content = exports.Layout = exports.TabsHead = exports.TabPane = exports.TabBody = exports.Tabs = exports.TabsItem = exports.Collapse = exports.CollapseItem = exports.Toast = exports.Icon = exports.ButtonGroup = exports.Button = undefined;
 
 var _button = require('./src/button');
 
@@ -10280,10 +11378,85 @@ var _icon = require('./src/icon');
 
 var _icon2 = _interopRequireDefault(_icon);
 
+var _toast = require('./src/toast');
+
+var _toast2 = _interopRequireDefault(_toast);
+
+var _collapse = require('./src/collapse');
+
+var _collapse2 = _interopRequireDefault(_collapse);
+
+var _collapseItem = require('./src/collapse-item');
+
+var _collapseItem2 = _interopRequireDefault(_collapseItem);
+
+var _tabs = require('./src/tabs');
+
+var _tabs2 = _interopRequireDefault(_tabs);
+
+var _tabsHead = require('./src/tabs-head');
+
+var _tabsHead2 = _interopRequireDefault(_tabsHead);
+
+var _tabsItem = require('./src/tabs-item');
+
+var _tabsItem2 = _interopRequireDefault(_tabsItem);
+
+var _tabsBody = require('./src/tabs-body');
+
+var _tabsBody2 = _interopRequireDefault(_tabsBody);
+
+var _tabsPane = require('./src/tabs-pane');
+
+var _tabsPane2 = _interopRequireDefault(_tabsPane);
+
+var _layout = require('./src/layout');
+
+var _layout2 = _interopRequireDefault(_layout);
+
+var _header = require('./src/header');
+
+var _header2 = _interopRequireDefault(_header);
+
+var _content = require('./src/content');
+
+var _content2 = _interopRequireDefault(_content);
+
+var _footer = require('./src/footer');
+
+var _footer2 = _interopRequireDefault(_footer);
+
+var _row = require('./src/row');
+
+var _row2 = _interopRequireDefault(_row);
+
+var _col = require('./src/col');
+
+var _col2 = _interopRequireDefault(_col);
+
+var _popover = require('./src/popover');
+
+var _popover2 = _interopRequireDefault(_popover);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.Button = _button2.default;
 exports.ButtonGroup = _buttonGroup2.default;
 exports.Icon = _icon2.default;
-},{"./src/button":"iM1m","./src/button-group":"h0wh","./src/icon":"wFXB"}]},{},["Focm"], null)
+exports.Toast = _toast2.default;
+exports.CollapseItem = _collapseItem2.default;
+exports.Collapse = _collapse2.default;
+exports.TabsItem = _tabsItem2.default;
+exports.Tabs = _tabs2.default;
+exports.TabBody = _tabsBody2.default;
+exports.TabPane = _tabsPane2.default;
+exports.TabsHead = _tabsHead2.default;
+exports.Layout = _layout2.default;
+exports.Content = _content2.default;
+exports.Footer = _footer2.default;
+exports.Header = _header2.default;
+exports.Row = _row2.default;
+exports.Col = _col2.default;
+exports.Popover = _popover2.default;
+},{"./src/button":"iM1m","./src/button-group":"h0wh","./src/icon":"wFXB","./src/toast":"z+0d","./src/collapse":"tdHM","./src/collapse-item":"CMjt","./src/tabs":"X4tf","./src/tabs-head":"Caer","./src/tabs-item":"4MbR","./src/tabs-body":"1Bgu","./src/tabs-pane":"CIgp","./src/layout":"UJ3J","./src/header":"y1OT","./src/content":"tIa7","./src/footer":"gIMi","./src/row":"0pSD","./src/col":"TH+l","./src/popover":"+gfH"}]},{},["Focm"], null)
 //# sourceMappingURL=/index.map
