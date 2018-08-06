@@ -54,6 +54,8 @@ new Vue({
             success1: true,
             message: 'message',
             selectedTab:'sports',
+            selected1: ["2","3"],
+            selected2: ["2"],
         }
     },
     created() {

@@ -1,5 +1,5 @@
 <template>
-    <div class="collapseItem" @click="contentShow">
+    <div class="collapseItem" @click="toggle">
         <div class="title">
             {{title}}
         </div>
@@ -17,17 +17,39 @@
             title: {
                 type: [String, Number],
                 required: true
+            },
+            name: {
+                type: [String],
+                required: true
             }
         },
         data() {
             return {
-                isShow: false
+                isShow: false,
+                single: false
             }
         },
         methods: {
-            contentShow() {
-                return this.isShow = !this.isShow;
-            }
+            toggle() {
+                if (this.isShow) {
+                    this.eventBus && this.eventBus.$emit('update:removeSelected', this.name)
+                } else {
+                    this.eventBus && this.eventBus.$emit('update:addSelected', this.name)
+                }
+            },
+
+        },
+        inject: ['eventBus'],
+        mounted: function () {
+            this.eventBus && this.eventBus.$on('update:selected', (names) => {
+                if (names.indexOf(this.name) >= 0) {
+                    this.isShow = true;
+                } else {
+                    this.isShow = false
+
+                }
+            })
+
         }
     }
 </script>
@@ -47,13 +69,12 @@
         .content {
             border-bottom: 1px solid @grey;
             padding: .5em 1em;
-
         }
-        &:last-child{
-            .title:last-child{
+        &:last-child {
+            .title:last-child {
                 border: none;
             }
-            .content{
+            .content {
                 border: none;
             }
         }
