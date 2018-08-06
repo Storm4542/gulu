@@ -14,33 +14,39 @@
         }
 
         /*#app {*/
-            /*margin: 20px;*/
+        /*margin: 20px;*/
         /*}*/
 
         .box {
             margin: 20px;
         }
-        .grid-demo{
+
+        .grid-demo {
             height: 100px;
-            border:1px solid gray;
+            border: 1px solid gray;
         }
-        .sider{
+
+        .sider {
             background: #333;
             width: 200px;
         }
-        .sider .fade-enter, .sider.fade-leave-active{
+
+        .sider .fade-enter, .sider.fade-leave-active {
             margin-left: -200px;
         }
-            .header{
-                background: #999;
-                height: 100px;
-            }
-        .footer{
+
+        .header {
+            background: #999;
+            height: 100px;
+        }
+
+        .footer {
             background: #ccc;
             height: 100px;
         }
-        .demo{
-            padding: 100px ;
+
+        .demo {
+            padding: 50px;
         }
 
 
@@ -53,133 +59,206 @@
     
 
     <div class="demo">
-        <g-popover>
+        <g-popover position="top">
             <template slot="content">
                 popover内容
             </template>
-            <button>点我</button>
+            <g-button btntype="success">top</g-button>
+        </g-popover>
+        <g-popover position="bottom">
+            <template slot="content">
+                popover内容
+            </template>
+            <g-button btntype="success">bottom</g-button>
+        </g-popover>
+        <g-popover position="left">
+            <template slot="content">
+                popover内容
+            </template>
+            <g-button btntype="success">left</g-button>
+        </g-popover>
+        <g-popover position="right">
+            <template slot="content">
+                popover内容
+            </template>
+            <g-button btntype="success">right</g-button>
         </g-popover>
     </div>
+    <div class="demo">
+        <g-popover position="top" trigger="hover">
+            <template slot="content">
+                popover内容
+            </template>
+            <g-button btntype="success">top</g-button>
+        </g-popover>
+        <g-popover position="bottom" trigger="hover">
+            <template slot="content">
+                popover内容
+            </template>
+            <g-button btntype="success">bottom</g-button>
+        </g-popover>
+        <g-popover position="left" trigger="hover">
+            <template slot="content">
+                popover内容
+            </template>
+            <g-button btntype="success">left</g-button>
+        </g-popover>
+        <g-popover position="right" trigger="hover">
+            <template slot="content">
+                popover内容
+            </template>
+            <g-button btntype="success">right</g-button>
+        </g-popover>
+    </div>
+    <div class="demo">
+        <g-tabs :selected.sync="selectedTab" direction="horizontal">
+            <g-tabs-head>
+                <g-tabs-item name="it">
+                    <g-icon iconname="setting"></g-icon>
+                    互联网
+                </g-tabs-item>
+                <g-tabs-item name="finance" :disable='true'>财经</g-tabs-item>
+                <g-tabs-item name="sports">体育</g-tabs-item>
+                <template slot="action">
+                    <button>设置</button>
+                </template>
+            </g-tabs-head>
+            <g-tabs-body>
+                <g-tabs-pane name="it">互联网相关</g-tabs-pane>
+                <g-tabs-pane name="finance">财经相关</g-tabs-pane>
+                <g-tabs-pane name="sports">体育相关</g-tabs-pane>
 
-    <!--<g-tabs :selected.sync="selectedTab" direction="horizontal">-->
-        <!--<g-tabs-head>-->
-            <!--<g-tabs-item name="it">-->
-                <!--<g-icon iconname="setting"></g-icon>互联网-->
-            <!--</g-tabs-item>-->
-            <!--<g-tabs-item name="finance" :disable='true'>财经</g-tabs-item>-->
-            <!--<g-tabs-item name="sports">体育</g-tabs-item>-->
-            <!--<template slot="action">-->
-                <!--<button>设置</button>-->
-            <!--</template>-->
-        <!--</g-tabs-head>-->
-        <!--<g-tabs-body>-->
-            <!--<g-tabs-pane name="it">互联网相关</g-tabs-pane>-->
-            <!--<g-tabs-pane name="finance">财经相关</g-tabs-pane>-->
-            <!--<g-tabs-pane name="sports">体育相关</g-tabs-pane>-->
+            </g-tabs-body>
+        </g-tabs>
+        <br>
+        <br>
+        <br>
 
-        <!--</g-tabs-body>-->
-    <!--</g-tabs>-->
+        <g-tabs :selected.sync="selectedTab" direction="vertical">
+            <g-tabs-head>
+                <g-tabs-item name="it">
+                    <g-icon iconname="setting"></g-icon>
+                    互联网
+                </g-tabs-item>
+                <g-tabs-item name="finance" :disable='true'>财经</g-tabs-item>
+                <g-tabs-item name="sports">体育</g-tabs-item>
+                <template slot="action">
+                    <button>设置</button>
+                </template>
+            </g-tabs-head>
+            <g-tabs-body>
+                <g-tabs-pane name="it">互联网相关</g-tabs-pane>
+                <g-tabs-pane name="finance">财经相关</g-tabs-pane>
+                <g-tabs-pane name="sports">体育相关</g-tabs-pane>
 
-
-    <!--<button @click="showToast1()">top</button>-->
-    <!--<button @click="showToast2()">middle</button>-->
-    <!--<button @click="showToast3()">bottom</button>-->
-
-    <!--<g-layout style="height: 100vh">-->
-        <!--<g-sider>-->
-            <!--sider-->
-        <!--</g-sider>-->
-        <!--<g-layout>-->
-            <!--<g-header>header</g-header>-->
-
-            <!--<g-content >content-->
-
-            <!--</g-content>-->
+            </g-tabs-body>
+        </g-tabs>
+    </div>
 
 
-            <!--<g-footer>footer</g-footer>-->
-        <!--</g-layout>-->
+    <div class="demo">
+        <g-button btntype="primary" @click="showToast1()">top</g-button>
+        <g-button btntype="success" @click="showToast2()">middle</g-button>
+        <g-button btntype="warning" @click="showToast3()">bottom</g-button>
+    </div>
 
-    <!--</g-layout>-->
+
+    <g-layout style="height: 100vh">
+        <g-sider>
+        </g-sider>
+        <g-layout>
+            <g-header>header</g-header>
+
+            <g-content>
+                content
+            </g-content>
 
 
-    <!--<g-row gutter="10" align="center">-->
-        <!--<g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >-->
-            <!--<div class="grid-demo"></div>-->
-        <!--</g-col>-->
-        <!--<g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >-->
-            <!--<div class="grid-demo"></div>-->
-        <!--</g-col>-->
-        <!--<g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >-->
-            <!--<div class="grid-demo"></div>-->
-        <!--</g-col>-->
-        <!--<g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >-->
-            <!--<div class="grid-demo"></div>-->
-        <!--</g-col>-->
-        <!--<g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >-->
-            <!--<div class="grid-demo"></div>-->
-        <!--</g-col>-->
-        <!--<g-col :span="24" :ipad="{span:8}" :pc="{span:4}" >-->
-            <!--<div class="grid-demo"></div>-->
-        <!--</g-col>-->
-    <!--</g-row>-->
+            <g-footer>footer</g-footer>
+        </g-layout>
 
-    <!--<br/>-->
-    <!--<br/>-->
+    </g-layout>
 
-    <!--<div class="box">-->
-        <!--<g-input value='default' v-model="message"></g-input>-->
+    <div class="demo">
+        <g-row gutter="10" align="center">
+            <g-col :span="24" :ipad="{span:8}" :pc="{span:4}">
+                <div class="grid-demo"></div>
+            </g-col>
+            <g-col :span="24" :ipad="{span:8}" :pc="{span:4}">
+                <div class="grid-demo"></div>
+            </g-col>
+            <g-col :span="24" :ipad="{span:8}" :pc="{span:4}">
+                <div class="grid-demo"></div>
+            </g-col>
+            <g-col :span="24" :ipad="{span:8}" :pc="{span:4}">
+                <div class="grid-demo"></div>
+            </g-col>
+            <g-col :span="24" :ipad="{span:8}" :pc="{span:4}">
+                <div class="grid-demo"></div>
+            </g-col>
+            <g-col :span="24" :ipad="{span:8}" :pc="{span:4}">
+                <div class="grid-demo"></div>
+            </g-col>
+        </g-row>
+    </div>
 
-    <!--</div>-->
-    <!--<div class="box">-->
-        <!--<g-input value='disabled' :disabled='true'></g-input>-->
 
-    <!--</div>-->
-    <!--<div class="box">-->
-        <!--<g-input value='readonly' :readonly='true'></g-input>-->
+    <br/>
+    <br/>
 
-    <!--</div>-->
+    <div class="box">
+        <g-input value='default' v-model="message"></g-input>
 
-    <!--<div class="box">-->
-        <!--<g-input value="王二麻子" error="用户名不能少于5位哦"></g-input>-->
-    <!--</div>-->
+    </div>
+    <div class="box">
+        <g-input value='disabled' :disabled='true'></g-input>
 
-    <!--<br/>-->
-    <!--<br/>-->
-    <!--<br/>-->
+    </div>
+    <div class="box">
+        <g-input value='readonly' :readonly='true'></g-input>
 
-    <!--<div>-->
+    </div>
 
-        <!--<g-button iconname='setting' btntype="primary" :loading="loading1" @click='loading1 = !loading1'>-->
-            <!--click-->
-        <!--</g-button>-->
-        <!--<g-button iconname='setting' btntype="success" :loading="loading2" icon-position="right"-->
-                  <!--@click='loading2 = !loading2'>-->
-            <!--按钮-->
-        <!--</g-button>-->
-        <!--<g-button btntype="warning"-->
-                  <!--iconname='setting'-->
-                  <!--:loading="loading3"-->
-                  <!--:success="success1"-->
-                  <!--icon-position="right"-->
-                  <!--@click="clickSuccess('success',$event)"-->
-        <!--&gt;-->
-            <!--提交-->
-        <!--</g-button>-->
-        <!--<g-button iconname="error" btntype="danger">警告</g-button>-->
-        <!--<g-button-group>-->
-            <!--<g-button iconname='left'>-->
-                <!--上一页-->
-            <!--</g-button>-->
-            <!--<g-button iconname='setting'>-->
-                <!--更多-->
-            <!--</g-button>-->
-            <!--<g-button iconname='right' icon-position="right">-->
-                <!--下一页-->
-            <!--</g-button>-->
+    <div class="box">
+        <g-input value="王二麻子" error="用户名不能少于5位哦"></g-input>
+    </div>
 
-        <!--</g-button-group>-->
-    <!--</div>-->
+    <br/>
+    <br/>
+    <br/>
+
+    <div class="demo">
+
+        <g-button iconname='setting' btntype="primary" :loading="loading1" @click='loading1 = !loading1'>
+            click
+        </g-button>
+        <g-button iconname='setting' btntype="success" :loading="loading2" icon-position="right"
+                  @click='loading2 = !loading2'>
+            按钮
+        </g-button>
+        <g-button btntype="warning"
+                  iconname='setting'
+                  :loading="loading3"
+                  :success="success1"
+                  icon-position="right"
+                  @click="clickSuccess('success',$event)"
+        >
+            提交
+        </g-button>
+        <g-button iconname="error" btntype="danger">警告</g-button>
+        <g-button-group>
+            <g-button iconname='left'>
+                上一页
+            </g-button>
+            <g-button iconname='setting'>
+                更多
+            </g-button>
+            <g-button iconname='right' icon-position="right">
+                下一页
+            </g-button>
+
+        </g-button-group>
+    </div>
 
 </div>
 

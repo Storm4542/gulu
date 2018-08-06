@@ -70,7 +70,6 @@
             colClass() {
                 let {span, offset, ipad, narrowPc, pc, widePc} = this;
                 let createClasses = this.createClasses;
-                console.log(...createClasses(ipad, 'ipad'))
                 return [
                     ...createClasses({span, offset}), //[`col-1`,'offset-2']
                     ...createClasses(ipad, 'ipad'),  //[`col-ipad-1`,'offset-ipad-2']
