@@ -4,7 +4,7 @@
             @click="$emit('click',$event)">
         <g-icon class="loading icon" v-if="loading" iconname="loading"></g-icon>
         <g-icon class="icon" v-if='iconname&&!loading' :iconname='iconname'></g-icon>
-        <div class="content">
+        <div class="g-content">
             <slot/>
         </div>
 
@@ -110,10 +110,10 @@
         &:hover { border-color: @border-hover-bg; }
         &:active { background: @button-active-bg; }
         &:focus { outline: none; }
-        > .content { order: 2; }
+        > .g-content { order: 2; }
         > .icon { order: 1; margin-right: .5em; margin-left: 0; }
         &.icon-right {
-            > .content { order: 1; }
+            > .g-content { order: 1; }
             > .icon { order: 2; margin-right: 0; margin-left: .5em; }
         }
         .loading { animation: spin 1s linear infinite; }

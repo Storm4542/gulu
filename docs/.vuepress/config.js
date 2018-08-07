@@ -5,19 +5,20 @@ module.exports = {
         sidebar: [
             {
                 title: '入门',
-                collapsable: false,
+                collapsable:false,
                 children: [
                     '/',
                     '/install/',
                     '/get-start/',
                 ]
             },
-
             {
                 title: '组件',
-                collapsable: false,
+                collapsable:false,
                 children: [
                     '/components/button',
+                    '/components/popover'
+
                 ]
             },
         ]
