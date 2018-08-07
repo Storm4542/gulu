@@ -33,6 +33,11 @@
                 visible: false,
             }
         },
+        // computed:{
+        //     whichPosition(){
+        //         return `position-${this.position}`
+        //     }
+        // },
         mounted() {
             if (this.trigger === 'click') {
                 this.$refs.popover.addEventListener('click', this.onClick)
@@ -59,19 +64,19 @@
                 let positions = {
                     top: {
                         top: top + window.scrollY,
-                        left: left + window.scrollY
+                        left: left
                     },
                     bottom: {
                         top: top + height + window.scrollY,
-                        left: left + window.scrollY
+                        left: left
                     },
                     left: {
                         top: top + window.scrollY - (height2 - height) / 2,
-                        left: left + window.scrollY,
+                        left: left
                     },
                     right: {
                         top: top + window.scrollY - (height2 - height) / 2,
-                        left: left + window.scrollY + width
+                        left: left + width
                     }
                 };
                 contentWrapper.style.left = positions[this.position].left + 'px';
@@ -115,7 +120,6 @@
 
             },
             onClick(event) {
-                console.log(event.target);
                 if (this.$refs.triggerWrapper.contains(event.target)) { //如果点击的是tirggerWrapper，也就是button的话
                     //显示或者消失content
                     if (this.visible === true) {  //如果是显示状态
