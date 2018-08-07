@@ -24,7 +24,8 @@
   "homepage": "https://github.com/Storm4542/gulu#readme",
   "dependencies": {
     "vue": "^2.5.16",
-    "vue-hot-reload-api": "^2.3.0"
+    "vue-hot-reload-api": "^2.3.0",
+    "vue-server-renderer": "2.5.16"
   },
   "devDependencies": {
     "@vue/component-compiler-utils": "^2.1.0",
