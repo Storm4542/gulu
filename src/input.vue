@@ -44,13 +44,8 @@
 </script>
 
 <style lang="less" scoped>
-    @height: 32px;
-    @border-color: #999;
-    @border-color-error: #F1453D;
-    @border-color-hover: #666;
-    @border-radius: 4px;
-    @font-size: 14px;
-    @box-shadow-color: rgba(0, 0, 0, 0.5);
+    @import "_var";
+
     .warpper {
         display: inline-flex;
         align-items: center;

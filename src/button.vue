@@ -66,33 +66,7 @@
 </script>
 
 <style lang="less" scoped>
-    @font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
-    @button-height: 32px;
-    @font-size: 14px;
-    @button-bg: white;
-    @button-active-bg: #eee;
-    @border-radius: 3px;
-    @color: #333;
-    @border-color: #999;
-    @border-hover-bg: #666;
-
-    @primary-color: #fff;
-    @primary-bg-color: #032ED5;
-    @primary-border-color: #032ED5;
-
-    @success-color: #fff;
-    @success-bg-color: #9FD463;
-    @success-border-color: #9FD463;
-
-    @warning-color: #fff;
-    @warning-bg-color: #DE4538;
-    @warning-border-color: #DE4538;
-
-    @danger-color: #fff;
-    @danger-bg-color: #9A000D;
-    @danger-border-color: #9A000D;
-
-
+   @import "_var";
     @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
