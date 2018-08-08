@@ -21,9 +21,7 @@
             <g-button iconname="error" btntype="danger">警告</g-button>
         </div>
 
-        <pre>
-            <code>{{content}}</code>
-        </pre>
+
 
     </div>
 </template>
@@ -41,32 +39,6 @@
                 loading2: true,
                 loading3: false,
                 success1: true,
-                content: `
-        <g-button>默认</g-button>
-        <g-button   iconname='setting'
-                    btntype="primary"
-                    :loading="loading1"
-                    @click='loading1 = !loading1'>
-            点击
-        </g-button>
-        <g-button   iconname='setting'
-                    btntype="success"
-                    :loading="loading2"
-                    icon-position="right"
-                    @click='loading2 = !loading2'>
-            点击
-        </g-button>
-        <g-button btntype="warning"
-                  iconname='setting'
-                  :loading="loading3"
-                  :success="success1"
-                  icon-position="right"
-                  @click="clickSuccess('success',$event)"
-        >
-            提交
-        </g-button>
-        <g-button iconname="error" btntype="danger">警告</g-button>
-            `
             }
         },
         methods: {
