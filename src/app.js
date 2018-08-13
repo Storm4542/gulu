@@ -52,7 +52,35 @@ new Vue({
         return {
             source: [
                 {
-                    name: '山东', children: [{name: '济南', children: [{name: '市中区'}]}]
+                    name: '山东', children: [{name: '济南', children: [{name: '市中区'}]}],
+
+                },
+                {
+                    name:'河北',
+                    children:[
+                        {
+                            name:'石家庄',
+                            children:[
+                                {
+                                    name:'XX区'
+                                },
+                                {
+                                    name:'YY区'
+                                }
+                            ]
+                        },
+                        {
+                            name:'邢台',
+                            children:[
+                                {
+                                    name:'ZZ区'
+                                },
+                                {
+                                    name:'KK区'
+                                }
+                            ]
+                        }
+                    ]
                 }
 
             ],
