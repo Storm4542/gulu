@@ -46,8 +46,7 @@
             }
         },
         data() {
-            return {
-            }
+            return {}
         },
         computed: {
             rightItems() {
@@ -65,7 +64,7 @@
                 copySelected[this.level] = item;
                 this.$emit('update:selected', copySelected);
             },
-            onUpdateSelected(newSelected){
+            onUpdateSelected(newSelected) {
                 this.$emit('update:selected', newSelected);
             }
 
