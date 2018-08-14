@@ -1,6 +1,8 @@
 <template>
     <div class="cascader">
-        <div class="trigger" @click="popoverVisable = !popoverVisable"></div>
+        <div class="trigger" @click="popoverVisable = !popoverVisable">
+            <g-input :readonly=true :value="result"></g-input>
+        </div>
         <div class="popover" v-if="popoverVisable">
             <cascader-item class="cascaderItem"
                            :selected="selected"
@@ -15,7 +17,7 @@
 
 <script>
     import CascaderItem from './cascader-item'
-
+    import Input from './input'
 
     export default {
         name: "g-cascader",
@@ -29,11 +31,14 @@
             selected: {
                 type: Array,
                 default: () => []
+            },
+            loadData:{
+                type:Function
             }
         },
         data() {
             return {
-                popoverVisable: true
+                popoverVisable: false
             }
         },
         methods: {
@@ -41,8 +46,14 @@
                 this.$emit('update:selected', newSelected);
             }
         },
+        computed:{
+          result(){
+                return this.selected.map((item)=>item.name).join('/')
+          }
+        },
         components: {
-            'cascader-item': CascaderItem
+            'cascader-item': CascaderItem,
+            'g-input':Input
         }
     }
 </script>
@@ -53,12 +64,11 @@
     .cascader {
         position: relative;
         > .trigger {
-            width: 100px;
-            height: 32px;
-            border: 1px solid #000;
+
         }
         > .popover {
             position: absolute;
+            overflow: auto;
             top: 100%;
             left: 0;
             background: #fff;

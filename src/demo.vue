@@ -3,9 +3,11 @@
         <div class="demo">
             <g-cascader popover-height="200px"
                         :source="source"
-                        :selected="selected"
-                        @update:selected="selected = $event"
+                        :selected.sync="selected"
+                        :load-data="loadData"
             ></g-cascader>
+            <!--:selected="selected"-->
+            <!--@update:selected="selected = $event"-->
         </div>
 
         <div class="demo">
@@ -24,7 +26,6 @@
             {{selected2}}
 
         </div>
-
         <div class="demo">
             <g-popover position="top">
                 <template slot="content">
@@ -121,15 +122,11 @@
                 </g-tabs-body>
             </g-tabs>
         </div>
-
-
         <div class="demo">
             <g-button btntype="primary" @click="showToast1()">top</g-button>
             <g-button btntype="success" @click="showToast2()">middle</g-button>
             <g-button btntype="warning" @click="showToast3()">bottom</g-button>
         </div>
-
-
         <g-layout style="height: 100vh">
             <g-sider>
             </g-sider>
@@ -145,7 +142,6 @@
             </g-layout>
 
         </g-layout>
-
         <div class="demo">
             <g-row gutter="10" align="center">
                 <g-col :span="24" :ipad="{span:8}" :pc="{span:4}">
@@ -168,11 +164,8 @@
                 </g-col>
             </g-row>
         </div>
-
-
         <br/>
         <br/>
-
         <div class="box">
             <g-input value='default' v-model="message"></g-input>
 
@@ -185,15 +178,12 @@
             <g-input value='readonly' :readonly='true'></g-input>
 
         </div>
-
         <div class="box">
             <g-input value="王二麻子" error="用户名不能少于5位哦"></g-input>
         </div>
-
         <br/>
         <br/>
         <br/>
-
         <div class="demo">
 
             <g-button iconname='setting' btntype="primary" :loading="loading1" @click='loading1 = !loading1'>
@@ -226,51 +216,23 @@
 
             </g-button-group>
         </div>
-
     </div>
 </template>
 
 <script>
+    import db from './db';
+    function ajax(parentId = 0 ) {
+        return new Promise((resolve,reject)=>{
+            let result = db.filter((item) => item.parent_id === parentId)
+            resolve(result)
+        });
+    }
     export default {
         name: "demo",
         data() {
             return {
                 selected: [],
-                source: [
-                    {
-                        name: '山东', children: [{name: '济南', children: [{name: '市中区'}]}],
-
-                    },
-                    {
-                        name: '河北',
-                        children: [
-                            {
-                                name: '石家庄',
-                                children: [
-                                    {
-                                        name: 'XX区'
-                                    },
-                                    {
-                                        name: 'YY区'
-                                    }
-                                ]
-                            },
-                            {
-                                name: '邢台',
-                                children: [
-                                    {
-                                        name: 'ZZ区'
-                                    },
-                                    {
-                                        name: 'KK区'
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-
-                ],
-
+                source:[],
                 loading1: false,
                 loading2: true,
                 loading3: false,
@@ -281,7 +243,18 @@
                 selected2: ["2"],
             }
         },
+        created(){
+            ajax(0).then((res)=>{
+                this.source = res
+            })
+        },
         methods: {
+            loadData(node,callback){
+                let {name , id , parent_id} = node;
+                ajax(id).then(result=>{
+                    callback(result)
+                })
+            },
             inputChange(e) {
                 console.log(e);
             },
