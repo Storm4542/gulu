@@ -1,11 +1,15 @@
 <template>
     <div>
         <div class="demo">
-            <g-cascader popover-height="200px" :source="source"></g-cascader>
+            <g-cascader popover-height="200px"
+                        :source="source"
+                        :selected="selected"
+                        @update:selected="selected = $event"
+            ></g-cascader>
         </div>
 
         <div class="demo">
-            <g-collapse :selected.sync="selected1" >
+            <g-collapse :selected.sync="selected1">
                 <g-collapse-item title="显示多个" name="1">显示多个</g-collapse-item>
                 <g-collapse-item title="标题2" name="2">内容2</g-collapse-item>
                 <g-collapse-item title="标题3" name="3">内容3</g-collapse-item>
@@ -231,33 +235,34 @@
         name: "demo",
         data() {
             return {
+                selected: [],
                 source: [
                     {
                         name: '山东', children: [{name: '济南', children: [{name: '市中区'}]}],
 
                     },
                     {
-                        name:'河北',
-                        children:[
+                        name: '河北',
+                        children: [
                             {
-                                name:'石家庄',
-                                children:[
+                                name: '石家庄',
+                                children: [
                                     {
-                                        name:'XX区'
+                                        name: 'XX区'
                                     },
                                     {
-                                        name:'YY区'
+                                        name: 'YY区'
                                     }
                                 ]
                             },
                             {
-                                name:'邢台',
-                                children:[
+                                name: '邢台',
+                                children: [
                                     {
-                                        name:'ZZ区'
+                                        name: 'ZZ区'
                                     },
                                     {
-                                        name:'KK区'
+                                        name: 'KK区'
                                     }
                                 ]
                             }
@@ -346,7 +351,6 @@
         margin: 0;
         box-sizing: border-box
     }
-
 
     .box {
         margin: 20px;
