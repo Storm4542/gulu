@@ -95,8 +95,6 @@ new Vue({
             selected2: ["2"],
         }
     },
-    created() {
-    },
     methods: {
         inputChange(e) {
             console.log(e);

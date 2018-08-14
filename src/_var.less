@@ -1,6 +1,7 @@
 @border-color-error: #F1453D;
 @border-color-hover: #666;
 @border-color: #999;
+@border-color-lighten: lighten(@border-color,20%);
 @border-hover-bg: #666;
 @border-radius: 4px;
 @box-shadow-color: rgba(0, 0, 0, 0.5);
@@ -24,3 +25,8 @@
 @warning-border-color: #DE4538;
 @warning-color: #fff;
 
+.box-shadow (@x: 0, @y: 0, @blur: 1px, @color: #000) {
+  box-shadow: @arguments;
+  -moz-box-shadow: @arguments;
+  -webkit-box-shadow: @arguments;
+}

@@ -1,6 +1,6 @@
 const expect = chai.expect;
 import Vue from 'vue'
-import Toast from '../src/toast'
+import Toast from '../../src/toast'
 
 Vue.config.productionTip = false;
 Vue.config.devtools = false;
@@ -47,9 +47,9 @@ describe('Toast',()=>{
                     enableHtml:true,
                 }
             })
-            vm.$slots.default = ['<strong id="test">abc</strong>'];
+            vm.$slots.default = ['<strong id="tests">abc</strong>'];
             vm.$mount();
-            let strong = vm.$el.querySelector('#test');
+            let strong = vm.$el.querySelector('#tests');
             expect(strong).to.exist
 
         })

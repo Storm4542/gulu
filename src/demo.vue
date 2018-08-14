@@ -1,0 +1,382 @@
+<template>
+    <div>
+        <div class="demo">
+            <g-cascader popover-height="200px" :source="source"></g-cascader>
+        </div>
+
+        <div class="demo">
+            <g-collapse :selected.sync="selected1" >
+                <g-collapse-item title="显示多个" name="1">显示多个</g-collapse-item>
+                <g-collapse-item title="标题2" name="2">内容2</g-collapse-item>
+                <g-collapse-item title="标题3" name="3">内容3</g-collapse-item>
+            </g-collapse>
+            {{selected1}}
+            <br><br><br><br><br><br>
+            <g-collapse :selected.sync="selected2" single>
+                <g-collapse-item title="只显示一个" name="1">只显示一个</g-collapse-item>
+                <g-collapse-item title="标题2" name="2">内容2</g-collapse-item>
+                <g-collapse-item title="标题3" name="3">内容3</g-collapse-item>
+            </g-collapse>
+            {{selected2}}
+
+        </div>
+
+        <div class="demo">
+            <g-popover position="top">
+                <template slot="content">
+                    popover内容
+                </template>
+                <g-button btntype="success">top</g-button>
+            </g-popover>
+            <g-popover position="bottom">
+                <template slot="content">
+                    popover内容
+                </template>
+                <g-button btntype="success">bottom</g-button>
+            </g-popover>
+            <g-popover position="left">
+                <template slot="content">
+                    popover内容
+                </template>
+                <g-button btntype="success">left</g-button>
+            </g-popover>
+            <g-popover position="right">
+                <template slot="content">
+                    popover内容
+                </template>
+                <g-button btntype="success">right</g-button>
+            </g-popover>
+        </div>
+        <div class="demo">
+            <g-popover position="top" trigger="hover">
+                <template slot="content">
+                    popover内容
+                </template>
+                <g-button btntype="success">top</g-button>
+            </g-popover>
+            <g-popover position="bottom" trigger="hover">
+                <template slot="content">
+                    popover内容
+                </template>
+                <g-button btntype="success">bottom</g-button>
+            </g-popover>
+            <g-popover position="left" trigger="hover">
+                <template slot="content">
+                    popover内容
+                </template>
+                <g-button btntype="success">left</g-button>
+            </g-popover>
+            <g-popover position="right" trigger="hover">
+                <template slot="content">
+                    popover内容
+                </template>
+                <g-button btntype="success">right</g-button>
+            </g-popover>
+        </div>
+        <div class="demo">
+            <g-tabs :selected.sync="selectedTab" direction="horizontal">
+                <g-tabs-head>
+                    <g-tabs-item name="it">
+                        <g-icon iconname="setting"></g-icon>
+                        互联网
+                    </g-tabs-item>
+                    <g-tabs-item name="finance" :disable='true'>财经</g-tabs-item>
+                    <g-tabs-item name="sports">体育</g-tabs-item>
+                    <template slot="action">
+                        <button>设置</button>
+                    </template>
+                </g-tabs-head>
+                <g-tabs-body>
+                    <g-tabs-pane name="it">互联网相关</g-tabs-pane>
+                    <g-tabs-pane name="finance">财经相关</g-tabs-pane>
+                    <g-tabs-pane name="sports">体育相关</g-tabs-pane>
+
+                </g-tabs-body>
+            </g-tabs>
+            <br>
+            <br>
+            <br>
+
+            <g-tabs :selected.sync="selectedTab" direction="vertical">
+                <g-tabs-head>
+                    <g-tabs-item name="it">
+                        <g-icon iconname="setting"></g-icon>
+                        互联网
+                    </g-tabs-item>
+                    <g-tabs-item name="finance" :disable='true'>财经</g-tabs-item>
+                    <g-tabs-item name="sports">体育</g-tabs-item>
+                    <template slot="action">
+                        <button>设置</button>
+                    </template>
+                </g-tabs-head>
+                <g-tabs-body>
+                    <g-tabs-pane name="it">互联网相关</g-tabs-pane>
+                    <g-tabs-pane name="finance">财经相关</g-tabs-pane>
+                    <g-tabs-pane name="sports">体育相关</g-tabs-pane>
+
+                </g-tabs-body>
+            </g-tabs>
+        </div>
+
+
+        <div class="demo">
+            <g-button btntype="primary" @click="showToast1()">top</g-button>
+            <g-button btntype="success" @click="showToast2()">middle</g-button>
+            <g-button btntype="warning" @click="showToast3()">bottom</g-button>
+        </div>
+
+
+        <g-layout style="height: 100vh">
+            <g-sider>
+            </g-sider>
+            <g-layout>
+                <g-header>header</g-header>
+
+                <g-content>
+                    content
+                </g-content>
+
+
+                <g-footer>footer</g-footer>
+            </g-layout>
+
+        </g-layout>
+
+        <div class="demo">
+            <g-row gutter="10" align="center">
+                <g-col :span="24" :ipad="{span:8}" :pc="{span:4}">
+                    <div class="grid-demo"></div>
+                </g-col>
+                <g-col :span="24" :ipad="{span:8}" :pc="{span:4}">
+                    <div class="grid-demo"></div>
+                </g-col>
+                <g-col :span="24" :ipad="{span:8}" :pc="{span:4}">
+                    <div class="grid-demo"></div>
+                </g-col>
+                <g-col :span="24" :ipad="{span:8}" :pc="{span:4}">
+                    <div class="grid-demo"></div>
+                </g-col>
+                <g-col :span="24" :ipad="{span:8}" :pc="{span:4}">
+                    <div class="grid-demo"></div>
+                </g-col>
+                <g-col :span="24" :ipad="{span:8}" :pc="{span:4}">
+                    <div class="grid-demo"></div>
+                </g-col>
+            </g-row>
+        </div>
+
+
+        <br/>
+        <br/>
+
+        <div class="box">
+            <g-input value='default' v-model="message"></g-input>
+
+        </div>
+        <div class="box">
+            <g-input value='disabled' :disabled='true'></g-input>
+
+        </div>
+        <div class="box">
+            <g-input value='readonly' :readonly='true'></g-input>
+
+        </div>
+
+        <div class="box">
+            <g-input value="王二麻子" error="用户名不能少于5位哦"></g-input>
+        </div>
+
+        <br/>
+        <br/>
+        <br/>
+
+        <div class="demo">
+
+            <g-button iconname='setting' btntype="primary" :loading="loading1" @click='loading1 = !loading1'>
+                click
+            </g-button>
+            <g-button iconname='setting' btntype="success" :loading="loading2" icon-position="right"
+                      @click='loading2 = !loading2'>
+                按钮
+            </g-button>
+            <g-button btntype="warning"
+                      iconname='setting'
+                      :loading="loading3"
+                      :success="success1"
+                      icon-position="right"
+                      @click="clickSuccess('success',$event)"
+            >
+                提交
+            </g-button>
+            <g-button iconname="error" btntype="danger">警告</g-button>
+            <g-button-group>
+                <g-button iconname='left'>
+                    上一页
+                </g-button>
+                <g-button iconname='setting'>
+                    更多
+                </g-button>
+                <g-button iconname='right' icon-position="right">
+                    下一页
+                </g-button>
+
+            </g-button-group>
+        </div>
+
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "demo",
+        data() {
+            return {
+                source: [
+                    {
+                        name: '山东', children: [{name: '济南', children: [{name: '市中区'}]}],
+
+                    },
+                    {
+                        name:'河北',
+                        children:[
+                            {
+                                name:'石家庄',
+                                children:[
+                                    {
+                                        name:'XX区'
+                                    },
+                                    {
+                                        name:'YY区'
+                                    }
+                                ]
+                            },
+                            {
+                                name:'邢台',
+                                children:[
+                                    {
+                                        name:'ZZ区'
+                                    },
+                                    {
+                                        name:'KK区'
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+
+                ],
+
+                loading1: false,
+                loading2: true,
+                loading3: false,
+                success1: true,
+                message: 'message',
+                selectedTab: 'sports',
+                selected1: ["2", "3"],
+                selected2: ["2"],
+            }
+        },
+        methods: {
+            inputChange(e) {
+                console.log(e);
+            },
+            clickSuccess(message, event) {
+                let btnElement = event.currentTarget;
+                let iconElement = event.currentTarget.querySelector('use');
+                let iconname = iconElement.getAttribute('xlink:href');
+                let svgElement = event.currentTarget.querySelector('svg');
+                if (iconname === '#i-success') {
+                    return '';
+                } else {
+                    this.loading3 = !this.loading3; //用户需要根据自己的loading修改
+                    setTimeout(() => {
+                        iconElement.setAttribute('xlink:href', '#i-success');
+                        svgElement.setAttribute('class', 'g-icon  icon');
+                    }, 1000)
+
+                }
+
+            },
+            showToast1() {
+                this.$toast('弹出toast', {
+                    closeButton: {
+                        text: '知道了',
+                        callback: () => {
+                            alert('用户说他知道了')
+                        }
+                    },
+                    enableHtml: false,
+                    autoCloseDelay: 3,
+                    position: 'top'
+                });
+            },
+            showToast2() {
+                this.$toast('弹出toast', {
+                    closeButton: {
+                        text: '知道了',
+                        callback: () => {
+                            alert('用户说他知道了')
+                        }
+                    },
+                    enableHtml: false,
+                    autoCloseDelay: 3,
+                    position: 'middle'
+                });
+            },
+            showToast3() {
+                this.$toast('弹出toast', {
+                    closeButton: {
+                        text: '知道了',
+                        callback: () => {
+                            alert('用户说他知道了')
+                        }
+                    },
+                    enableHtml: false,
+                    autoCloseDelay: 3,
+                    position: 'bottom'
+                });
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box
+    }
+
+
+    .box {
+        margin: 20px;
+    }
+
+    .grid-demo {
+        height: 100px;
+        border: 1px solid gray;
+    }
+
+    .sider {
+        background: #333;
+        width: 200px;
+    }
+
+    .sider .fade-enter, .sider.fade-leave-active {
+        margin-left: -200px;
+    }
+
+    .header {
+        background: #999;
+        height: 100px;
+    }
+
+    .footer {
+        background: #ccc;
+        height: 100px;
+    }
+
+    .demo {
+        padding: 50px;
+    }
+</style>
