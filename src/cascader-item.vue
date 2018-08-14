@@ -1,7 +1,7 @@
 <template>
     <div class="cascaderItem" :style="{height:popoverHeight}">
-        selected:{{selected&&selected[this.level]&&selected[this.level].name}}
-        level:{{level}}
+        <!--selected:{{selected&&selected[this.level]&&selected[this.level].name}}-->
+        <!--level:{{level}}-->
         <div class="left">
             <div class="label" v-for="item in sourceItem" @click="onClickLabel(item)">
                 {{item.name}}
@@ -62,6 +62,7 @@
             onClickLabel(item) {
                 let copySelected = JSON.parse(JSON.stringify(this.selected));
                 copySelected[this.level] = item;
+                copySelected.splice(this.level+1);
                 this.$emit('update:selected', copySelected);
             },
             onUpdateSelected(newSelected) {
