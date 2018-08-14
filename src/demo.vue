@@ -248,17 +248,14 @@
         created() {
             ajax(0).then((res) => {
                 this.source = res
-            })
-            ajax(1).then((res) => {
-                console.log(res);
-            })
+            });
         },
         methods: {
             //让用户定义一个loadData函数传给我
             loadData({id}, callback) {
                 ajax(id).then(result => {
                     //用户通过自己的ajax获取到第n层的result，然后通过callback传给我
-                    // callback负责更新下一层的数据
+                    //callback负责更新下一层的数据
                     //callback在后台写好
                     callback(result)
                 })

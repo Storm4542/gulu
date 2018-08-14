@@ -44,12 +44,18 @@
         methods: {
             onUpdateSelected(newSelected) {//这里能够获取到用户最新点击的数据。
                 //定义callback
-                let lastItem = newSelected[0]; //用户最后点的那个选项。
+                console.log(newSelected);
+                let lastItem = newSelected[newSelected.length - 1]; //用户最后点的那个选项。
                 let callback = (result)=>{
-                    let toUpdate = this.source.filter(item=>item.id===lastItem.id)[0]
+
+                    let toUpdate = this.source.filter(item=>item.id===lastItem.id)[0];
+                    console.log(toUpdate);
                     this.$set(toUpdate,'children',result)
+
                 };
+                console.log(lastItem.id)
                 //回调：把别人传给我的函数调用一下
+                console.log(this.loadData);
                 this.loadData(lastItem,callback);
                 this.$emit('update:selected', newSelected);
             }
