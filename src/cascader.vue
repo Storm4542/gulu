@@ -42,7 +42,15 @@
             }
         },
         methods: {
-            onUpdateSelected(newSelected) {
+            onUpdateSelected(newSelected) {//这里能够获取到用户最新点击的数据。
+                //定义callback
+                let lastItem = newSelected[0]; //用户最后点的那个选项。
+                let callback = (result)=>{
+                    let toUpdate = this.source.filter(item=>item.id===lastItem.id)[0]
+                    this.$set(toUpdate,'children',result)
+                };
+                //回调：把别人传给我的函数调用一下
+                this.loadData(lastItem,callback);
                 this.$emit('update:selected', newSelected);
             }
         },

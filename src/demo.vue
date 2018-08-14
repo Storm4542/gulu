@@ -221,18 +221,20 @@
 
 <script>
     import db from './db';
-    function ajax(parentId = 0 ) {
-        return new Promise((resolve,reject)=>{
+
+    function ajax(parentId = 0) {
+        return new Promise((resolve, reject) => {
             let result = db.filter((item) => item.parent_id === parentId)
             resolve(result)
         });
     }
+
     export default {
         name: "demo",
         data() {
             return {
                 selected: [],
-                source:[],
+                source: [],
                 loading1: false,
                 loading2: true,
                 loading3: false,
@@ -243,15 +245,21 @@
                 selected2: ["2"],
             }
         },
-        created(){
-            ajax(0).then((res)=>{
+        created() {
+            ajax(0).then((res) => {
                 this.source = res
+            })
+            ajax(1).then((res) => {
+                console.log(res);
             })
         },
         methods: {
-            loadData(node,callback){
-                let {name , id , parent_id} = node;
-                ajax(id).then(result=>{
+            //让用户定义一个loadData函数传给我
+            loadData({id}, callback) {
+                ajax(id).then(result => {
+                    //用户通过自己的ajax获取到第n层的result，然后通过callback传给我
+                    // callback负责更新下一层的数据
+                    //callback在后台写好
                     callback(result)
                 })
             },
