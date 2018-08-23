@@ -1,11 +1,8 @@
 <template>
     <div>
         <div class="demo">
-            <g-cascader popover-height="200px"
-                        :source="source"
-                        :selected.sync="selected"
-                        :load-data="loadData"
-            ></g-cascader>
+            <g-cascader :source.sync="source" popover-height="200px"
+                        :selected.sync="selected" :load-data="loadData"></g-cascader>
             <!--:selected="selected"-->
             <!--@update:selected="selected = $event"-->
         </div>

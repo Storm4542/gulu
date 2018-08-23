@@ -1,26 +1,25 @@
 <template>
-    <div class="cascader">
-        <div class="trigger" @click="popoverVisable = !popoverVisable">
-            <g-input :readonly=true :value="result"></g-input>
+    <div class="cascader" ref="cascader" >
+        <div class="trigger" @click="toggle">
+            {{result || '&nbsp;'}}
         </div>
-        <div class="popover" v-if="popoverVisable">
-            <cascader-item class="cascaderItem"
-                           :selected="selected"
-                           :popoverHeight="popoverHeight"
-                           :sourceItem="source"
-                           @update:selected="onUpdateSelected">
-
-            </cascader-item>
+        <div class="popover-wrapper" v-if="popoverVisible">
+            <cascader-items :items="source" class="popover" :loadData="loadData"
+                            :loading-item="loadingItem"
+                            :height="popoverHeight" :selected="selected"
+                            @update:selected="onUpdateSelected"></cascader-items>
         </div>
     </div>
 </template>
 
 <script>
-    import CascaderItem from './cascader-item'
-    import Input from './input'
+    import CascaderItems from './cascader-item'
+    // import ClickOutside from './click-outside'
 
     export default {
-        name: "g-cascader",
+        name: 'GuluCascader',
+        components: {CascaderItems},
+        // directives: {ClickOutside},
         props: {
             source: {
                 type: Array
@@ -30,62 +29,122 @@
             },
             selected: {
                 type: Array,
-                default: () => []
+                default: () => {
+                    return []
+                }
             },
-            loadData:{
-                type:Function
+            loadData: {
+                type: Function
             }
         },
         data() {
             return {
-                popoverVisable: false
+                popoverVisible: false,
+                loadingItem: {},
             }
+        },
+        updated() {
         },
         methods: {
-            onUpdateSelected(newSelected) {//这里能够获取到用户最新点击的数据。
-                //定义callback
-                console.log(newSelected);
-                let lastItem = newSelected[newSelected.length - 1]; //用户最后点的那个选项。
-                let callback = (result)=>{
+            onClickDocument(e){
+                if(e.target === this.$refs.cascader || this.$refs.cascader.contains(e.target)){
+                    return
+                }
+               this.close()
+            },
+            open() {
+                this.popoverVisible = true
+                this.$nextTick(()=>{
+                    document.addEventListener('click',this.onClickDocument)
+                })
+            },
+            close() {
+                this.popoverVisible = false;
+                document.removeEventListener('click',this.onClickDocument)
 
-                    let toUpdate = this.source.filter(item=>item.id===lastItem.id)[0];
-                    console.log(toUpdate);
-                    this.$set(toUpdate,'children',result)
-
-                };
-                console.log(lastItem.id)
-                //回调：把别人传给我的函数调用一下
-                console.log(this.loadData);
-                this.loadData(lastItem,callback);
-                this.$emit('update:selected', newSelected);
+            },
+            toggle() {
+                if (this.popoverVisible === true) {
+                    this.close()
+                } else {
+                    this.open()
+                }
+            },
+            onUpdateSelected(newSelected) {
+                this.$emit('update:selected', newSelected)
+                let lastItem = newSelected[newSelected.length - 1]
+                let simplest = (children, id) => {
+                    return children.filter(item => item.id === id)[0]
+                }
+                let complex = (children, id) => {
+                    let noChildren = []
+                    let hasChildren = []
+                    children.forEach(item => {
+                        if (item.children) {
+                            hasChildren.push(item)
+                        } else {
+                            noChildren.push(item)
+                        }
+                    })
+                    let found = simplest(noChildren, id)
+                    if (found) {
+                        return found
+                    } else {
+                        found = simplest(hasChildren, id)
+                        if (found) {
+                            return found
+                        }
+                        else {
+                            for (let i = 0; i < hasChildren.length; i++) {
+                                found = complex(hasChildren[i].children, id)
+                                if (found) {
+                                    return found
+                                }
+                            }
+                            return undefined
+                        }
+                    }
+                }
+                let updateSource = (result) => {
+                    this.loadingItem = {}
+                    let copy = JSON.parse(JSON.stringify(this.source))
+                    let toUpdate = complex(copy, lastItem.id)
+                    toUpdate.children = result
+                    this.$emit('update:source', copy)
+                }
+                if (!lastItem.isLeaf && this.loadData) {
+                    this.loadData(lastItem, updateSource) // 回调:把别人传给我的函数调用一下
+                    // 调回调的时候传一个函数,这个函数理论应该被调用
+                    this.loadingItem = lastItem
+                }
             }
         },
-        computed:{
-          result(){
-                return this.selected.map((item)=>item.name).join('/')
-          }
-        },
-        components: {
-            'cascader-item': CascaderItem,
-            'g-input':Input
+        computed: {
+            result() {
+                return this.selected.map((item) => item.name).join('/')
+            }
         }
     }
 </script>
 
 <style lang='less' scoped>
     @import '_var.less';
-
     .cascader {
+        display: inline-block;
         position: relative;
-        > .trigger {
-
+        .trigger {
+            background: white;
+            height: @height;
+            display: inline-flex;
+            align-items: center;
+            padding: 0 1em;
+            min-width: 10em;
+            border: 1px solid @border-color;
+            border-radius: @border-radius;
         }
-        > .popover {
-            position: absolute;
-            overflow: auto;
-            top: 100%;
-            left: 0;
-            background: #fff;
+         .popover-wrapper {
+             position: absolute; top: 100%; left: 0; background: white; display: flex;
+             margin-top: 8px;z-index: 1;
             .box-shadow(0, 0, 5px, #ddd)
         }
     }

@@ -1,77 +1,86 @@
 <template>
-    <div class="cascaderItem" :style="{height:popoverHeight}">
-        <!--selected:{{selected&&selected[this.level]&&selected[this.level].name}}-->
-        <!--level:{{level}}-->
+    <div class="cascaderItem" :style="{height: height}">
         <div class="left">
-            <div class="label" v-for="item in sourceItem" @click="onClickLabel(item)">
-                {{item.name}}
-                <g-icon class="iconClass" iconname="right" v-if="item.children"></g-icon>
+            <div class="label" v-for="item in items" @click="onClickLabel(item)">
+                <span class="name">{{item.name}}</span>
+                <span class="icons">
+          <template v-if="item.name === loadingItem.name">
+            <icon  class="loading" name="loading"></icon>
+          </template>
+          <template v-else>
+            <icon class="next" v-if="rightArrowVisible(item)" name="right"></icon>
+          </template>
+        </span>
             </div>
         </div>
         <div class="right" v-if="rightItems">
-            <cascader-item :sourceItem="rightItems"
-                           :selected="selected"
-                           :level="level+1"
-                           @update:selected="onUpdateSelected"
-                           :popoverHeight="popoverHeight">
+            <gulu-cascader-items ref="right" :items="rightItems" :height="height"
+                                 :loading-item="loadingItem"
+                                 :load-data="loadData"
+                                 :level="level+1" :selected="selected"
+                                 @update:selected="onUpdateSelected">
 
-            </cascader-item>
+            </gulu-cascader-items>
         </div>
     </div>
-
 </template>
 
 <script>
     import Icon from './icon'
 
     export default {
-        name: "cascader-item",
-        components: {
-            'g-icon': Icon
-        },
+        name: "GuluCascaderItems",
+        components: {Icon},
         props: {
-            sourceItem: {
+            items: {
                 type: Array
             },
-            popoverHeight: {
+            height: {
                 type: String
+            },
+            loadingItem: {
+                type: Object,
+                default: () => ({})
             },
             selected: {
                 type: Array,
                 default: () => []
+            },
+            loadData: {
+                type: Function
             },
             level: {
                 type: Number,
                 default: 0
             }
         },
-        data() {
-            return {}
-        },
         computed: {
             rightItems() {
-                let currentSelected = this.selected[this.level];
-                if (currentSelected && currentSelected.children) {
-                    return currentSelected.children
-                } else {
-                    return null
+                if (this.selected[this.level]) {
+                    let selected = this.items.filter((item) => item.name === this.selected[this.level].name)
+                    if (selected && selected[0].children && selected[0].children.length > 0) {
+                        return selected[0].children
+                    }
                 }
             },
         },
+        mounted() {
+        },
         methods: {
+            rightArrowVisible(item) {
+                return this.loadData ? !item.isLeaf : item.children
+            },
             onClickLabel(item) {
-                let copySelected = JSON.parse(JSON.stringify(this.selected));
-                copySelected[this.level] = item;
-                copySelected.splice(this.level+1);
-                this.$emit('update:selected', copySelected);
+                let copy = JSON.parse(JSON.stringify(this.selected))
+                copy[this.level] = item
+                copy.splice(this.level + 1) // 一句话
+                this.$emit('update:selected', copy)
             },
             onUpdateSelected(newSelected) {
-                this.$emit('update:selected', newSelected);
+                this.$emit('update:selected', newSelected)
             }
-
         }
-
-    };
+    }
 </script>
 
 <style lang='less' scoped>
@@ -79,11 +88,13 @@
 
     .cascaderItem {
         display: flex;
-        justify-content: flex-start;
         align-items: flex-start;
+        justify-content: flex-start;
         height: 100px;
         .left {
             height: 100%;
+            padding: .3em 0;
+            overflow: auto;
         }
         .right {
             height: 100%;
@@ -93,6 +104,7 @@
             padding: 0.2em 1em;
             display: flex;
             align-items: center;
+            white-space: nowrap;
             .iconClass {
                 transform: scale(.7);
                 margin-left: .5em;
