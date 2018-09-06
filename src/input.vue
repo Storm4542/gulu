@@ -44,7 +44,7 @@
 </script>
 
 <style lang="less" scoped>
-    @import "_var";
+    @import "../styles/_var";
 
     .warpper {
         display: inline-flex;

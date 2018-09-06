@@ -14,8 +14,8 @@
 
 <script>
     import Vue from 'vue'
-    import Icon from './icon.vue'
-    import svg from './svg'
+    import Icon from '../icon.vue'
+    import svg from '../svg'
 
     Vue.component('g-icon', Icon);
     export default {
@@ -66,7 +66,7 @@
 </script>
 
 <style lang="less" scoped>
-   @import "_var";
+   @import "../../styles/_var";
 
 
     .g-button {
