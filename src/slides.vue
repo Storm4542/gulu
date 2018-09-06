@@ -7,7 +7,7 @@
     </div>
     <div class="slides-dots">
       <span v-for="(child,index) in $children" @click="select(index)" :class="{active:selectedIndex === index}">
-        {{child.name}}
+        {{index+1}}
       </span>
     </div>
   </div>
@@ -70,18 +70,20 @@ export default {
       this.$children.forEach(vm => {
         const names = this.getNames()
         let reverse = this.selectedIndex < this.lastSelected ? true : false //判断是从左到右，还是从右到左滑动
-        //边界情况判断
-        if (
-          this.lastSelected === this.$children.length - 1 &&
-          this.selectedIndex === 0
-        ) {
-          reverse = false
-        }
-        if (
-          this.lastSelected === 0  &&
-          this.selectedIndex === this.$children.length - 1
-        ) {
-          reverse = true
+        //边界情况判断,在自动播放的时候是无缝的
+        if (this.timerId) {
+          if (
+            this.lastSelected === this.$children.length - 1 &&
+            this.selectedIndex === 0
+          ) {
+            reverse = false
+          }
+          if (
+            this.lastSelected === 0 &&
+            this.selectedIndex === this.$children.length - 1
+          ) {
+            reverse = true
+          }
         }
         vm.reverse = reverse
         this.$nextTick(() => {
@@ -121,15 +123,41 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.slides-window {
-  display: flex;
-  overflow: hidden;
-}
-.slides-wrapper {
-  position: relative;
-}
-.active {
-  color: red;
+.slides {
+  .slides-wrapper {
+    position: relative;
+    .slides-window {
+      display: flex;
+      overflow: hidden;
+    }
+  }
+  .slides-dots {
+    padding: 8px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    span {
+      text-align: center;
+      display: inline-block;
+      height: 20px;
+      width: 20px;
+      line-height: 20px;
+      font-size: 12px;
+      background-color: #ddd;
+      border-radius: 50%;
+      margin: 0 8px;
+      &:hover {
+        cursor: pointer;
+      }
+      &.active {
+        background: black;
+        color: #ffffff;
+      }
+      &.active:hover {
+        cursor: default;
+      }
+    }
+  }
 }
 </style>
 
