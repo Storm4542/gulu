@@ -1,6 +1,14 @@
 <template>
   <div class="slides" @touchstart='onTouchStart' @touchmove='onTouchMove' @touchend='onTouchEnd' @mouseenter='onMouseEnter' @mouseleave='onMouseLeave'>
     <div class="slides-wrapper">
+      <div class="slides-arrow">
+        <div class="right" @click="arrowRight">
+          <g-icon iconname='right'></g-icon>
+        </div>
+        <div class="left" @click="arrowLeft">
+          <g-icon iconname='left'></g-icon>
+        </div>
+      </div>
       <div class="slides-window">
         <slot/>
       </div>
@@ -10,12 +18,17 @@
         {{index}}
       </span>
     </div>
+
   </div>
 </template>
 
 <script>
+import GIcon from './icon'
 export default {
   name: 'g-slides',
+  components: {
+    GIcon
+  },
   props: {
     selected: {
       type: String
@@ -38,7 +51,7 @@ export default {
     }
   },
   mounted() {
-    this.childrenLength = this.$children.length
+    this.childrenLength = this.getChildren.length
     this.updateChildren()
     this.autoPlay && this.playAutomatically()
   },
@@ -49,9 +62,19 @@ export default {
     selectedIndex() {
       let index = this.getNames().indexOf(this.getSelected())
       return index === -1 ? 0 : index
+    },
+    getChildren() {
+      //获取所有名字是 g-slides-item的孩子，其他的不要
+      return this.$children.filter(vm => vm.$options.name === 'g-slides-item')
     }
   },
   methods: {
+    arrowRight() {
+      this.select(this.selectedIndex + 1)
+    },
+    arrowLeft() {
+      this.select(this.selectedIndex - 1)
+    },
     onTouchStart(e) {
       this.pausePlay()
 
@@ -95,7 +118,7 @@ export default {
       this.$emit('update:selected', this.getNames()[newIndex])
     },
     getNames() {
-      return this.$children.map(vm => vm.name) //收集所有的name
+      return this.getChildren.map(vm => vm.name) //收集所有的name
     },
     getSelected() {
       return this.selected || this.$children[0].name //获取当前 selected
@@ -163,6 +186,19 @@ export default {
 .slides {
   .slides-wrapper {
     position: relative;
+    .slides-arrow {
+      width: 100%;
+      .right {
+        position: absolute;
+        right: 5%;
+        top: 50%;
+      }
+      .left {
+        position: absolute;
+        left: 5%;
+        top: 50%;
+      }
+    }
     .slides-window {
       display: flex;
       overflow: hidden;
