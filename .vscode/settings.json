@@ -20,6 +20,7 @@
     "vetur.format.defaultFormatter.html": "js-beautify-html",
     "vetur.format.defaultFormatterOptions": {
        "wrap_attributes": "force-aligned"
-     }
-
+    },
+    "sync.gist": "46839c857f57a3db6b286497657ce12763412e4f",
+    "sync.autoUpload": true
 }
