@@ -1,13 +1,13 @@
 <template>
-  <div class="slides" @mouseenter='onMouseEnter' @mouseleave='onMouseLeave'>
+  <div class="slides" @touchstart='onTouchStart' @touchmove='onTouchMove' @touchend='onTouchEnd' @mouseenter='onMouseEnter' @mouseleave='onMouseLeave'>
     <div class="slides-wrapper">
       <div class="slides-window">
         <slot/>
       </div>
     </div>
     <div class="slides-dots">
-      <span v-for="(child,index) in $children" @click="select(index)" :class="{active:selectedIndex === index}">
-        {{index+1}}
+      <span v-for="index in childrenLength" @click="select(index-1)" :class="{active:selectedIndex === index-1}">
+        {{index}}
       </span>
     </div>
   </div>
@@ -31,11 +31,14 @@ export default {
   },
   data() {
     return {
+      childrenLength: undefined,
       lastSelected: undefined,
-      timerId: undefined
+      timerId: undefined,
+      startTouch: null
     }
   },
   mounted() {
+    this.childrenLength = this.$children.length
     this.updateChildren()
     this.autoPlay && this.playAutomatically()
   },
@@ -44,10 +47,36 @@ export default {
   },
   computed: {
     selectedIndex() {
-      return this.getNames().indexOf(this.getSelected())
+      let index = this.getNames().indexOf(this.getSelected())
+      return index === -1 ? 0 : index
     }
   },
   methods: {
+    onTouchStart(e) {
+      this.pausePlay()
+
+      this.startTouch = e.touches[0]
+    },
+    onTouchMove() {},
+    onTouchEnd(e) {
+      let endTouch = e.changedTouches[0]
+      let { clientX: x1, clientY: y1 } = this.startTouch
+      let { clientX: x2, clientY: y2 } = endTouch
+      //假设小与30度角滑动才滑动 30度三角形垂直边等于斜边的1/2
+      let distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)) //斜边
+      let detalY = Math.abs(y2 - y1) //垂直边
+      let rate = distance / detalY //比例
+      if (rate > 2) {
+        if (x2 > x1) {
+          this.select(this.selectedIndex - 1)
+        } else {
+          this.select(this.selectedIndex + 1)
+        }
+      }
+      this.$nextTick(() => {
+        this.playAutomatically()
+      })
+    },
     onMouseEnter() {
       this.pausePlay()
       this.timerId = undefined //把timer放空
@@ -55,9 +84,15 @@ export default {
     onMouseLeave() {
       this.playAutomatically()
     },
-    select(index) {
+    select(newIndex) {
       this.lastSelected = this.selectedIndex
-      this.$emit('update:selected', this.getNames()[index])
+      if (newIndex === -1) {
+        newIndex = this.getNames().length - 1
+      }
+      if (newIndex === this.getNames().length) {
+        newIndex = 0
+      }
+      this.$emit('update:selected', this.getNames()[newIndex])
     },
     getNames() {
       return this.$children.map(vm => vm.name) //收集所有的name
@@ -98,22 +133,24 @@ export default {
       const names = this.getNames()
       //用setTimeout 模拟 setInterval
       let run = () => {
-        let currentNameIndex = names.indexOf(this.getSelected()) //获取当前name在names中的位置,当前index
-        if (this.reversePlay) {
-          currentNameIndex--
-          if (currentNameIndex <= 0) {
-            currentNameIndex = names.length
-          }
-        } else {
-          currentNameIndex++
-          if (currentNameIndex >= names.length) {
-            currentNameIndex = 0
-          }
-        }
+        let currentNameIndex = names.indexOf(this.getSelected())
+        let newindex = currentNameIndex + 1 //获取当前name在names中的位置,当前index
         this.select(currentNameIndex) //告诉外界选择了该index
-        this.timerId = setTimeout(run, 3000)
+        // if (this.reversePlay) {
+        //   currentNameIndex--
+        //   if (currentNameIndex <= 0) {
+        //     currentNameIndex = names.length
+        //   }
+        // } else {
+        //   currentNameIndex++
+        //   if (currentNameIndex >= names.length) {
+        //     currentNameIndex = 0
+        //   }
+        // }
+
+        // this.timerId = setTimeout(run, 3000)
       }
-      this.timerId = setTimeout(run, 3000)
+      // this.timerId = setTimeout(run, 3000)
     },
     pausePlay() {
       window.clearTimeout(this.timerId)
