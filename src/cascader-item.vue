@@ -5,10 +5,10 @@
                 <span class="name">{{item.name}}</span>
                 <span class="icons">
           <template v-if="item.name === loadingItem.name">
-            <icon  class="loading" name="loading"></icon>
+            <icon  class="loading" iconname="loading"></icon>
           </template>
           <template v-else>
-            <icon class="next" v-if="rightArrowVisible(item)" name="right"></icon>
+            <icon class="iconClass" v-if="rightArrowVisible(item)" iconname="right"></icon>
           </template>
         </span>
             </div>
@@ -71,7 +71,7 @@
                 return this.loadData ? !item.isLeaf : item.children
             },
             onClickLabel(item) {
-                let copy = JSON.parse(JSON.stringify(this.selected))
+                let copy = JSON.parse(JSON.stringify(this.selected));
                 copy[this.level] = item
                 copy.splice(this.level + 1) // 一句话
                 this.$emit('update:selected', copy)
@@ -108,6 +108,10 @@
             .iconClass {
                 transform: scale(.7);
                 margin-left: .5em;
+                margin-top: .3em;
+            }
+            .loading{
+                animation: spin 2s infinite linear;
             }
         }
     }

@@ -22,6 +22,8 @@ import TabsHead from './tabs-head'
 import TabsItem from './tabs-item'
 import TabsPane from './tabs-pane'
 import Toast from './toast'
+import Slides from './slides'
+import SlidesItem from './slides-item'
 
 
 Vue.component('g-button', Button);
@@ -45,6 +47,8 @@ Vue.component('g-tabs-head', TabsHead);
 Vue.component('g-tabs-item', TabsItem);
 Vue.component('g-tabs-pane', TabsPane);
 Vue.component('g-toast', Toast);
+Vue.component('g-slides', Slides)
+Vue.component('g-slides-item', SlidesItem)
 
 Vue.use(Plugin); //执行install方法
 

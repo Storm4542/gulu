@@ -5,17 +5,14 @@
 </template>
 
 <script>
-    export default {
-        name: "g-tabs-body",
-        props: {
-
-        },
-        created() {
-
-        }
-    }
+export default {
+  name: "g-tabs-body",
+  props: {},
+  created() {},
+};
 </script>
 
 <style lang="less" scoped>
-    .tabs-body {}
+.tabs-body {
+}
 </style>
