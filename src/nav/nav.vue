@@ -17,6 +17,16 @@
                 default: false
             }
         },
+        data(){
+            return{
+                Children:[]
+            }
+        },
+        provide(){
+          return{
+              root:this
+          }
+        },
         mounted() {
             this.updateChildren()
             this.Children.forEach((vm) => {
@@ -27,6 +37,9 @@
             this.updateChildren()
         },
         methods: {
+            addChildren(vm){
+                this.Children.push(vm);
+            },
             updateChildren() {
                 this.Children.forEach((vm) => {
                     vm.selected = this.selected.includes(vm.name);
@@ -48,9 +61,9 @@
             }
         },
         computed: {
-            Children() {//获取所有 name 为 g-nav-item 的孩子
-                return this.$children.filter(vm => vm.$options.name === 'g-nav-item')
-            }
+            // Children() {//获取所有 name 为 g-nav-item 的孩子
+            //     return this.$children.filter(vm => vm.$options.name === 'g-nav-item')
+            // }
         }
     }
 </script>

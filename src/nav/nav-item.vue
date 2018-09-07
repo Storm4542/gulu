@@ -1,6 +1,6 @@
 <template>
     <div class="nav-item" :class="{selected}" @click="onClick">
-        <slot></slot>
+      <slot></slot>
     </div>
 </template>
 
@@ -13,14 +13,18 @@
                 required: true
             }
         },
+        inject:['root'],
+        created(){
+           this.root.addChildren(this)
+        },
         data() {
             return {
                 selected: false
             }
         },
-        methods:{
-            onClick(){
-                this.$emit('add:selected',this.name)
+        methods: {
+            onClick() {
+                this.$emit('add:selected', this.name)
             }
         }
     }
