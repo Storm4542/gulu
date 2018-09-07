@@ -5,6 +5,8 @@
 </template>
 
 <script>
+    import Vue from 'vue'
+
     export default {
         name: "g-nav",
         props: {
@@ -17,15 +19,16 @@
                 default: false
             }
         },
-        data(){
-            return{
-                Children:[]
+        data() {
+            return {
+                Children: [],
+                eventBus: new Vue()
             }
         },
-        provide(){
-          return{
-              root:this
-          }
+        provide() {
+            return {
+                eventBus: this.eventBus
+            }
         },
         mounted() {
             this.updateChildren()
@@ -33,12 +36,19 @@
                 this.listenToChildren(vm)
             })
         },
+        created() {
+            this.eventBus.$on('add:Children', (vm) => {
+                this.Children.push(vm)
+            })
+            console.log(this.Children);
+        },
         updated() {
             this.updateChildren()
         },
         methods: {
-            addChildren(vm){
-                this.Children.push(vm);
+            addChildren(vm) {
+                // this.Children.push(vm);
+
             },
             updateChildren() {
                 this.Children.forEach((vm) => {

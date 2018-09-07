@@ -13,9 +13,10 @@
                 required: true
             }
         },
-        inject:['root'],
+        inject:['eventBus'],
         created(){
-           this.root.addChildren(this)
+           // this.root.addChildren(this)
+            this.eventBus.$emit('add:Children',this)
         },
         data() {
             return {
