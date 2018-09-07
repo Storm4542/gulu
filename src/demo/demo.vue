@@ -1,6 +1,6 @@
 <template>
     <div>
-        <g-slides :selected.sync='slidesSelected1'>
+        <g-slides :selected.sync='slidesSelected1' v-bind:reverse-play="reversePlay">
             <g-slides-item name='1'>
                 <div class="content">
                     1
@@ -35,7 +35,7 @@ export default {
   name: 'demo',
   data() {
     return {
-      reversePlay: true,
+      reversePlay: false,
       slidesSelected1: '1',
       slidesSelected2: '2',
       selected: [],
