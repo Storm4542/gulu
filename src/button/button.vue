@@ -66,7 +66,7 @@
 </script>
 
 <style lang="less" scoped>
-   @import "../../styles/_var";
+   @import '_var';
 
 
     .g-button {

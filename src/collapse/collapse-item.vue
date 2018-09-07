@@ -55,7 +55,7 @@
 </script>
 
 <style lang='less' scoped>
-    @grey: #ddd;
+@import '_var';
     .collapseItem {
         .title {
             display: flex;

@@ -3,7 +3,6 @@ export default {
         document.addEventListener('click', (e) => {
             let {target} = e;
             if (el === target || el.contains(target)) {
-                console.log('inside');
                 return
             }
             binding.value();

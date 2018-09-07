@@ -19,7 +19,8 @@
         },
         data(){
             return{
-                Children:[]
+                Children:[],
+                namePath:[]
             }
         },
         provide(){
@@ -69,8 +70,9 @@
 </script>
 
 <style lang="less" scoped>
+    @import '_var';
     .nav {
         display: flex;
-        border: 1px solid red;
+        border-bottom: 1px solid @grey;
     }
 </style>

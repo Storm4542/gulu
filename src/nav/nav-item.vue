@@ -1,6 +1,6 @@
 <template>
     <div class="nav-item" :class="{selected}" @click="onClick">
-      <slot></slot>
+        <slot></slot>
     </div>
 </template>
 
@@ -13,9 +13,9 @@
                 required: true
             }
         },
-        inject:['root'],
-        created(){
-           this.root.addChildren(this)
+        inject: ['root'],
+        created() {
+            this.root.addChildren(this)
         },
         data() {
             return {
@@ -24,19 +24,42 @@
         },
         methods: {
             onClick() {
-                this.$emit('add:selected', this.name)
+                this.root.namePath = [];
+                this.$parent.updateNamePath && this.$parent.updateNamePath()
+                this.$emit('add:selected', this.name);
             }
         }
     }
 </script>
 
 <style lang="less" scoped>
+    @import '_var';
+
     .nav-item {
         padding: 10px 20px;
         cursor: pointer;
+        position: relative;
+        &.selected {
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                border-bottom: 1px solid @blue;
+                width: 100%;
+            }
+        }
     }
 
-    .selected {
-        color: red;
+    .sub-nav .nav-item {
+        font-size: @font-size;
+        &.selected {
+            background: @grey;
+            &::after {
+                display: none;
+            }
+        }
     }
+
+
 </style>

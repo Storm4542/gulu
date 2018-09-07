@@ -56,8 +56,8 @@
 </script>
 
 <style lang='less' scoped>
-    @grey: #ddd;
-    @border-radius: 4px;
+    @import '_var';
+
     .collapse {
         border: 1px solid @grey;
         border-radius: @border-radius;
