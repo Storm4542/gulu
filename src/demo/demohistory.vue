@@ -1,5 +1,25 @@
 <template>
     <div>
+        <div>
+            <g-slides :selected.sync='slidesSelected1' v-bind:reverse-play="reversePlay">
+                <g-slides-item name='1'>
+                    <div class="content">
+                        1
+                    </div>
+                </g-slides-item>
+                <g-slides-item name='2'>
+                    <div class="content">
+                        2
+                    </div>
+                </g-slides-item>
+                <g-slides-item name='3'>
+                    <div class="content">
+                        3
+                    </div>
+                </g-slides-item>
+            </g-slides>
+
+        </div>
         <div class="demo">
             <g-cascader :source.sync="source" popover-height="200px" :selected.sync="selected" :load-data="loadData"></g-cascader>
             <!--:selected="selected"-->

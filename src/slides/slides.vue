@@ -161,10 +161,10 @@
                 let run = () => {
                     let currentNameIndex = names.indexOf(this.getSelected())
                     let newindex;
-                    if(this.reversePlay){
-                        newindex = currentNameIndex -1
+                    if (this.reversePlay) {
+                        newindex = currentNameIndex - 1
                         this.select(newindex);
-                    }else {
+                    } else {
                         newindex = currentNameIndex + 1 //获取当前name在names中的位置,当前index
                         this.select(newindex) //告诉外界选择了该index
                     }
