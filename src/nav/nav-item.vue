@@ -13,10 +13,9 @@
                 required: true
             }
         },
-        inject:['eventBus'],
+        inject:['root'],
         created(){
-           // this.root.addChildren(this)
-            this.eventBus.$emit('add:Children',this)
+           this.root.addChildren(this)
         },
         data() {
             return {
@@ -34,6 +33,7 @@
 <style lang="less" scoped>
     .nav-item {
         padding: 10px 20px;
+        cursor: pointer;
     }
 
     .selected {

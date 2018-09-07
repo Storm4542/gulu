@@ -1,9 +1,9 @@
 <template>
-    <div class="sub-nav">
-        <span>
-            <slot name="title"></slot>
+    <div class="sub-nav" >
+        <span @click="onClick">
+            <slot  name="title"></slot>
         </span>
-        <div class="sub-nav-popover">
+        <div v-show="visible" class="sub-nav-popover">
             <slot></slot>
         </div>
     </div>
@@ -11,7 +11,17 @@
 
 <script>
     export default {
-        name: "g-subNav"
+        name: "g-subNav",
+        data(){
+            return{
+                visible:false
+            }
+        },
+        methods:{
+            onClick(){
+                this.visible = !this.visible
+            }
+        }
     }
 </script>
 
@@ -26,5 +36,14 @@
             left: 0;
             border: 1px solid ;
         }
+        span{
+            display: block;
+            cursor: pointer;
+        }
+    }
+    .sub-nav .sub-nav .sub-nav-popover{
+        top: 0;
+        left: 100%;
+        margin-left: 4px;
     }
 </style>
