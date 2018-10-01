@@ -6,14 +6,22 @@
                 <g-icon iconname="right"></g-icon>
             </span>
         </span>
-        <transition @enter="enter"
-                    @after-enter="afterEnter"
-                    @leave="leave"
-                    @after-leave="afterLeave">
+        <template v-if="vertical">
+            <transition @enter="enter"
+                        @after-enter="afterEnter"
+                        @leave="leave"
+                        @after-leave="afterLeave">
+                <div v-show="open" class="sub-nav-popover" :class="{vertical}">
+                    <slot></slot>
+                </div>
+            </transition>
+        </template>
+        <template v-else>
             <div v-show="open" class="sub-nav-popover" :class="{vertical}">
                 <slot></slot>
             </div>
-        </transition>
+        </template>
+
 
     </div>
 </template>
