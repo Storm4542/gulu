@@ -1,8 +1,8 @@
 <template>
-    <div class="sub-nav" :class="{active}" v-click-out-side="close">
+    <div class="sub-nav" :class="{active,vertical}" v-click-out-side="close">
         <span class="label" @click="onClick">
             <slot name="title"></slot>
-            <span class="icon" :class="{open}">
+            <span class="icon" :class="{open,vertical}">
                 <g-icon iconname="right"></g-icon>
             </span>
         </span>
@@ -111,14 +111,17 @@
         position: relative;
         padding: 10px 20px;
         &.active {
-            &::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                border-bottom: 1px solid @blue;
-                width: 100%;
+            &:not(.vertical) {
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    border-bottom: 1px solid @blue;
+                    width: 100%;
+                }
             }
+
         }
         .icon {
             display: none;
@@ -178,6 +181,11 @@
             display: inline-flex;
             margin-left: 1em;
             transition: transform 250ms;
+        }
+        &.vertical{
+            .open{
+                transform: rotate(90deg);
+            }
         }
         .open {
             transform: rotate(180deg);
