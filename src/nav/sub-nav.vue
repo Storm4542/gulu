@@ -6,9 +6,15 @@
                 <g-icon iconname="right"></g-icon>
             </span>
         </span>
-        <div v-show="open" class="sub-nav-popover" :class="{vertical}">
-            <slot></slot>
-        </div>
+        <transition @enter="enter"
+                    @after-enter="afterEnter"
+                    @leave="leave"
+                    @after-leave="afterLeave">
+            <div v-show="open" class="sub-nav-popover" :class="{vertical}">
+                <slot></slot>
+            </div>
+        </transition>
+
     </div>
 </template>
 
@@ -28,7 +34,7 @@
         components: {
             'g-icon': Icon
         },
-        inject: ['root','vertical'],
+        inject: ['root', 'vertical'],
         data() {
             return {
                 open: false,
@@ -40,6 +46,31 @@
             }
         },
         methods: {
+            enter(el, done) {
+                el.style.height = 'auto';
+                let {height} = el.getBoundingClientRect();
+                el.style.height = 0;
+                el.getBoundingClientRect();  //css 的合并
+                el.style.height = `${height}px`;
+                el.addEventListener('transitionend', () => {
+                    done()
+                })
+            },
+            afterEnter(el) {
+                el.style.height = 'auto';
+            },
+            leave(el, done) {
+                let {height} = el.getBoundingClientRect();
+                el.style.height = `${height}px`;
+                el.getBoundingClientRect();  //css 的合并
+                el.style.height = 0;
+                el.addEventListener('transitionend', () => {
+                    done()
+                })
+            },
+            afterLeave(el) {
+                el.style.height = 'auto';
+            },
             onClick() {
                 this.open = !this.open
             },
@@ -96,11 +127,13 @@
             min-width: 8em;
 
         }
-        .vertical{
+        .vertical {
             position: static;
             border-radius: 0;
             border: none;
             box-shadow: none;
+            transition: height 250ms;
+            overflow: hidden;
         }
         .label {
             display: inline-block;
