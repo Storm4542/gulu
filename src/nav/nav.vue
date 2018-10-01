@@ -9,12 +9,7 @@
         name: "g-nav",
         props: {
             selected: {
-                type: Array,
-                default: () => [], //如果默认是空数组，以函数形式返回
-            },
-            multiple: { //多选
-                type: Boolean,
-                default: false
+                type: String,
             },
             vertical: {  //是否竖着的
                 type: Boolean,
@@ -30,14 +25,12 @@
         provide() {
             return {
                 root: this,
-                vertical:this.vertical
+                vertical: this.vertical
             }
         },
         mounted() {
             this.updateChildren()
-            this.Children.forEach((vm) => {
-                this.listenToChildren(vm)
-            })
+            this.listenToChildren(this.selected)
         },
         updated() {
             this.updateChildren()
@@ -48,22 +41,16 @@
             },
             updateChildren() {
                 this.Children.forEach((vm) => {
-                    vm.selected = this.selected.includes(vm.name);
+                    vm.selected = this.selected === vm.name;
                 });
             },
             listenToChildren(vm) {
-                vm.$on('add:selected', (name) => {
-                    if (this.multiple) {
-                        if (!this.selected.includes(name)) {
-                            let copy = JSON.parse(JSON.stringify(this.selected));
-                            copy.push(name)
-                            this.$emit('update:selected', copy)
-                        }
-                    } else {
-                        this.$emit('update:selected', [name])
-                    }
-
+                this.Children.forEach((vm) => {
+                    vm.$on('update:selected', (name) => {
+                        this.$emit('update:selected', name)
+                    })
                 })
+
             }
         },
         computed: {

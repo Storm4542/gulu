@@ -1,6 +1,6 @@
 <template>
     <div>
-        <g-nav :selected.sync="selectedNav" :multiple="false" vertical style="width: 200px ">
+        <g-nav :selected.sync="selectedNav"  vertical style="width: 200px ">
             <g-nav-item name="home">首页</g-nav-item>
             <g-sub-nav name="about">
                 <template slot="title">关于</template>
@@ -15,7 +15,7 @@
             <g-nav-item name="hire">招聘</g-nav-item>
         </g-nav>
 
-        <g-nav :selected.sync="selectedNav" :multiple="false"  style="margin-top: 150px ">
+        <g-nav :selected.sync="selectedNav"   style="margin-top: 150px ">
             <g-nav-item name="home">首页</g-nav-item>
             <g-sub-nav name="about">
                 <template slot="title">关于</template>
@@ -46,7 +46,7 @@
         name: 'demo',
         data() {
             return {
-                selectedNav:['home'],
+                selectedNav:'home',
                 reversePlay: false,
                 slidesSelected1: '1',
                 slidesSelected2: '2',
