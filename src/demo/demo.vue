@@ -1,6 +1,6 @@
 <template>
     <div>
-        <g-nav :selected.sync="selectedNav" :multiple="false">
+        <g-nav :selected.sync="selectedNav" :multiple="false" vertical style="width: 200px ">
             <g-nav-item name="home">首页</g-nav-item>
             <g-sub-nav name="about">
                 <template slot="title">关于</template>

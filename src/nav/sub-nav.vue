@@ -6,7 +6,7 @@
                 <g-icon iconname="right"></g-icon>
             </span>
         </span>
-        <div v-show="open" class="sub-nav-popover">
+        <div v-show="open" class="sub-nav-popover" :class="{vertical}">
             <slot></slot>
         </div>
     </div>
@@ -28,7 +28,7 @@
         components: {
             'g-icon': Icon
         },
-        inject: ['root'],
+        inject: ['root','vertical'],
         data() {
             return {
                 open: false,
@@ -94,6 +94,13 @@
             box-shadow: 0 0 3px @grey;
             border-radius: @border-radius;
             min-width: 8em;
+
+        }
+        .vertical{
+            position: static;
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
         }
         .label {
             display: inline-block;

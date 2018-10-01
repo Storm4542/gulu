@@ -1,5 +1,5 @@
 <template>
-    <div class="nav">
+    <div class="nav" :class="{vertical}">
         <slot></slot>
     </div>
 </template>
@@ -12,21 +12,26 @@
                 type: Array,
                 default: () => [], //如果默认是空数组，以函数形式返回
             },
-            multiple: {
+            multiple: { //多选
+                type: Boolean,
+                default: false
+            },
+            vertical: {  //是否竖着的
                 type: Boolean,
                 default: false
             }
         },
-        data(){
-            return{
-                Children:[],
-                namePath:[]
+        data() {
+            return {
+                Children: [],
+                namePath: []
             }
         },
-        provide(){
-          return{
-              root:this
-          }
+        provide() {
+            return {
+                root: this,
+                vertical:this.vertical
+            }
         },
         mounted() {
             this.updateChildren()
@@ -38,7 +43,7 @@
             this.updateChildren()
         },
         methods: {
-            addChildren(vm){
+            addChildren(vm) {
                 this.Children.push(vm);
             },
             updateChildren() {
@@ -71,8 +76,16 @@
 
 <style lang="less" scoped>
     @import '_var';
+
     .nav {
         display: flex;
         border-bottom: 1px solid @grey;
+
     }
+
+    .vertical {
+        flex-direction: column;
+        border: 1px @grey solid;
+    }
+
 </style>

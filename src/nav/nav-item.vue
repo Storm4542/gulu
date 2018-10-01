@@ -13,7 +13,7 @@
                 required: true
             }
         },
-        inject: ['root'],
+        inject: ['root','vertical'],
         created() {
             this.root.addChildren(this)
         },
