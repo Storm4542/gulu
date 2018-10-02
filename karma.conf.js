@@ -5,7 +5,7 @@ module.exports = function (config) {
         frameworks: ['mocha'],
 
         files: [
-            'tests/*.spec.js'
+            'tests/**/*.spec.js'
         ],
 
         preprocessors: {
@@ -17,6 +17,6 @@ module.exports = function (config) {
         reporters: ['spec'],
         autoWatch: true,
 
-        browsers: ['Chrome']
+        browsers: ['ChromeHeadless']
     })
 }

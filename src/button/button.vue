@@ -21,7 +21,9 @@
     export default {
         name: "g-button",
         props: {                   //props的写法,控制性更强
-            iconname: {},
+            iconname: {
+                type:String
+            },
             loading: {
                 type: Boolean,
                 default: false,

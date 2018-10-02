@@ -12,10 +12,10 @@ describe('Button.vue', () => {
     it('可以设置icon.', () => {
         const wrapper = mount(Button, {
             propsData: {
-                icon: 'settings'
+                iconname: 'settings'
             }
         })
-        const useElement = wrapper.find('use')
+        const useElement = wrapper.find('use');
         expect(useElement.attributes()['href']).to.equal('#i-settings')
     })
     it('可以设置loading.', () => {
@@ -35,7 +35,7 @@ describe('Button.vue', () => {
         const wrapper = mount(Button, {
             attachToDocument: true,
             propsData: {
-                icon: 'settings',
+                iconname: 'settings',
             }
         })
         const vm = wrapper.vm
@@ -47,7 +47,7 @@ describe('Button.vue', () => {
         const wrapper = mount(Button, {
             attachToDocument: true,
             propsData: {
-                icon: 'settings',
+                iconname: 'settings',
                 iconPosition: 'right'
             }
         })
@@ -58,7 +58,7 @@ describe('Button.vue', () => {
     it('点击 button 触发 click 事件', () => {
         const wrapper = mount(Button, {
             propsData: {
-                icon: 'settings',
+                iconname: 'settings',
             }
         })
         const vm = wrapper.vm
