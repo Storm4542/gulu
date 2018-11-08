@@ -110,7 +110,7 @@ describe('validate', () => {
     })
     it('pattern&&minLength', () => {
         let data = {
-            email: '1@2'
+            email: '12'
 
         };
         let rules = [
@@ -121,23 +121,23 @@ describe('validate', () => {
             }
         ];
         let errors = validate(data, rules);
-        expect(errors.email.minLength).to.eq('太短');
+        expect(errors.email.minLength).to.exist;
         expect(errors.email.pattern).to.exist;
     })
     it('pattern&&maxLength', () => {
         let data = {
-            email: '1@222222222222222222222222222222222222222.com'
+            email: '1222222222222222222222222222222222222222.com'
 
         };
         let rules = [
             {
                 key: 'email',
                 pattern: 'email',
-                minLength:20
+                maxLength:10
             }
         ];
         let errors = validate(data, rules);
-        expect(errors.email.maxLength).to.eq('太长');
+        expect(errors.email.maxLength).to.exist;
         expect(errors.email.pattern).to.exist;
     })
 })

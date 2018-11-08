@@ -10,27 +10,24 @@ export default function validate(data, rules) {
             }
             return
         }
-        if (rule.pattern) {
-            let error = validate.pattern(value, rule.pattern);
+        //获取rule中所有规则(去除key和required)
+        let validators = Object.keys(rule).filter(key => key !== 'key' && key !== 'required');
+        //遍历所有规则，并调用相应方法进行处理
+        validators.forEach(validator => {
+            //validator is minLength || maxLength || pattern
+            let error = validate[validator] && validate[validator](value, rule[validator]);
             if (error) {
                 ensureObject(errors, rule.key);
-                errors[rule.key].pattern = error;
+                errors[rule.key][validator] = error
             }
-        }
-        if (rule.minLength) {
-            let error = validate.minLength(value, rule.minLength);
-            if (error) {
-                ensureObject(errors, rule.key);
-                errors[rule.key].minLength = error
-            }
-        }
-        if (rule.maxLength) {
-            let error = validate.maxLength(value, rule.maxLength);
-            if (error) {
-                ensureObject(errors, rule.key);
-                errors[rule.key].maxLength = error
-            }
-        }
+        });
+        // if (rule.maxLength) {
+        //     let error = validate.maxLength(value, rule.maxLength);
+        //     if (error) {
+        //         ensureObject(errors, rule.key);
+        //         errors[rule.key].maxLength = error
+        //     }
+        // }
 
     })
     return errors
