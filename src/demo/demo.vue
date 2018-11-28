@@ -1,6 +1,21 @@
 <template>
    <div>
+      <div class="demo">
+         <g-collapse :selected.sync="selected1">
+            <g-collapse-item title="显示多个" name="1">显示多个</g-collapse-item>
+            <g-collapse-item title="标题2" name="2">内容2</g-collapse-item>
+            <g-collapse-item title="标题3" name="3">内容3</g-collapse-item>
+         </g-collapse>
+         {{selected1}}
+         <br><br><br><br><br><br>
+         <g-collapse :selected.sync="selected2" single>
+            <g-collapse-item title="只显示一个" name="1">只显示一个</g-collapse-item>
+            <g-collapse-item title="标题2" name="2">内容2</g-collapse-item>
+            <g-collapse-item title="标题3" name="3">内容3</g-collapse-item>
+         </g-collapse>
+         {{selected2}}
 
+      </div>
    </div>
 </template>
 
