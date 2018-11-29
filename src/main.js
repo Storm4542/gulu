@@ -27,6 +27,7 @@ import SlidesItem from './slides/slides-item'
 import Nav from './nav/nav'
 import NavItem from './nav/nav-item'
 import SubNav from './nav/sub-nav'
+import Pager from './pager'
 
 Vue.component('g-button', Button);
 Vue.component('g-button-group', ButtonGroup);
@@ -54,6 +55,7 @@ Vue.component('g-slides-item', SlidesItem)
 Vue.component('g-nav', Nav);
 Vue.component('g-nav-item', NavItem);
 Vue.component('g-sub-nav', SubNav);
+Vue.component('g-pager', Pager);
 Vue.use(Plugin); //执行install方法
 
 Vue.config.productionTip = false;
