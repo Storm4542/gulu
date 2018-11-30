@@ -1,15 +1,31 @@
 <template>
     <div class="pager">
-        <span class="pager-item" v-for="(page,index) in pages"
-              :class="{active:page===currentPage,separator:page==='...'}"
-              :key="index">{{page}}</span>
-
+        <span class="pager-arrow" :class="{disabled:currentPage===1}">
+            <g-icon iconname="left"></g-icon>
+        </span>
+        <template v-for="page in pages">
+            <template v-if="page === currentPage">
+                <span class="pager-item current"> {{page}}</span>
+            </template>
+            <template v-else-if="page === '...'">
+                <g-icon class="pager-separator" iconname="shenglve">{{page}}</g-icon>
+            </template>
+            <template v-else>
+                <a href="#" class="pager-item other">{{page}}</a>
+            </template>
+        </template>
+        <span class="pager-arrow" :class="{disabled:currentPage===totalPage}">
+            <g-icon iconname="right" ></g-icon>
+        </span>
     </div>
 </template>
 
 <script>
+    import GIcon from './icon'
+
     export default {
         name: "g-pager",
+        components: {GIcon},
         props: {
             totalPage: {
                 type: Number,
@@ -61,12 +77,39 @@
 <style lang="less" scoped>
     @import "_var";
 
+    @width: 20px;
+    @height: 20px;
+    @font-size: 12px;
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
     .pager {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        &-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #eee;
+            min-width: @width;
+            height: @height;
+            border-radius: @border-radius;
+            cursor: pointer;
+            margin: 0 4px;
+        }
+        & .disabled {
+            svg {
+                fill: darken(@grey, 30%)
+            }
+        }
         &-item {
             border: 1px solid @grey;
             border-radius: @border-radius;
-            min-width: 20px;
-            height: 20px;
+            min-width: @width;
+            height: @height;
             padding: 0 4px;
             display: inline-flex;
             justify-content: center;
@@ -78,11 +121,13 @@
         &-item:hover {
             border-color: blue;
         }
-        .active {
+        .current {
             cursor: default;
             border-color: blue;
         }
-        .separator {
+        &-separator {
+            min-width: @width;
+            height: @height;
             border: none;
             cursor: default;
         }
