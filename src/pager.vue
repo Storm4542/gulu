@@ -1,6 +1,6 @@
 <template>
     <div class="pager">
-        <span class="pager-arrow" :class="{disabled:currentPage===1}">
+        <span @click="onClick(currentPage-1)" class="pager-arrow" :class="{disabled:currentPage===1}">
             <g-icon iconname="left"></g-icon>
         </span>
         <template v-for="page in pages">
@@ -11,11 +11,11 @@
                 <g-icon class="pager-separator" iconname="shenglve">{{page}}</g-icon>
             </template>
             <template v-else>
-                <a href="#" class="pager-item other">{{page}}</a>
+                <a href="#" @click="onClick(page)" class="pager-item other">{{page}}</a>
             </template>
         </template>
-        <span class="pager-arrow" :class="{disabled:currentPage===totalPage}">
-            <g-icon iconname="right" ></g-icon>
+        <span  @click="onClick(currentPage+1)" class="pager-arrow" :class="{disabled:currentPage===totalPage}">
+            <g-icon iconname="right"></g-icon>
         </span>
     </div>
 </template>
@@ -40,24 +40,39 @@
                 default: true
             }
         },
-        computed: {},
-        data() {
-            let pages = [this.totalPage, this.currentPage, this.currentPage - 1, this.currentPage - 2, this.currentPage + 1, this.currentPage + 2, 1];
-            let u = unique(pages.sort((a, b) => a - b), this.totalPage);//排序并生成页码
-            let u2 = u.reduce((prev, current, index) => {
-                if (u[index + 1] !== undefined && u[index + 1] - u[index] > 1) {
-                    prev.push(current)
-                    prev.push('...')
-                } else {
-                    prev.push(current)
+        methods: {
+            onClick(page) {
+                if (page >= 1 && page <= this.totalPage) {
+                    this.$emit('update:currentPage', page)
                 }
-                return prev
-            }, []); //增加省略号
-            return {
-                pages: u2
-            }
+            },
+
         },
-        methods: {}
+        computed: {
+            pages() {
+                let pages=[]
+                if (this.totalPage <= 6) {
+                    for (let i = 1; i <= this.totalPage; i++) {
+                        pages.push(i)
+                    }
+                    return pages
+                } else {
+                    pages = [this.totalPage, this.currentPage, this.currentPage - 1, this.currentPage - 2, this.currentPage + 1, this.currentPage + 2, 1];
+                    let u = unique(pages.sort((a, b) => a - b), this.totalPage);//排序并生成页码
+                    let u2 = u.reduce((prev, current, index) => {
+                        if (u[index + 1] !== undefined && u[index + 1] - u[index] > 1) {
+                            prev.push(current)
+                            prev.push('...')
+                        } else {
+                            prev.push(current)
+                        }
+                        return prev
+                    }, []); //增加省略号
+                    return u2
+                }
+
+            }
+        }
     }
 
     function unique(array, totalPage) {
@@ -89,6 +104,7 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        user-select: none;
         &-arrow {
             display: flex;
             align-items: center;

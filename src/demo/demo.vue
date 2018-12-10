@@ -1,7 +1,7 @@
 <template>
-   <div>
-      <g-pager :total-page="20" :current-page="8" ></g-pager>
-   </div>
+    <div>
+        <g-pager :total-page="20" :current-page.sync="currentPage"></g-pager>
+    </div>
 </template>
 
 <script>
@@ -20,7 +20,8 @@
         components: {Pager},
         data() {
             return {
-                selectedNav:'home',
+                currentPage: 2,
+                selectedNav: 'home',
                 reversePlay: false,
                 slidesSelected1: '1',
                 slidesSelected2: '2',
