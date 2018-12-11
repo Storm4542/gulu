@@ -1,12 +1,23 @@
 <template>
     <div>
-        <g-pager :total-page="20" :current-page.sync="currentPage"></g-pager>
+        {{selectedItems}}
+        <div style="margin: 20px">
+            <g-table :columns="columns" :selectedItems.sync="selectedItems"  striped :compact="false" :bordered="false"
+                     :data-source="dataSource"></g-table>
+        </div>
+        <div style="margin: 20px">
+            <g-table :columns="columns" :compact="true" :bordered="true" :data-source="dataSource"></g-table>
+        </div>
+        <div>
+            <g-pager :total-page="20" :current-page.sync="currentPage"></g-pager>
+        </div>
     </div>
 </template>
 
 <script>
     import db from '../../tests/fixture/db'
     import Pager from '../pager';
+    import GTable from '../table';
 
     function ajax(parentId = 0) {
         return new Promise((resolve, reject) => {
@@ -17,9 +28,46 @@
 
     export default {
         name: 'demo',
-        components: {Pager},
+        components: {Pager, GTable},
         data() {
             return {
+                selectedItems:[],
+                columns: [
+                    {text: '姓名', field: 'name'},
+                    {text: '分数', field: 'score'}
+                ],
+                dataSource: [
+                    {
+                        id: 1,
+                        name: '方方',
+                        score: 100
+                    },
+                    {
+                        id: 2,
+                        name: '刘晓智',
+                        score: 22
+                    },
+                    {
+                        id: 3,
+                        name: '刘琦',
+                        score: 55
+                    },
+                    {
+                        id: 4,
+                        name: '王伟',
+                        score: 34
+                    },
+                    {
+                        id: 5,
+                        name: '詹梦琪',
+                        score: 78
+                    },
+                    {
+                        id: 6,
+                        name: '李自成',
+                        score: 90
+                    }
+                ],
                 currentPage: 2,
                 selectedNav: 'home',
                 reversePlay: false,
