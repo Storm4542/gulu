@@ -5,7 +5,20 @@
             <tr>
                 <th><input @change="onChangeAllItems" type="checkbox" ref="AllCheck"></th>
                 <th v-if="numberVisible">#</th>
-                <th v-for="(column,index) in columns" :key="column.field"> {{column.text}}</th>
+                <th v-for="(column,index) in columns" :key="column.field">
+                    <div class="header">
+                        {{column.text}}
+                        <span v-if="column.field in orderBy" class="sorter"
+                              @click="changeOrderBy(column.field)">
+                            <g-icon iconname="asc"
+                                    :class="{active:orderBy[column.field]==='asc'}"
+                            ></g-icon>
+                            <g-icon iconname="desc"
+                                    :class="{active:orderBy[column.field]==='desc'}"
+                            ></g-icon>
+                        </span>
+                    </div>
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -22,12 +35,18 @@
             </tr>
             </tbody>
         </table>
+        <div v-if="loading" class="table-loading">
+            <g-icon iconname="loading"></g-icon>
+        </div>
     </div>
 </template>
 
 <script>
+    import GIcon from './icon'
+
     export default {
         name: "g-table",
+        components: {GIcon},
         props: {
             columns: {
                 required: true,
@@ -40,11 +59,19 @@
                     return array.filter(item => item.id === undefined).length <= 0;
                 }
             },
+            orderBy: {
+                type: Object,
+                default: () => ({}),
+            },
             selectedItems: {
                 type: Array,
                 default: () => []
             },
             numberVisible: {
+                type: Boolean,
+                default: false
+            },
+            loading: {
                 type: Boolean,
                 default: false
             },
@@ -68,6 +95,18 @@
             }
         },
         methods: {
+            changeOrderBy(key) {
+                let copy = JSON.parse(JSON.stringify(this.orderBy));
+                let oldValue = copy[key];
+                if (oldValue === 'asc') {
+                    copy[key] = 'desc'
+                } else if (oldValue === 'desc') {
+                    copy[key] = true
+                } else {
+                    copy[key] = 'asc'
+                }
+                this.$emit('update:orderBy', copy)
+            },
             isChecked(data) {
                 return this.selectedItems.filter((i) => i.id === data.id).length > 0
             },
@@ -92,6 +131,8 @@
 <style lang="less" scoped>
     @import "_var";
 
+
+
     .table {
         width: 100%;
         border-collapse: collapse;
@@ -101,6 +142,32 @@
             text-align: left;
             border-bottom: 1px solid darken(@grey, 20%);
             padding: 8px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            .sorter {
+                display: inline-flex;
+                flex-direction: column;
+                margin: 0 4px;
+                cursor: pointer;
+                svg {
+                    width: 10px;
+                    height: 10px;
+                    fill: @grey;
+                    &.active {
+                        fill: red;
+                    }
+                    &:first-child {
+                        position: relative;
+                        bottom: -1px;
+                    }
+                    &:nth-child(2) {
+                        position: relative;
+                        top: -1px;
+                    }
+                }
+            }
         }
 
     }
@@ -129,5 +196,27 @@
                 }
             }
         }
+    }
+
+    .tableWrapper {
+        position: relative;
+
+    }
+    .table-loading {
+        background-color: rgba(255, 255 ,255 ,0.8);
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        svg {
+            width: 50px;
+            height: 50px;
+            animation: spin 1.5s linear infinite;
+        }
+
     }
 </style>

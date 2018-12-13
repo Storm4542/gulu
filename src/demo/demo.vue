@@ -2,8 +2,8 @@
     <div>
         {{selectedItems}}
         <div style="margin: 20px">
-            <g-table :columns="columns" :selectedItems.sync="selectedItems"  striped :compact="false" :bordered="false"
-                     :data-source="dataSource"></g-table>
+            <g-table :columns="columns" :orderBy.sync="orderBy" :selectedItems.sync="selectedItems" striped :compact="false" :bordered="false"
+                     :data-source="dataSource" :loading="loading" @update:orderBy="load"></g-table>
         </div>
         <div style="margin: 20px">
             <g-table :columns="columns" :compact="true" :bordered="true" :data-source="dataSource"></g-table>
@@ -31,11 +31,16 @@
         components: {Pager, GTable},
         data() {
             return {
-                selectedItems:[],
+                loading:false,
+                selectedItems: [],
                 columns: [
                     {text: '姓名', field: 'name'},
                     {text: '分数', field: 'score'}
                 ],
+                orderBy: {
+                    name: 'desc',
+                    score: 'asc'
+                },
                 dataSource: [
                     {
                         id: 1,
@@ -91,6 +96,12 @@
             })
         },
         methods: {
+            load(){
+              this.loading = true;
+              setTimeout(()=>{
+                  this.loading = false;
+              },3000)
+            },
             //让用户定义一个loadData函数传给我
             loadData({id}, callback) {
                 ajax(id).then(result => {
