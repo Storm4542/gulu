@@ -1,40 +1,52 @@
 <template>
-    <div class="tableWrapper">
-        <table class="table" :class="{bordered,compact,striped}">
-            <thead>
-            <tr>
-                <th><input @change="onChangeAllItems" type="checkbox" ref="AllCheck"></th>
-                <th v-if="numberVisible">#</th>
-                <th v-for="(column,index) in columns" :key="column.field">
-                    <div class="header">
-                        {{column.text}}
-                        <span v-if="column.field in orderBy" class="sorter"
-                              @click="changeOrderBy(column.field)">
-                            <g-icon iconname="asc"
-                                    :class="{active:orderBy[column.field]==='asc'}"
-                            ></g-icon>
-                            <g-icon iconname="desc"
-                                    :class="{active:orderBy[column.field]==='desc'}"
-                            ></g-icon>
-                        </span>
-                    </div>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(data,index) in dataSource" :key="data.id">
-                <td>
-                    <input type="checkbox"
-                           @change="onChangeItem(data,$event)"
-                           :checked="isChecked(data)"/>
-                </td>
-                <td v-if="numberVisible">{{index+1}}</td>
-                <template v-for="column in columns">
-                    <td :key="column.field">{{data[column.field]}}</td>
+    <div class="tableWrapper" ref="wrapper">
+        <div ref="scrollDiv" :style="{height:height+'px',overflow:'auto'}">
+            <table class="table" ref="table" :class="{bordered,compact,striped}">
+                <thead>
+                <tr>
+                    <th :style="{width:'50px'}"><input  @change="onChangeAllItems" type="checkbox" ref="AllCheck"></th>
+                    <th :style="{width:'50px'}" v-if="numberVisible">#</th>
+                    <th :style="{width: column.width+'px'}" v-for="(column,index) in columns" :key="column.field">
+                        <div class="header">
+                            {{column.text}}
+                            <span v-if="column.field in orderBy" class="sorter"
+                                  @click="changeOrderBy(column.field)">
+                                <g-icon iconname="asc"
+                                        :class="{active:orderBy[column.field]==='asc'}"
+                                ></g-icon>
+                                <g-icon iconname="desc"
+                                        :classß="{active:orderBy[column.field]==='desc'}"
+                                ></g-icon>
+                            </span>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <template v-for="(data,index) in dataSource" >
+                    <tr :key="data.id">
+                        <td :style="{width:'50px'}">
+                            <input type="checkbox"
+                                   @change="onChangeItem(data,$event)"
+                                   :checked="isChecked(data)"/>
+                        </td>
+                        <td :style="{width:'50px'}" v-if="numberVisible">{{index+1}}</td>
+                        <template v-for="column in columns">
+                            <td :style="{width: column.width+'px'}" :key="column.field">{{data[column.field]}}</td>
+                        </template>
+                    </tr>
+                    <tr v-if="false" :key="`${data.id}-expend`" >
+                    <td v-if="data[expendField]" :colspan="columns.length+1">
+                        {{data[expendField]}}
+                    </td>
+
+                    </tr>
+
                 </template>
-            </tr>
-            </tbody>
-        </table>
+
+                </tbody>
+            </table>
+        </div>
         <div v-if="loading" class="table-loading">
             <g-icon iconname="loading"></g-icon>
         </div>
@@ -47,6 +59,12 @@
     export default {
         name: "g-table",
         components: {GIcon},
+        data() {
+            return {
+                tableClone: '',
+                expendedIds:[]
+            }
+        },
         props: {
             columns: {
                 required: true,
@@ -67,15 +85,15 @@
                 type: Array,
                 default: () => []
             },
-            numberVisible: {
+            numberVisible: { //是否显示序号
                 type: Boolean,
                 default: false
             },
-            loading: {
+            loading: { //loading动画
                 type: Boolean,
                 default: false
             },
-            bordered: {
+            bordered: { //边框
                 type: Boolean,
                 default: false
             },
@@ -86,6 +104,12 @@
             striped: {  //条纹
                 type: Boolean,
                 default: false
+            },
+            height: {
+                type: Number
+            },
+            expendField:{
+                type:String
             }
         },
         watch: {
@@ -93,6 +117,20 @@
                 this.$refs.AllCheck.indeterminate = this.selectedItems.length < this.dataSource.length && this.selectedItems.length !== 0;
                 this.$refs.AllCheck.checked = this.selectedItems.length === this.dataSource.length
             }
+        },
+        mounted() {
+            //dom 操作
+            let tableClone = this.$refs.table.cloneNode(false);//克隆一个架子
+            this.tableClone = tableClone
+            tableClone.classList.add('tableCopy');
+            let tHead = this.$refs.table.children[0];
+            let {height} = tHead.getBoundingClientRect();
+            this.$refs.table.style.marginTop = height + 'px';
+            tableClone.appendChild(tHead); //tHead放到克隆的架子里
+            this.$refs.wrapper.appendChild(tableClone)
+        },
+        beforeDestroy() {
+            this.tableClone.remove()
         },
         methods: {
             changeOrderBy(key) {
@@ -130,8 +168,6 @@
 
 <style lang="less" scoped>
     @import "_var";
-
-
 
     .table {
         width: 100%;
@@ -200,10 +236,17 @@
 
     .tableWrapper {
         position: relative;
-
+        .tableCopy {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+        }
     }
+
     .table-loading {
-        background-color: rgba(255, 255 ,255 ,0.8);
+        background-color: rgba(255, 255, 255, 0.8);
         position: absolute;
         top: 0;
         left: 0;
@@ -219,4 +262,6 @@
         }
 
     }
+
+
 </style>

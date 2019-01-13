@@ -1,15 +1,18 @@
 <template>
     <div>
-        {{selectedItems}}
+        {{fileList}}
         <div style="margin: 20px">
-            <g-table :columns="columns" :orderBy.sync="orderBy" :selectedItems.sync="selectedItems" striped :compact="false" :bordered="false"
-                     :data-source="dataSource" :loading="loading" @update:orderBy="load"></g-table>
-        </div>
-        <div style="margin: 20px">
-            <g-table :columns="columns" :compact="true" :bordered="true" :data-source="dataSource"></g-table>
-        </div>
-        <div>
-            <g-pager :total-page="20" :current-page.sync="currentPage"></g-pager>
+            <g-uploader action="http://127.0.0.1:3000/upload"
+                        name="file"
+                        method="POST"
+                        :parseResponse="parseResponse"
+                        :fileList.sync="fileList"
+            >
+                <button>上传</button>
+                <template slot="tips">
+                    <span>支持500kb</span>
+                </template>
+            </g-uploader>
         </div>
     </div>
 </template>
@@ -18,6 +21,7 @@
     import db from '../../tests/fixture/db'
     import Pager from '../pager';
     import GTable from '../table';
+    import GUploader from '../uploader';
 
     function ajax(parentId = 0) {
         return new Promise((resolve, reject) => {
@@ -28,145 +32,17 @@
 
     export default {
         name: 'demo',
-        components: {Pager, GTable},
+        components: {Pager, GTable, GUploader},
         data() {
             return {
-                loading:false,
-                selectedItems: [],
-                columns: [
-                    {text: '姓名', field: 'name'},
-                    {text: '分数', field: 'score'}
-                ],
-                orderBy: {
-                    name: 'desc',
-                    score: 'asc'
-                },
-                dataSource: [
-                    {
-                        id: 1,
-                        name: '方方',
-                        score: 100
-                    },
-                    {
-                        id: 2,
-                        name: '刘晓智',
-                        score: 22
-                    },
-                    {
-                        id: 3,
-                        name: '刘琦',
-                        score: 55
-                    },
-                    {
-                        id: 4,
-                        name: '王伟',
-                        score: 34
-                    },
-                    {
-                        id: 5,
-                        name: '詹梦琪',
-                        score: 78
-                    },
-                    {
-                        id: 6,
-                        name: '李自成',
-                        score: 90
-                    }
-                ],
-                currentPage: 2,
-                selectedNav: 'home',
-                reversePlay: false,
-                slidesSelected1: '1',
-                slidesSelected2: '2',
-                selected: [],
-                source: [],
-                loading1: false,
-                loading2: true,
-                loading3: false,
-                success1: true,
-                message: 'message',
-                selectedTab: 'sports',
-                selected1: ['2', '3'],
-                selected2: ['2']
+                fileList: [],
             }
         },
-        created() {
-            ajax(0).then(res => {
-                this.source = res
-            })
-        },
+
         methods: {
-            load(){
-              this.loading = true;
-              setTimeout(()=>{
-                  this.loading = false;
-              },3000)
-            },
-            //让用户定义一个loadData函数传给我
-            loadData({id}, callback) {
-                ajax(id).then(result => {
-                    //用户通过自己的ajax获取到第n层的result，然后通过callback传给我
-                    //callback负责更新下一层的数据
-                    //callback在后台写好
-                    callback(result)
-                })
-            },
-            inputChange(e) {
-                console.log(e)
-            },
-            clickSuccess(message, event) {
-                let btnElement = event.currentTarget
-                let iconElement = event.currentTarget.querySelector('use')
-                let iconname = iconElement.getAttribute('xlink:href')
-                let svgElement = event.currentTarget.querySelector('svg')
-                if (iconname === '#i-success') {
-                    return ''
-                } else {
-                    this.loading3 = !this.loading3 //用户需要根据自己的loading修改
-                    setTimeout(() => {
-                        iconElement.setAttribute('xlink:href', '#i-success')
-                        svgElement.setAttribute('class', 'g-icon  icon')
-                    }, 1000)
-                }
-            },
-            showToast1() {
-                this.$toast('弹出toast', {
-                    closeButton: {
-                        text: '知道了',
-                        callback: () => {
-                            alert('用户说他知道了')
-                        }
-                    },
-                    enableHtml: false,
-                    autoCloseDelay: 3,
-                    position: 'top'
-                })
-            },
-            showToast2() {
-                this.$toast('弹出toast', {
-                    closeButton: {
-                        text: '知道了',
-                        callback: () => {
-                            alert('用户说他知道了')
-                        }
-                    },
-                    enableHtml: false,
-                    autoCloseDelay: 3,
-                    position: 'middle'
-                })
-            },
-            showToast3() {
-                this.$toast('弹出toast', {
-                    closeButton: {
-                        text: '知道了',
-                        callback: () => {
-                            alert('用户说他知道了')
-                        }
-                    },
-                    enableHtml: false,
-                    autoCloseDelay: 3,
-                    position: 'bottom'
-                })
+            parseResponse(response){
+                let object = JSON.parse(response);
+                return `http://127.0.0.1:3000/upload/${object.key}`
             }
         }
     }
