@@ -6,4 +6,7 @@
     transform: rotate(360deg);
   }
 }
+.spin {
+  animation: spin 2s infinite linear;
+}
 /*# sourceMappingURL=_var.css.map */

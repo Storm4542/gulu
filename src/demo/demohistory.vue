@@ -1,6 +1,22 @@
 <template>
     <div>
+        {{fileList}}
+        <div style="margin: 20px">
+            <div>支持500kb</div>
+            <g-uploader
+                    action="http://127.0.0.1:3000/upload"
+                    name="file"
+                    method="POST"
+                    :parseResponse="parseResponse"
+                    :fileList.sync="fileList"
+            >
+                <g-button
+                        iconname="upload"
+                        btntype="success"
+                >上传</g-button>
 
+            </g-uploader>
+        </div>
         <div style="margin: 20px">
             <g-table :columns="columns"
                      :orderBy.sync="orderBy"
@@ -290,6 +306,7 @@
     export default {
         data() {
             return {
+                fileList: [],
                 currentPage: 2,
                 selectedNav: 'home',
                 reversePlay: false,
@@ -389,6 +406,10 @@
             })
         },
         methods: {
+            parseResponse(response) {
+                let object = JSON.parse(response);
+                return `http://127.0.0.1:3000/upload/${object.key}`;
+            },
             //让用户定义一个loadData函数传给我
             loadData({id}, callback) {
                 ajax(id).then(result => {
