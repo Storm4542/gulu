@@ -39,6 +39,11 @@
             //计算bar的高度和位置
             this.updateScrollBar();
         },
+        computed: {
+            maxScrollHeight() {
+                return this.parentHeight - this.barHeight
+            }
+        },
         methods: {
             listenToDocument() {
                 //滑块在滑轨移动
@@ -55,21 +60,33 @@
             },
             onWheel(e) { //滑动的时候
                 //e.deltaY > 0 向下
-                if (e.deltaY > 20) {
-                    this.contentY -= 20 * 3;
-                } else if (e.deltaY < -20) {
-                    this.contentY -= -20 * 3;
+                //获取contentY 初始值
+                this.contentY = this.calculateContentYFromDeltaY(e.deltaY);
+                //更新 contentY
+                this.updateContentY(() => e.preventDefault()); // 传入 fn
+                //更新 scrollY
+                this.updateScrollBar(this.parentHeight, this.childHeight);
+            },
+            calculateContentYFromDeltaY(deltaY) {
+                let contentY = this.contentY;
+                if (deltaY > 20) {
+                    contentY -= 20 * 3;
+                } else if (deltaY < -20) {
+                    contentY -= -20 * 3;
                 } else {
-                    this.contentY -= e.deltaY * 3;
+                    contentY -= deltaY * 3;
                 }
+                return contentY;
+
+            },
+            updateContentY(fn) {
                 if (this.contentY > 0) {
                     this.contentY = 0
                 } else if (this.contentY < -this.maxHeight) {
                     this.contentY = -this.maxHeight
                 } else {
-                    e.preventDefault()
+                    fn && fn()
                 }
-                this.updateScrollBar(this.parentHeight, this.childHeight);
             },
             updateScrollBar() { //计算bar的高度和位置
                 //计算bar的高度
@@ -81,9 +98,8 @@
                 // y / parentHeight = Y / childHeight
                 // y 是要计算的滚动条下降高度 Y 是translateY 即内容下降高度
                 // 原理为 滚动条下降高度/窗口高度 = 内容下降高度/内容高度
-                let y = this.parentHeight * this.contentY / this.childHeight;
-                this.$refs.bar.style.transform = `translateY(${-y}px)`;
-                this.scrollY = -y
+                this.scrollY = -this.parentHeight * this.contentY / this.childHeight;
+                this.$refs.bar.style.transform = `translateY(${this.scrollY}px)`;
             },
             onMouseEnter() { //鼠标进入窗口
                 this.scrollBarVisible = true
@@ -102,25 +118,26 @@
                 if (!this.isScrolling) {
                     return
                 }
-                let {screenX, screenY} = e;
-                console.log(screenX, screenY);
-                this.endPosition = {x: screenX, y: screenY};
+                this.endPosition = {x: e.screenX, y: e.screenY};
                 let delta = {
                     x: this.endPosition.x - this.startPosition.x,
                     y: this.endPosition.y - this.startPosition.y
                 };
-                this.scrollX = this.scrollX + delta.x;
-                this.scrollY = this.scrollY + delta.y;
-                let maxHeight = this.parentHeight - this.barHeight
-                if (this.scrollY >= maxHeight) {
-                    this.scrollY = maxHeight
-                } else if (this.scrollY < 0) {
-                    this.scrollY = 0
-                }
+                // this.scrollX = this.scrollX + delta.x;
+                // 更新 scrollY
+                this.calculateScrollY(delta);
                 this.contentY = -(this.childHeight * this.scrollY / this.parentHeight)
                 this.startPosition = this.endPosition;
                 this.$refs.bar.style.transform = `translate(0px , ${this.scrollY}px)`;
                 console.log('move');
+            },
+            calculateScrollY(delta) {
+                this.scrollY = this.scrollY + delta.y;
+                if (this.scrollY >= this.maxScrollHeight) {
+                    this.scrollY = this.maxScrollHeight
+                } else if (this.scrollY < 0) {
+                    this.scrollY = 0
+                }
             },
             onMouseUpScrollBar() { //鼠标松开滑块
                 this.isScrolling = false
