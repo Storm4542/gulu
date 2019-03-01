@@ -1,7 +1,7 @@
 <template>
     <div class="popover" ref="popover">
-        <div ref="contentWrapper" class="content-wrapper" v-if="visible"
-             :class="{[`position-${position}`]:true}">
+        <div ref="contentWrapper" class="popover-content-wrapper" v-if="visible"
+             :class="[{[`position-${position}`]:true}]">
             <slot name="content"></slot>
         </div>
         <span ref="triggerWrapper" style="display: inline-block">
@@ -14,6 +14,9 @@
     export default {
         name: "g-popover",
         props: {
+            container: {
+                type: Element,
+            },
             position: {
                 type: String,
                 validator(value) {
@@ -57,7 +60,8 @@
         methods: {
             positionContent() {
                 const {contentWrapper} = this.$refs;
-                document.body.appendChild(contentWrapper); //把contentWrapper移到外面去，防止overflow:hidden
+                (this.container || document.body).appendChild(contentWrapper);
+                // document.body.appendChild(contentWrapper); //把contentWrapper移到外面去，防止overflow:hidden
                 let {top, left, width, height} = this.$refs.triggerWrapper.getBoundingClientRect();
                 let {height: height2} = contentWrapper.getBoundingClientRect();
                 //表编程驱动
@@ -144,7 +148,7 @@
         position: relative;
     }
 
-    .content-wrapper {
+    .popover-content-wrapper {
         border: 1px solid @border-color;
         border-radius: @border-radius;
         /*box-shadow: 0 0 3px rgb(0, 0, 0, 0.5);*/

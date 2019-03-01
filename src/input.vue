@@ -26,7 +26,7 @@
         },
         props: {
             value: {
-                type: String
+                type: [String,Date]
             },
             disabled: {
                 type: Boolean,
