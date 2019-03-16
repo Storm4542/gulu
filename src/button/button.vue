@@ -90,6 +90,9 @@
             > .icon { order: 2; margin-right: 0; margin-left: .5em; }
         }
         .loading { animation: spin 1s linear infinite; }
+        &+&{
+            margin-left: 4px;
+        }
     }
 
     .primary {
