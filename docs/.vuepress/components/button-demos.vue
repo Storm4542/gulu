@@ -22,12 +22,12 @@
         </div>
 
 
-
     </div>
 </template>
 
 <script>
-    import Button from '../../../src/button'
+    import Button from './src/button/button';
+
     export default {
         name: "button-demos",
         components: {
@@ -39,7 +39,7 @@
                 loading2: true,
                 loading3: false,
                 success1: true,
-            }
+            };
         },
         methods: {
             clickSuccess(message, event) {
@@ -54,15 +54,15 @@
                     setTimeout(() => {
                         iconElement.setAttribute('xlink:href', '#i-success');
                         svgElement.setAttribute('class', 'g-icon  icon');
-                    }, 1000)
+                    }, 1000);
 
                 }
 
             },
         }
-    }
+    };
 </script>
 
 <style lang='less' scoped>
-
+  @import "styles/_var";
 </style>

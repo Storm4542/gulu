@@ -7,10 +7,11 @@
 </template>
 
 <script>
-    import Vue from 'vue'
-    import Toast from '../../../src/toast'
-    import Button from '../../../src/button'
-    import Plugin from '../../../src/plugin'
+    import Vue from 'vue';
+    import Toast from './src/toast';
+    import Button from './src/button/button';
+    import Plugin from './src/plugin';
+
     Vue.use(Plugin);
     export default {
         name: "toast-demos",
@@ -24,7 +25,7 @@
                     closeButton: {
                         text: '知道了',
                         callback: () => {
-                            alert('用户说他知道了')
+                            alert('用户说他知道了');
                         }
                     },
                     enableHtml: false,
@@ -37,7 +38,7 @@
                     closeButton: {
                         text: '知道了',
                         callback: () => {
-                            alert('用户说他知道了')
+                            alert('用户说他知道了');
                         }
                     },
                     enableHtml: false,
@@ -50,7 +51,7 @@
                     closeButton: {
                         text: '知道了',
                         callback: () => {
-                            alert('用户说他知道了')
+                            alert('用户说他知道了');
                         }
                     },
                     enableHtml: false,
@@ -59,9 +60,8 @@
                 });
             }
         }
-    }
+    };
 </script>
 
-<style scoped>
-
+<style lang='less' scoped>
 </style>

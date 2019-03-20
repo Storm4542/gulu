@@ -1,0 +1,47 @@
+@border-color-error: #F1453D;
+@border-color-hover: #666;
+@border-color: #999;
+@border-color-lighten: lighten(@border-color, 20%);
+@border-hover-bg: #666;
+@border-radius: 4px;
+@box-shadow-color: rgba(0, 0, 0, 0.5);
+@button-active-bg: #eee;
+@button-bg: white;
+@button-height: 32px;
+@color: #333;
+@danger-bg-color: #9A000D;
+@danger-border-color: #9A000D;
+@danger-color: #fff;
+@font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
+@font-size: 14px;
+@small-font-size:12px;
+@height: 32px;
+@primary-bg-color: #032ED5;
+@primary-border-color: #032ED5;
+@primary-color: #fff;
+@success-bg-color: #9FD463;
+@success-border-color: #9FD463;
+@success-color: #fff;
+@warning-bg-color: #DE4538;
+@warning-border-color: #DE4538;
+@warning-color: #fff;
+@grey: #ddd;
+@blue: #4a90e2;
+.box-shadow (@x: 0, @y: 0, @blur: 1px, @color: #000) {
+  box-shadow: @arguments;
+  -moz-box-shadow: @arguments;
+  -webkit-box-shadow: @arguments;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+ .spin{
+  animation: spin 2s infinite linear;
+}
+

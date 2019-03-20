@@ -79,7 +79,6 @@ Toast是以插件形式开发的，所以引入的时候需要用到 Vue.use(Plu
 </script>
 ```
 
-P.S. top 的 Toast 显示不出来不是BUG , VuePress的样式给挡住了 :cry:
 
 
 

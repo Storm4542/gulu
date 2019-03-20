@@ -28,17 +28,17 @@
 </template>
 
 <script>
-    import Popover from '../../../src/popover'
-    import Button from '../../../src/button'
+    import Popover from './src/popover';
+    import Button from './src/button/button';
+
     export default {
         name: "popover-demos",
-        components:{
-            'g-popover':Popover,
-            'g-button':Button
+        components: {
+            'g-popover': Popover,
+            'g-button': Button
         }
-    }
+    };
 </script>
-
-<style scoped>
-
+<style lang='less' scoped>
+    @import "styles/_var";
 </style>
